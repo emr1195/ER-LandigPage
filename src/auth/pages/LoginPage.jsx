@@ -1,30 +1,49 @@
 import {Google} from '@mui/icons-material'
 import {Button, Grid, Link, TextField, Typography} from '@mui/material'
-import React from 'react'
+import React, {useMemo, useState} from 'react'
 import {Link as RouterLink} from 'react-router-dom'
-import {AuthLayout} from '../layout/AuthLayout'
-import {useForm} from '../../hooks/useForm'
+import {AuthLayout} from '../layout'
 
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {checkingAuthentication, startGoogleSignIn} from '../../store/auth'
+import {loginFormData} from '../../constants'
+import {yupValidation, useForm} from '../../hooks'
+import {loginSchema} from '../../validation/LoginValidation'
 
 export const LoginPage = () => {
   const dispatch = useDispatch()
-  const {email, password, onInputChange, onResetForm} = useForm({
-    email: 'helloworld@google.com',
-    password: '123456',
-  })
+  const {status: authStatus} = useSelector((state) => state.auth)
+  const {
+    email,
+    password,
+    onInputChange,
+    formState,
+    validationState,
+    setValidationState,
+  } = useForm(loginFormData)
+  const {formValidation} = yupValidation()
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault()
-    dispatch(checkingAuthentication())
-    console.log({email, password})
+    const validation = await formValidation(loginSchema, formState)
+    setValidationState(validation ?? loginFormData)
+    if (validation && Object.values(validation).some((value) => value !== '')) {
+      console.log('Form incorrect')
+    } else {
+      console.log('Form COrrect')
+      dispatch(checkingAuthentication())
+    }
   }
 
   const onGoogleSignIn = () => {
     console.log('on google sign in')
     dispatch(startGoogleSignIn())
   }
+
+  const isAuthenticating = useMemo(
+    () => authStatus === 'checking',
+    [authStatus],
+  )
   return (
     <AuthLayout title="Login">
       <form onSubmit={onSubmit}>
@@ -38,6 +57,15 @@ export const LoginPage = () => {
               name="email"
               onChange={onInputChange}
               value={email}
+              error={!!validationState.email}
+              helperText={validationState.email}
+              autoComplete="off"
+              inputProps={{
+                autoComplete: 'new-password',
+                form: {
+                  autoComplete: 'off',
+                },
+              }}
             />
           </Grid>
           <Grid item xs={12} sx={{mt: 2}}>
@@ -49,17 +77,32 @@ export const LoginPage = () => {
               name="password"
               onChange={onInputChange}
               value={password}
+              error={!!validationState.password}
+              helperText={validationState.password}
+              autoComplete="off"
+              inputProps={{
+                autoComplete: 'new-password',
+                form: {
+                  autoComplete: 'off',
+                },
+              }}
             />
           </Grid>
           <Grid container spacing={2} sx={{mb: 2, mt: 1}}>
             <Grid item xs={12} sm={6}>
-              <Button type="submit" variant="contained" fullWidth>
+              <Button
+                type="submit"
+                disabled={isAuthenticating}
+                variant="contained"
+                fullWidth
+              >
                 Login
               </Button>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Button
                 type="button"
+                disabled={isAuthenticating}
                 onClick={() => onGoogleSignIn()}
                 variant="contained"
                 fullWidth
