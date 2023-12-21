@@ -5,6 +5,8 @@ import {getFirestore} from 'firebase/firestore/lite'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+console.log(import.meta.env)
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyB4q8DMuZcOfDYW57VfTLKQyiXBnIHz0TQ',

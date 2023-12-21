@@ -13,7 +13,10 @@ export const DashboardLayout = ({children}) => {
   }
 
   return (
-    <Box sx={{display: 'flex'}}>
+    <Box
+      sx={{display: 'flex'}}
+      className="animate__animated animate__fadeIn animate_faster"
+    >
       {/* navbar drawerWidth*/}
       <NavBar
         drawerWidth={drawerWidth}

@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
 
 export const registrationSchema = Yup.object({
-  name: Yup.string().required('Nombre Completo es requerido.'),
+  displayName: Yup.string().required('Nombre Completo es requerido.'),
   email: Yup.string()
     .email('Formato de correo no válido.')
     .required('Correo es requerido.'),

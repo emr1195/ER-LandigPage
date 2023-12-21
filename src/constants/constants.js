@@ -1,7 +1,7 @@
 export const registrationFormData = {
   email: '',
   password: '',
-  name: '',
+  displayName: '',
 }
 
 export const loginFormData = {

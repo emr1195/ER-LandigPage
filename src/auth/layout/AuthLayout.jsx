@@ -6,7 +6,6 @@ export const AuthLayout = ({children, title = ''}) => {
     <Grid
       container
       spacing={0}
-      // flexDirection="column"
       direction="column"
       alignItems="center"
       justifyContent="center"
