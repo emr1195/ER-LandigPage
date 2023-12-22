@@ -11,9 +11,9 @@ export const AppRouter = () => {
   const {status} = useCheckAuth()
 
   // Show loading state while checking authentication
-  if (status === 'checking') {
-    return <CheckingAuth />
-  }
+  // if (status === 'checking') {
+  //   return <CheckingAuth />
+  // }
 
   const authenticatedRoutes = (
     <>

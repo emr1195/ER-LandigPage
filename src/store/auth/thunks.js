@@ -36,17 +36,21 @@ export const checkingAuthentication = () => {
  */
 export const startGoogleSignIn = () => {
   return async (dispatch) => {
-    // Dispatch checking credentials action
-    dispatch(checkingCredentials())
+    try {
+      // Dispatch checking credentials action
+      dispatch(checkingCredentials())
 
-    // Call the singInWithGoogle function to initiate Google sign-in
-    const result = await singInWithGoogle()
+      // Call the singInWithGoogle function to initiate Google sign-in
+      const result = await singInWithGoogle()
 
-    // If Google sign-in is unsuccessful, dispatch logout action with error details
-    if (!result.ok) return dispatch(logout(result.errorMessage))
+      // If Google sign-in is unsuccessful, dispatch logout action with error details
+      if (!result.ok) return dispatch(logout(result.errorMessage))
 
-    // If Google sign-in is successful, dispatch login action with user details
-    dispatch(login(result))
+      // If Google sign-in is successful, dispatch login action with user details
+      dispatch(login(result))
+    } catch (error) {
+      throw new Error('NO login')
+    }
   }
 }
 
@@ -75,22 +79,27 @@ export const startCreatingUserWithEmailPassword = ({
   email,
 }) => {
   return async (dispatch) => {
-    // Dispatch checking credentials action
-    dispatch(checkingCredentials())
+    try {
+      // Dispatch checking credentials action
+      dispatch(checkingCredentials())
 
-    // Call the registerUserWithEmailPassword function to attempt registration
-    const {ok, uid, photoURL, errorMessage} =
-      await registerUserWithEmailPassword({
-        displayName,
-        password,
-        email,
-      })
+      // Call the registerUserWithEmailPassword function to attempt registration
+      const {ok, uid, photoURL, errorMessage} =
+        await registerUserWithEmailPassword({
+          displayName,
+          password,
+          email,
+        })
 
-    // If registration is unsuccessful, dispatch logout action with error details
-    if (!ok) return dispatch(logout({errorMessage}))
+      // If registration is unsuccessful, dispatch logout action with error details
+      // if (!ok) return dispatch(logout({errorMessage}))
 
-    // If registration is successful, dispatch login action with user details
-    dispatch(login({uid, displayName, email, photoURL}))
+      // If registration is successful, dispatch login action with user details
+      dispatch(login({uid, displayName, email, photoURL}))
+    } catch (error) {
+      logout({errorMessage})
+      throw new Error('NO reg')
+    }
   }
 }
 
@@ -110,20 +119,26 @@ export const startCreatingUserWithEmailPassword = ({
  */
 export const startLoginWithEmailPassword = ({email, password}) => {
   return async (dispatch) => {
-    // Dispatch checking credentials action
-    dispatch(checkingCredentials())
+    try {
+      // Dispatch checking credentials action
+      dispatch(checkingCredentials())
 
-    // Call the loginWithEmailPassword function to attempt login
-    const resp = await loginWithEmailPassword({
-      email,
-      password,
-    })
+      // Call the loginWithEmailPassword function to attempt login
+      const resp = await loginWithEmailPassword({
+        email,
+        password,
+      })
 
-    // If login is unsuccessful, dispatch logout action with error details
-    if (!resp.ok) return dispatch(logout(resp))
+      // If login is unsuccessful, dispatch logout action with error details
+      if (!resp.ok) return dispatch(logout(resp))
 
-    // If login is successful, dispatch login action with user details
-    dispatch(login(resp))
+      // If login is successful, dispatch login action with user details
+      dispatch(login(resp))
+      window.location.replace('/dashboard')
+    } catch (error) {
+      logout(resp)
+      throw new Error('NO login')
+    }
   }
 }
 
