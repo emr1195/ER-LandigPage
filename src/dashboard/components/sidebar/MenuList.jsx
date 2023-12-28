@@ -15,9 +15,23 @@ export const MenuList = () => {
   return (
     <List>
       {/* {['Enero', 'Febrero', 'Marzo', 'Abril'].map((text, index) => ( */}
-      {notes.map((note, index) => (
-        <MenuListItem key={index} note={note} />
+      {Menu.map((item, index) => (
+        // <MenuListItem key={index} note={note} />
+        <MenuListItem key={index} props={{item, index}} />
       ))}
     </List>
   )
 }
+
+const Menu = [
+  'Inicio',
+  'Navbar',
+  'Hero Section',
+  'Historia',
+  'Estructura del Programa',
+  'Grupos de Expedicion',
+  'Eventos',
+  ' Organizacion',
+  ' Footer',
+  'Users',
+]

@@ -1,3 +1,3 @@
 
-export * from purpleTheme
+export * from lightTheme
 export * from AppTheme

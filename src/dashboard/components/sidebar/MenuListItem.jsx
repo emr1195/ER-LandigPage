@@ -18,8 +18,9 @@ import {useDispatch} from 'react-redux'
  * @param {Object} props.note - The note object containing id, body, title, date, and imagesUrls.
  * @returns {JSX.Element} The rendered MenuListItem component.
  */
-export const MenuListItem = ({note}) => {
+export const MenuListItem = ({props}) => {
   const dispatch = useDispatch()
+  const {item, index} = props
 
   //  Handles the click event on the menu item and dispatches an action to set the active note.
   const onClickNote = () => {
@@ -30,14 +31,14 @@ export const MenuListItem = ({note}) => {
   //   }, [title])
 
   return (
-    <ListItem key={note.id} disablePadding>
+    <ListItem key={index} disablePadding>
       <ListItemButton onClick={onClickNote}>
-        <ListItemIcon>
+        {/* <ListItemIcon>
           <TurnedInNot />
-        </ListItemIcon>
+        </ListItemIcon> */}
         <Grid container direction="column">
-          <ListItemText primary={note.title} />
-          <ListItemText secondary={note.body} />
+          <ListItemText primary={item} />
+          {/* <ListItemText secondary={note.body} /> */}
         </Grid>
       </ListItemButton>
     </ListItem>
