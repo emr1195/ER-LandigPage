@@ -21,24 +21,39 @@ export const TextSection = ({textSectionInfo}) => {
       className="TextSection"
       display="flex"
       flexDirection="column"
-      gap={'64px'}
-      flexGrow={1}
+      gap={{xs: '16px', lgMobile: '32px', sm: '64px'}}
       flex={1}
+      zIndex={10}
     >
-      <Box className="Content" gap={'32px'}>
+      <Box
+        className="Content"
+        gap={'32px'}
+        display="flex"
+        alignItems={{xs: 'center', laptop: 'flex-start'}}
+        flexDirection="column"
+        textAlign={{xs: 'center', laptop: 'left'}}
+      >
         <InfoBox title={iconText} icon={icon} />
         <Typography
           variant="h1"
-          fontSize={theme.fonts.size.h1}
-          lineHeight={theme.fonts.lineHeight.h1}
+          sx={{
+            fontSize: {xs: '32px', lgMobile: theme.fonts.size.h1},
+            lineHeight: theme.fonts.lineHeight.h1,
+            fontWeight: 'bold',
+            maxWidth: {xs: 'none', laptop: '500px'},
+            transition: '.5s',
+          }}
         >
           {title}
         </Typography>
 
         <Typography
           variant="body1"
-          fontSize={theme.fonts.size.body}
-          lineHeight={theme.fonts.lineHeight.body}
+          sx={{
+            fontSize: {xs: '16px', lgMobile: theme.fonts.size.body},
+            lineHeight: theme.fonts.lineHeight.body,
+            color: theme.palette.black50.main,
+          }}
         >
           {description}
         </Typography>
@@ -46,12 +61,14 @@ export const TextSection = ({textSectionInfo}) => {
       <Box
         className="EventButtons"
         display="flex"
-        justifyContent="start"
+        flexDirection={{xs: 'column', lgMobile: 'row'}}
+        justifyContent={{xs: 'center', laptop: 'start'}}
         alignItems="center"
         gap="16px"
+        py={1}
       >
         {buttons.map((item, index) => (
-          <EventButton key={index} displayInfo={item} />
+          <EventButton index={`${index}_${item.title}`} displayInfo={item} />
         ))}
       </Box>
     </Box>

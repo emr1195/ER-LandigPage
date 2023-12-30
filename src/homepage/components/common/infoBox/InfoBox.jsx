@@ -1,30 +1,52 @@
-import {Box, Typography, useTheme} from '@mui/material'
-import React from 'react'
+import {Box, Tooltip, Typography, useTheme} from '@mui/material'
+import React, {useMemo} from 'react'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import PersonIcon from '@mui/icons-material/Person'
 
-export const InfoBox = ({title, icon}) => {
+export const InfoBox = ({title, icon, style = {}}) => {
   const theme = useTheme()
+
+  const newTitle = useMemo(() => {
+    return title.length > 14 ? title.substring(0, 14) + '...' : title
+  }, [title])
 
   const GrabIcon = ({icon}) => {
     switch (icon) {
       case 'PersonIcon':
-        return <PersonIcon />
+        return (
+          <PersonIcon
+            sx={{
+              width: '20px',
+              height: 'auto',
+              color: theme.palette.black.main,
+            }}
+          />
+        )
       case 'LocationOnIcon':
-        return <LocationOnIcon />
+        return (
+          <LocationOnIcon
+            sx={{
+              width: '20px',
+              height: 'auto',
+              color: theme.palette.black.main,
+            }}
+          />
+        )
       default:
-        return <LocationOnIcon />
+        return
     }
   }
   return (
     <Box
       display="flex"
-      flexGrow={1}
+      flex={1}
       justifyContent="center"
       alignItems="center"
-      className="InfoBox"
+      className="InfoBox "
+      width="fit-content"
     >
       <Box
+        className=" boxShadowImages"
         sx={{
           display: 'flex',
           justifyContent: 'center',
@@ -34,17 +56,17 @@ export const InfoBox = ({title, icon}) => {
           minWidth: '160px',
           height: '40px',
           borderRadius: '100px',
-          boxShadow: `0px 50px 109px 0px rgba(0, 0, 0, 0.20), 
-          0px 198px 198px 0px rgba(0, 0, 0, 0.17), 
-          0px 446px 267px 0px rgba(0, 0, 0, 0.10), 
-          0px 792px 317px 0px rgba(0, 0, 0, 0.03), 
-          0px 1238px 347px 0px rgba(0, 0, 0, 0.00)`,
           backgroundColor: theme.palette.light.main,
+          fontSize: theme.fonts.size.button,
+          color: theme.palette.secondary.main,
+          ...style,
         }}
       >
-        <Typography variant="body1" color={theme.palette.secondary.main}>
-          {title}
-        </Typography>
+        <Tooltip title={title} sx={{display: newTitle.length > 17}}>
+          <Typography variant="body1" fontSize="inherit" color="inherit">
+            {newTitle}
+          </Typography>
+        </Tooltip>
 
         {icon && <GrabIcon icon={icon} />}
       </Box>

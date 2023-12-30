@@ -12,12 +12,15 @@ export const Desktop = ({navbarInfo, functions, headerButton}) => {
       width="100%"
       alignItems="center"
       justifyContent="space-between"
-      sx={{display: {xs: 'none', sm: 'none', md: 'flex'}}}
+      sx={{display: {xs: 'none', sm: 'none', laptop: 'flex'}}}
     >
       <Logo logo={logo} />
       <MenuDesktop listMenu={listMenu} functions={functions} />
 
-      <EventButton displayInfo={headerButton} />
+      <EventButton
+        index={`${headerButton}_desktop-header`}
+        displayInfo={headerButton}
+      />
     </Box>
   )
 }

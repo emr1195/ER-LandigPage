@@ -75,4 +75,17 @@ export const lightTheme = createTheme({
       caption: '120%',
     },
   },
+
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+      laptop: 1150, //usually 1024
+      tablet: 720, //usually 640
+      lgMobile: 460, //personalizado
+    },
+  },
 })

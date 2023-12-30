@@ -3,20 +3,19 @@ import {Box, Button, Link} from '@mui/material'
 import React from 'react'
 import {Link as RouterLink} from 'react-router-dom'
 
-export const EventButton = ({displayInfo, key}) => {
+export const EventButton = ({displayInfo, index}) => {
   const theme = useTheme()
   //displayInfo.eventButton for now eventButton comes from Header, because there is only one button and comes from the list of menu,
   //displayInfo.primary for now eventButton comes from HeroSection because there are more than one button one of them will be main one
-
   return (
     <Box
       display={displayInfo.eventButton || displayInfo.display ? 'flex' : 'none'}
-      width="fit-content"
+      width={{xs: '100%', lgMobile: 'fit-content'}}
       height="fit-content"
       justifyContent="center"
       alignItems="center"
-      // justifyContent="end"
       className="EventButton"
+      key={index}
     >
       <Button
         variant={
@@ -24,7 +23,7 @@ export const EventButton = ({displayInfo, key}) => {
         }
         sx={{
           p: '16px 32px',
-          width: '160px',
+          width: {xs: '100%', lgMobile: '160px'},
           height: '40px',
           borderRadius: '100px',
           fontWeight: displayInfo.eventButton ? '400' : '700',
@@ -39,10 +38,18 @@ export const EventButton = ({displayInfo, key}) => {
             displayInfo.primary || displayInfo.eventButton
               ? theme.palette.primary.main
               : theme.palette.light.main,
+          ':hover': {
+            boxShadow: 'none',
+            outline: '1px solid',
+            outlineColor:
+              displayInfo.primary || displayInfo.eventButton
+                ? theme.palette.light.main
+                : theme.palette.black.main,
+          },
         }}
       >
         <Link
-          key={key ?? `${displayInfo.url}_${displayInfo.title}`}
+          key={`${displayInfo.url}_${displayInfo.title}`}
           component={RouterLink}
           sx={{
             color:

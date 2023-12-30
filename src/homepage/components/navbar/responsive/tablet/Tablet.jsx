@@ -10,7 +10,7 @@ export const Tablet = ({navbarInfo, functions, headerButton}) => {
   return (
     <Box
       className="tablet-header"
-      sx={{display: {xs: 'none', sm: 'flex', md: 'none'}}}
+      sx={{display: {xs: 'none', sm: 'flex', laptop: 'none'}}}
       width="100%"
       alignItems="center"
       justifyContent="space-between"
@@ -19,7 +19,10 @@ export const Tablet = ({navbarInfo, functions, headerButton}) => {
 
       <Logo logo={logo} title={logoTitle} showTitle={true} />
 
-      <EventButton displayInfo={headerButton} />
+      <EventButton
+        index={`${headerButton}_tablet-header`}
+        displayInfo={headerButton}
+      />
     </Box>
   )
 }
