@@ -2,8 +2,17 @@ import {useTheme} from '@emotion/react'
 import {Box, Button, Link} from '@mui/material'
 import React from 'react'
 import {Link as RouterLink} from 'react-router-dom'
+import {TypographyPersonalized} from '../typography/Typography'
 
-export const EventButton = ({displayInfo, index}) => {
+export const EventButton = ({
+  displayInfo,
+  index,
+  sxButton = {},
+  sxLink = {},
+  sxBox = {},
+  onClick,
+  link = true,
+}) => {
   const theme = useTheme()
   //displayInfo.eventButton for now eventButton comes from Header, because there is only one button and comes from the list of menu,
   //displayInfo.primary for now eventButton comes from HeroSection because there are more than one button one of them will be main one
@@ -16,13 +25,16 @@ export const EventButton = ({displayInfo, index}) => {
       alignItems="center"
       className="EventButton"
       key={index}
+      sx={{...sxBox}}
     >
       <Button
         variant={
           displayInfo.primary || displayInfo.eventButton ? 'contained' : 'text'
         }
+        onClick={onClick}
         sx={{
-          p: '16px 32px',
+          // p: '16px 32px',
+          p: '0 32px',
           width: {xs: '100%', lgMobile: '160px'},
           height: '40px',
           borderRadius: '100px',
@@ -38,34 +50,51 @@ export const EventButton = ({displayInfo, index}) => {
             displayInfo.primary || displayInfo.eventButton
               ? theme.palette.primary.main
               : theme.palette.light.main,
+          // ':hover': {
+          //   boxShadow: 'none',
+          //   outline: '1px solid',
+          //   outlineColor:
+          //     displayInfo.primary || displayInfo.eventButton
+          //       ? theme.palette.light.main
+          //       : theme.palette.black.main,
+          // },
           ':hover': {
-            boxShadow: 'none',
-            outline: '1px solid',
-            outlineColor:
-              displayInfo.primary || displayInfo.eventButton
-                ? theme.palette.light.main
-                : theme.palette.black.main,
+            outline: 'none',
           },
+          ...sxButton,
         }}
       >
-        <Link
-          key={`${displayInfo.url}_${displayInfo.title}`}
-          component={RouterLink}
-          sx={{
-            color:
-              displayInfo.primary || displayInfo.eventButton
-                ? theme.palette.light.main
-                : theme.palette.black.main,
-            listStyle: 'none',
-            textDecoration: 'none',
-            fontSize: theme.fonts.size.button,
-            lineHeight: theme.fonts.lineHeight.button,
-          }}
-          to={displayInfo.outsideURL ? displayInfo.url : `#${displayInfo.url}`}
-          target={displayInfo.outsideURL ? '_blank' : ''}
-        >
-          {displayInfo.title}
-        </Link>
+        {link ? (
+          <Link
+            key={`${displayInfo.url}_${displayInfo.title}`}
+            component={RouterLink}
+            sx={{
+              color:
+                displayInfo.primary || displayInfo.eventButton
+                  ? theme.palette.light.main
+                  : theme.palette.black.main,
+              listStyle: 'none',
+              textDecoration: 'none',
+              fontSize: theme.fonts.size.button,
+              lineHeight: theme.fonts.lineHeight.button,
+              ...sxLink,
+            }}
+            to={
+              displayInfo.outsideURL
+                ? displayInfo.url
+                : `#${displayInfo.url ?? ''}`
+            }
+            target={displayInfo.outsideURL ? '_blank' : ''}
+          >
+            {displayInfo.title}
+          </Link>
+        ) : (
+          <TypographyPersonalized
+            variant="button"
+            title={displayInfo.title}
+            sx={{fontWeight: 'bold', color: 'inherit'}}
+          />
+        )}
       </Button>
     </Box>
   )

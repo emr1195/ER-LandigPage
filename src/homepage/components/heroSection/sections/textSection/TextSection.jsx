@@ -18,7 +18,7 @@ export const TextSection = ({textSectionInfo}) => {
 
   return (
     <Box
-      className="TextSection"
+      className="TextSection-HeroSection"
       display="flex"
       flexDirection="column"
       gap={{xs: '16px', lgMobile: '32px', sm: '64px'}}

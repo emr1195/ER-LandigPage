@@ -3,14 +3,17 @@ export const initialStateExpeditionGroup = {
   info: {
     expeditionGroups: [
       {
-        aditionalInfo: {
-          description: '',
-          title: '',
-        },
+        aditionalInfo: [
+          {
+            description: '',
+            title: '',
+          },
+        ],
         colors: {
           primary: '',
           secondary: '',
         },
+        position: 0,
         id: '',
         description: '',
         title: '',

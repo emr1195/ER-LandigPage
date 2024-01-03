@@ -35,7 +35,15 @@ export const Logo = ({logo = '', title = '', showTitle = false}) => {
           <Skeleton variant="circular" width={40} height={40} />
         )}
 
-        <Typography display={showTitle ? 'block' : 'none'} variant={'body1'}>
+        <Typography
+          display={showTitle ? 'block' : 'none'}
+          variant={'body1'}
+          sx={{
+            color: theme.palette.black50.main,
+            fontSize: theme.fonts.size.body,
+            lineHeight: theme.fonts.lineHeight.body,
+          }}
+        >
           {title ?? <Skeleton variant="text" sx={{fontSize: 'inherit'}} />}
         </Typography>
       </Link>

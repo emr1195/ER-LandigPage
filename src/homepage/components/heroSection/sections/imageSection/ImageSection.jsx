@@ -15,7 +15,7 @@ export const ImageSection = ({imageSectionInfo}) => {
   } = imageSectionInfo
   return (
     <Box
-      className="ImageSection"
+      className="ImageSection-HeroSection"
       flex={1}
       sx={{
         transition: '.5s',

@@ -1,2 +1,6 @@
 // export * from './navbar/Navbar1'
 export * from './navbar/Navbar'
+export * from './heroSection/HeroSection'
+export * from './history/History'
+export * from './programStructure/ProgramStructure'
+export * from './expeditionGroup/ExpeditionGroup'

@@ -2,10 +2,13 @@ export const initlaStateHistory = {
   isSaving: false,
   info: {
     id: '',
+    imageSection: {
+      icon: '',
+      imageLeft: '',
+      imageRight: '',
+      iconText: '',
+    },
     description: '',
-    imageIcon: '',
-    imageLeft: '',
-    imageRight: '',
     lastModified: '',
     updatedBy: '',
     infoSection: [
@@ -18,7 +21,6 @@ export const initlaStateHistory = {
     ],
     sectionTitle: '',
     title: '',
-    imageDescription: '',
   },
   active: false,
 }

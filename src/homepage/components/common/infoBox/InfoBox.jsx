@@ -59,11 +59,17 @@ export const InfoBox = ({title, icon, style = {}}) => {
           backgroundColor: theme.palette.light.main,
           fontSize: theme.fonts.size.button,
           color: theme.palette.secondary.main,
+          lineHeight: theme.fonts.lineHeight.body,
           ...style,
         }}
       >
         <Tooltip title={title} sx={{display: newTitle.length > 17}}>
-          <Typography variant="body1" fontSize="inherit" color="inherit">
+          <Typography
+            variant="body1"
+            fontSize="inherit"
+            color="inherit"
+            lineHeight="inherit"
+          >
             {newTitle}
           </Typography>
         </Tooltip>

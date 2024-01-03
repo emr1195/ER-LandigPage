@@ -11,7 +11,7 @@ export const lightTheme = createTheme({
       main: '#F85E9F',
     },
     gradient: {
-      main: 'linear-gradient(#5D50CB, #F85E9F);',
+      main: 'linear-gradient(#5D50CB, #F85E9F)',
     },
     yellow: {
       main: '#FACD49',
@@ -80,6 +80,7 @@ export const lightTheme = createTheme({
     values: {
       xs: 0,
       sm: 600,
+      specialTablet: 775,
       md: 900,
       lg: 1200,
       xl: 1536,
