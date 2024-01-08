@@ -3,10 +3,13 @@ import {useDispatch, useSelector} from 'react-redux'
 import {startLoadingLandingPage} from '../../store/landingPage'
 import './styles.css'
 import {
+  Events,
   ExpeditionGroup,
+  Footer,
   HeroSection,
   History,
   Navbar,
+  Organization,
   ProgramStructure,
 } from '../components'
 export const HomePage = () => {
@@ -21,6 +24,9 @@ export const HomePage = () => {
   const {info: expeditionGroupInfo} = useSelector(
     (state) => state.expeditionGroup,
   )
+  const {info: eventsInfo} = useSelector((state) => state.events)
+  const {info: organizationInfo} = useSelector((state) => state.organization)
+  const {info: footerInfo} = useSelector((state) => state.footer)
 
   useEffect(() => {
     dispatch(startLoadingLandingPage())
@@ -33,6 +39,9 @@ export const HomePage = () => {
       <History historyInfo={historyInfo} />
       <ProgramStructure programStructureInfo={programStructureInfo} />
       <ExpeditionGroup expeditionGroupInfo={expeditionGroupInfo} />
+      <Events eventsInfo={eventsInfo} />
+      <Organization organizationInfo={organizationInfo} />
+      <Footer footerInfo={footerInfo} />
       {/* {info.listMenu.map((item, index) => (
         <div key={index}>{item.title}</div>
       ))} */}

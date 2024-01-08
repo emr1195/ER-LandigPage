@@ -15,8 +15,9 @@ export const TextSection = ({group, secondaryColor, sectionTitle}) => {
       mx={{xs: 'auto'}}
       maxWidth="445px"
       gap="32px"
+      textAlign={{xs: 'center', laptop: 'left'}}
     >
-      <Box className="expeditionGroup-header" gap="8px">
+      <Box className="expeditionGroup-header" gap="8px" width="100%">
         <TypographyPersonalized variant="h6" title={sectionTitle} />
         <TypographyPersonalized variant="h2" title={group.title} />
       </Box>
@@ -36,6 +37,7 @@ export const TextSection = ({group, secondaryColor, sectionTitle}) => {
         {group.aditionalInfo.map((item, index) => (
           <Grid
             key={index}
+            className="aditionalInfo-expeditionGroup"
             item
             sx={{
               background: theme.palette.light.main,
@@ -44,9 +46,11 @@ export const TextSection = ({group, secondaryColor, sectionTitle}) => {
               p: '32px',
               display: 'flex',
               flexDirection: 'column',
-              width: '212px',
+              width: {xs: '212px', md: '100%', lg: '212px'},
               height: '165.5px',
               textAlign: 'center',
+              alignItems: 'center',
+              justifyContent: 'center',
               boxShadow: ` 0px 6px 13px 0px rgba(0, 0, 0, 0.10), 0px 23px 23px 0px rgba(0, 0, 0, 0.09), 0px 52px 31px 0px rgba(0, 0, 0, 0.05), 0px 93px 37px 0px rgba(0, 0, 0, 0.01), 0px 146px 41px 0px rgba(0, 0, 0, 0.00);`,
             }}
           >

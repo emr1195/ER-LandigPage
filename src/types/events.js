@@ -1,7 +1,7 @@
 export const initialStateEvents = {
   isSaving: false,
   info: {
-    event: [
+    events: [
       {
         byWho: '',
         date: '',
