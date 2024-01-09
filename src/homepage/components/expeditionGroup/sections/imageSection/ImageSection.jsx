@@ -18,7 +18,7 @@ export const ImageSection = ({
       display="flex"
       flexDirection="column"
       sx={{
-        transition: 'all 0.5s',
+        transition: '1.5s',
       }}
     >
       <Box
@@ -37,7 +37,7 @@ export const ImageSection = ({
           justifyContent: 'center',
           alignItems: 'center',
           position: 'relative',
-          transition: 'all 0.5s',
+          transition: '1.5s',
 
           '& img': {
             height: {xs: '150px', lgMobile: '250px', sm: '350px'},
@@ -57,10 +57,13 @@ export const ImageSection = ({
             width: '40px',
             height: '40px',
             filter: 'blur(2px)',
-            background: theme.palette.gradient.main,
+            // background: theme.palette.gradient.main,
+            background: group.title.toLowerCase().includes('exploradores')
+              ? `linear-gradient(${group.colors.secondary}, ${group.colors.primary})`
+              : group.colors.primary,
             // background: group.colors.primary,
             // background: theme.palette.red.main,
-            transition: 'all 0.5s',
+            transition: '1.5s',
             borderRadius: '50%',
           }}
         />
@@ -73,10 +76,13 @@ export const ImageSection = ({
             width: '40px',
             height: '40px',
             filter: 'blur(2px)',
-            background: theme.palette.blue.main,
+            // background: theme.palette.blue.main,
+            background: group.title.toLowerCase().includes('exploradores')
+              ? group.colors.secondary
+              : group.colors.primary,
             // background: group.colors.primary,
             // background: theme.palette.red.main,
-            transition: 'all 0.5s',
+            transition: '1.5s',
             borderRadius: '50%',
           }}
         />
@@ -94,9 +100,11 @@ export const ImageSection = ({
             //   group.title === 'exploradores'
             //     ? group.colors.secondary
             //     : group.colors.primary,
-            // background: `linear-gradient(${group.colors.primary}, #F85E9F)`,
+            background: group.title.toLowerCase().includes('exploradores')
+              ? `linear-gradient(${group.colors.primary}, ${group.colors.secondary})`
+              : group.colors.primary,
             // background: theme.palette.red.main,
-            transition: 'all 0.5s',
+            transition: '1.5s',
             borderRadius: '50%',
           }}
         />
@@ -111,7 +119,7 @@ export const ImageSection = ({
             filter: 'blur(2px)',
             background: theme.palette.light.main,
             // background: theme.palette.red.main,
-            transition: 'all 0.5s',
+            transition: '1.5s',
             borderRadius: '50%',
           }}
         />
@@ -125,7 +133,7 @@ export const ImageSection = ({
             height: '16px',
             filter: 'blur(2px)',
             background: group.colors.primary,
-            transition: 'all 0.5s',
+            transition: '1.5s',
             borderRadius: '50%',
           }}
         />
@@ -154,7 +162,7 @@ export const ImageSection = ({
               cursor: 'pointer',
               filter: `drop-shadow(rgba(0, 0, 0, .5) 3px 4px 0.25rem)`,
               objectFit: 'contain',
-              transition: 'all 0.5s',
+              transition: '1.5s',
             }}
           />
         ))}

@@ -10,8 +10,8 @@ export const TextSection = ({group, secondaryColor, sectionTitle}) => {
       className="textSection"
       display="flex"
       flexDirection="column"
-      alignItems="flex-start"
-      justifyContent="center"
+      alignItems="center"
+      justifyContent="flex-start"
       mx={{xs: 'auto'}}
       maxWidth="445px"
       gap="32px"
@@ -51,7 +51,11 @@ export const TextSection = ({group, secondaryColor, sectionTitle}) => {
               textAlign: 'center',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: ` 0px 6px 13px 0px rgba(0, 0, 0, 0.10), 0px 23px 23px 0px rgba(0, 0, 0, 0.09), 0px 52px 31px 0px rgba(0, 0, 0, 0.05), 0px 93px 37px 0px rgba(0, 0, 0, 0.01), 0px 146px 41px 0px rgba(0, 0, 0, 0.00);`,
+              boxShadow: `0px 6px 13px 0px rgba(0, 0, 0, 0.10), 
+                          0px 23px 23px 0px rgba(0, 0, 0, 0.09), 
+                          0px 52px 31px 0px rgba(0, 0, 0, 0.05), 
+                          0px 93px 37px 0px rgba(0, 0, 0, 0.01), 
+                          0px 146px 41px 0px rgba(0, 0, 0, 0.00);`,
             }}
           >
             <TypographyPersonalized

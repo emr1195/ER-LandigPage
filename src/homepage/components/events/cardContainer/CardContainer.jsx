@@ -63,6 +63,7 @@ export const CardContainer = ({events, sliderValue}) => {
               className={`EventCard_${item.title} EventsCards`}
               sx={{
                 //   width: 373,
+                width: '100%',
                 maxWidth: 415,
                 height: 575,
                 margin: 'auto',
@@ -83,9 +84,15 @@ export const CardContainer = ({events, sliderValue}) => {
                   justifyContent: 'flex-start',
                   textAlign: 'center',
                   p: 0,
+
+                  '& img': {
+                    width: '100%',
+                    height: '300px',
+                    objectFit: 'cover',
+                  },
                 }}
               >
-                <img src={item.image} alt={item.title} height={300} />
+                <img src={item.image} alt={item.title} />
                 <Box
                   padding="32px"
                   display="flex"
