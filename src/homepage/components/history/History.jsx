@@ -13,6 +13,7 @@ export const History = ({historyInfo}) => {
           lgMobile: 'column',
           md: 'row',
         },
+        alignItems: 'flex-start',
       }}
     >
       <TextSection textSectionInfo={historyInfo} />

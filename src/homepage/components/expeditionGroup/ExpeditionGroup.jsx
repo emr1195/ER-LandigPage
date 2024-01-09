@@ -27,6 +27,7 @@ export const ExpeditionGroup = ({expeditionGroupInfo}) => {
           width="100%"
           gap="64px"
           className="ExpeditionGroup-Container"
+          flexDirection={{xs: 'column', laptop: 'row'}}
         >
           <ImageSection
             group={group}

@@ -1,12 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit'
+import {initialStateFooter} from '../../../types'
 
 export const footerSlice = createSlice({
   name: 'footer',
-  initialState: {
-    isSaving: false,
-    info: {},
-    active: false,
-  },
+  initialState: initialStateFooter,
   reducers: {
     setSavingFooter: (state, action) => {
       state.isSaving = true

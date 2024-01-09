@@ -22,6 +22,7 @@ export const SectionContainer = ({
       <Container
         sx={{
           p: {xs: 0, sm: 0, md: 0},
+          // px: {xs: '16px', sm: '32px', md: '64px'},
           maxWidth: {xs: 'none', sm: 'none', md: 'none'},
           display: 'flex',
           flexDirection: {

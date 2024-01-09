@@ -12,25 +12,32 @@ export const ImageSection = ({
   return (
     <Box
       flex={1.25}
-      className="imageSection"
+      className="imageSection-Container"
       height="100%"
-      width="705px"
+      width={{xs: '100%', laptop: '705px'}}
       display="flex"
       flexDirection="column"
+      sx={{
+        transition: 'all 0.5s',
+      }}
     >
       <Box
+        className="BackgroundBox-Color"
         sx={{
           backgroundColor: `${group.colors.secondary}`,
-          width: '100%',
+          width: {xs: '100%', laptop: '120%'},
           borderTopRightRadius: '500px',
           borderBottomRightRadius: '500px',
           height: '505px',
-          maxWidth: '732px',
-          marginLeft: '-128px',
+          // maxWidth: '705px',
+          // {xs: 'column', laptop: 'row'}
+          maxWidth: {xs: '705px', laptop: '832px'},
+          marginLeft: {xs: '0', laptop: '-128px'},
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           position: 'relative',
+          transition: 'all 0.5s',
 
           '& img': {
             height: {xs: '150px', lgMobile: '250px', sm: '350px'},
@@ -50,9 +57,10 @@ export const ImageSection = ({
             width: '40px',
             height: '40px',
             filter: 'blur(2px)',
-            // background: theme.palette.gradient.main,
-            background: group.colors.primary,
+            background: theme.palette.gradient.main,
+            // background: group.colors.primary,
             // background: theme.palette.red.main,
+            transition: 'all 0.5s',
             borderRadius: '50%',
           }}
         />
@@ -65,9 +73,10 @@ export const ImageSection = ({
             width: '40px',
             height: '40px',
             filter: 'blur(2px)',
-            // background: theme.palette.blue.main,
-            background: group.colors.primary,
+            background: theme.palette.blue.main,
+            // background: group.colors.primary,
             // background: theme.palette.red.main,
+            transition: 'all 0.5s',
             borderRadius: '50%',
           }}
         />
@@ -80,10 +89,14 @@ export const ImageSection = ({
             width: '96px',
             height: '96px',
             filter: 'blur(6px)',
-            // background: theme.palette.gradient.main,
-            background: group.colors.primary,
+            background: theme.palette.gradient.main,
+            // background:
+            //   group.title === 'exploradores'
+            //     ? group.colors.secondary
+            //     : group.colors.primary,
             // background: `linear-gradient(${group.colors.primary}, #F85E9F)`,
             // background: theme.palette.red.main,
+            transition: 'all 0.5s',
             borderRadius: '50%',
           }}
         />
@@ -98,6 +111,7 @@ export const ImageSection = ({
             filter: 'blur(2px)',
             background: theme.palette.light.main,
             // background: theme.palette.red.main,
+            transition: 'all 0.5s',
             borderRadius: '50%',
           }}
         />
@@ -111,6 +125,7 @@ export const ImageSection = ({
             height: '16px',
             filter: 'blur(2px)',
             background: group.colors.primary,
+            transition: 'all 0.5s',
             borderRadius: '50%',
           }}
         />
@@ -139,6 +154,7 @@ export const ImageSection = ({
               cursor: 'pointer',
               filter: `drop-shadow(rgba(0, 0, 0, .5) 3px 4px 0.25rem)`,
               objectFit: 'contain',
+              transition: 'all 0.5s',
             }}
           />
         ))}

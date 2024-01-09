@@ -74,7 +74,7 @@ export const InfoBox = ({title, icon, style = {}}) => {
           </Typography>
         </Tooltip>
 
-        {icon && <GrabIcon icon={icon} />}
+        {icon && <GrabIcon icon={icon.trim()} />}
       </Box>
     </Box>
   )

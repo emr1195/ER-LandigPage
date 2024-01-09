@@ -1,4 +1,4 @@
-import {Box, Typography, useTheme} from '@mui/material'
+import {Box, useTheme} from '@mui/material'
 import React from 'react'
 import {GrabIcon, TypographyPersonalized} from '../../../common'
 
@@ -37,11 +37,8 @@ export const TextSection = ({textSectionInfo}) => {
         {newDescription.map((text, index) => (
           <TypographyPersonalized title={`${text}.`} variant={'body'} />
         ))}
-        {newDescription.map((text, index) => (
-          <TypographyPersonalized title={`${text}.`} variant={'body'} />
-        ))}
       </Box>
-      {/* <Box className="ExtraInfoContainer">
+      <Box className="ExtraInfoContainer">
         {infoSection
           .map((section, index) => (
             <Box
@@ -68,7 +65,7 @@ export const TextSection = ({textSectionInfo}) => {
                   justifyContent: 'center',
                 }}
               >
-                <GrabIcon icon={section.icon} width="40px" />
+                <GrabIcon icon={section.icon.trim()} width="40px" />
               </Box>
               <Box gap="8px">
                 <TypographyPersonalized title={section.title} variant="h5" />
@@ -80,7 +77,7 @@ export const TextSection = ({textSectionInfo}) => {
             </Box>
           ))
           .sort((a, b) => a.position - b.position)}
-      </Box> */}
+      </Box>
     </Box>
   )
 }

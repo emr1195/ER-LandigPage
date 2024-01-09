@@ -12,9 +12,10 @@ export const ImageSection = ({imageSectionInfo}) => {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        width: '100%',
         position: 'relative',
         flexDirection: 'column',
-        marginLeft: {xs: '-85px', md: '0'},
+        // marginLeft: {xs: '-85px', md: '0'},
         // marginBottom: {xs: '-150px', md: '0'},
         minHeight: {lgMobile: '', laptop: '1000px'},
       }}
@@ -23,6 +24,7 @@ export const ImageSection = ({imageSectionInfo}) => {
         className="imageSection-History-Container"
         mx="auto"
         width="fit-content"
+        // width="100%"
       >
         <Box
           display="flex"
@@ -30,6 +32,7 @@ export const ImageSection = ({imageSectionInfo}) => {
           alignItems="center"
           justifyContent="center"
           width="fit-content"
+          className="imagesHistory-Container"
         >
           <Box
             className="imageSectionInfo-imageLeft "
@@ -44,7 +47,7 @@ export const ImageSection = ({imageSectionInfo}) => {
               height: {xs: 405, lgMobile: 465, laptop: 665},
             }}
           />
-          {/* <Box
+          <Box
             sx={{
               transform: {
                 xs: 'translate(80%, 380%) scale(.85)',
@@ -63,7 +66,7 @@ export const ImageSection = ({imageSectionInfo}) => {
                 backgroundColor: '#f5f5f5',
               }}
             />
-          </Box> */}
+          </Box>
         </Box>
         <Box
           className="imageSectionInfo-imageRight "
