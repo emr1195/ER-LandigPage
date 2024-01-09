@@ -4,7 +4,9 @@ html {
 ::root {
   font-family: 'Poppins', sans-serif;
 }
-
+body {
+  overflow-x: hidden;
+}
 #root {
   background-color: #f5f5f5;
 }

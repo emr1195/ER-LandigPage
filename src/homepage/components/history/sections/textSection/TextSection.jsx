@@ -37,8 +37,11 @@ export const TextSection = ({textSectionInfo}) => {
         {newDescription.map((text, index) => (
           <TypographyPersonalized title={`${text}.`} variant={'body'} />
         ))}
+        {newDescription.map((text, index) => (
+          <TypographyPersonalized title={`${text}.`} variant={'body'} />
+        ))}
       </Box>
-      <Box className="ExtraInfoContainer">
+      {/* <Box className="ExtraInfoContainer">
         {infoSection
           .map((section, index) => (
             <Box
@@ -77,7 +80,7 @@ export const TextSection = ({textSectionInfo}) => {
             </Box>
           ))
           .sort((a, b) => a.position - b.position)}
-      </Box>
+      </Box> */}
     </Box>
   )
 }

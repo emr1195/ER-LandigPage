@@ -25,7 +25,8 @@ export const ImageSection = ({
           borderTopRightRadius: '500px',
           borderBottomRightRadius: '500px',
           height: '505px',
-          maxWidth: '705px',
+          maxWidth: '732px',
+          marginLeft: '-128px',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -49,7 +50,9 @@ export const ImageSection = ({
             width: '40px',
             height: '40px',
             filter: 'blur(2px)',
-            background: theme.palette.gradient.main,
+            // background: theme.palette.gradient.main,
+            background: group.colors.primary,
+            // background: theme.palette.red.main,
             borderRadius: '50%',
           }}
         />
@@ -62,7 +65,9 @@ export const ImageSection = ({
             width: '40px',
             height: '40px',
             filter: 'blur(2px)',
-            background: theme.palette.blue.main,
+            // background: theme.palette.blue.main,
+            background: group.colors.primary,
+            // background: theme.palette.red.main,
             borderRadius: '50%',
           }}
         />
@@ -75,7 +80,10 @@ export const ImageSection = ({
             width: '96px',
             height: '96px',
             filter: 'blur(6px)',
-            background: theme.palette.gradient.main,
+            // background: theme.palette.gradient.main,
+            background: group.colors.primary,
+            // background: `linear-gradient(${group.colors.primary}, #F85E9F)`,
+            // background: theme.palette.red.main,
             borderRadius: '50%',
           }}
         />
@@ -89,6 +97,7 @@ export const ImageSection = ({
             height: '16px',
             filter: 'blur(2px)',
             background: theme.palette.light.main,
+            // background: theme.palette.red.main,
             borderRadius: '50%',
           }}
         />

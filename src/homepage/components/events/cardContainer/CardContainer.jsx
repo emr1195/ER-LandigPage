@@ -60,7 +60,7 @@ export const CardContainer = ({events, sliderValue}) => {
           return (
             <Card
               key={index}
-              className={`EventCard_${item.title}`}
+              className={`EventCard_${item.title} EventsCards`}
               sx={{
                 //   width: 373,
                 maxWidth: 415,
@@ -85,12 +85,7 @@ export const CardContainer = ({events, sliderValue}) => {
                   p: 0,
                 }}
               >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  width={'100%'}
-                  height={'100%'}
-                />
+                <img src={item.image} alt={item.title} height={300} />
                 <Box
                   padding="32px"
                   display="flex"

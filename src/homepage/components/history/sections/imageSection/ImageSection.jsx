@@ -44,7 +44,7 @@ export const ImageSection = ({imageSectionInfo}) => {
               height: {xs: 405, lgMobile: 465, laptop: 665},
             }}
           />
-          <Box
+          {/* <Box
             sx={{
               transform: {
                 xs: 'translate(80%, 380%) scale(.85)',
@@ -63,7 +63,7 @@ export const ImageSection = ({imageSectionInfo}) => {
                 backgroundColor: '#f5f5f5',
               }}
             />
-          </Box>
+          </Box> */}
         </Box>
         <Box
           className="imageSectionInfo-imageRight "
@@ -74,7 +74,7 @@ export const ImageSection = ({imageSectionInfo}) => {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             borderRadius: {xs: '500px'},
-            outline: '24px solid #f5f5f5',
+            outline: '8px solid #f5f5f5',
             outlineOffset: '-1',
             transform: 'translate(50%, -60%)',
             transition: '.5s',
