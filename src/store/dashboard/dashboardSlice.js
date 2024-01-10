@@ -5,7 +5,7 @@ export const dashboardSlice = createSlice({
   initialState: {
     isSaving: false,
     messageSaved: '',
-    notes: [],
+    section: [],
     active: null,
     errorDB: '',
     // active: {
@@ -25,8 +25,9 @@ export const dashboardSlice = createSlice({
       state.isSaving = false
       state.messageSaved = 'Nueva entrada guardada exitosamente!'
     },
-    setActiveNote: (state, action) => {
-      state.active = action.payload
+    setActiveSection: (state, action) => {
+      // console.log(action.payload)
+      state.section = action.payload
     },
     setNotes: (state, action) => {
       state.notes = action.payload
@@ -96,4 +97,9 @@ export const {
   setPhotosToActiveNote,
   setSaving,
   updateNote,
+
+  ////////////////////////////
+  setActiveSection,
 } = dashboardSlice.actions
+
+// export const {setActiveSection} = dashboardSlice.actions

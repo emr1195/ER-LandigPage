@@ -40,6 +40,7 @@ export const initialStateHeroSection = {
       lastModified: '',
       icon: '',
     },
+    sectionTitle: 'Hero Section',
   },
   active: false,
 }

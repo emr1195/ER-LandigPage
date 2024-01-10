@@ -11,7 +11,7 @@ export const initialStateProgramStructure = {
         title: '',
       },
     ],
-    sectionTitle: '',
+    sectionTitle: 'Estructura del Programa',
     title: '',
     updatedBy: '',
   },

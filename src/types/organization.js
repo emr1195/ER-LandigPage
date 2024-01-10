@@ -8,7 +8,7 @@ export const initialStateOrganization = {
         title: '',
       },
     ],
-    sectionTitle: '',
+    sectionTitle: 'Organizacion',
     title: '',
     lastModified: '',
     updatedBy: '',

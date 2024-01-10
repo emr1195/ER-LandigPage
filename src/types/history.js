@@ -19,7 +19,7 @@ export const initlaStateHistory = {
         title: '',
       },
     ],
-    sectionTitle: '',
+    sectionTitle: 'Historia',
     title: '',
   },
   active: false,

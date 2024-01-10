@@ -12,7 +12,7 @@ export const initialStateFooter = {
       {name: '', outsideURL: false, url: '', disable: true},
     ],
     lastModified: '',
-    sectionTitle: '',
+    sectionTitle: 'Footer',
     title: '',
     updatedBy: '',
   },

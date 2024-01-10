@@ -11,7 +11,7 @@ export const initialStateEvents = {
       },
     ],
     lastModified: '',
-    sectionTitle: '',
+    sectionTitle: 'Eventos',
     title: '',
     updatedBy: '',
   },

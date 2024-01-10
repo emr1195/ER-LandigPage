@@ -47,7 +47,7 @@ export const initialStateNavbar = {
   isSaving: false,
   info: {
     listMenu: initialMenu,
-    sectionTitle: '',
+    sectionTitle: 'Navbar',
     title: '',
     updatedBy: '',
     lastModified: '',

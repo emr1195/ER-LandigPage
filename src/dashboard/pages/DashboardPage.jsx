@@ -10,12 +10,14 @@ import {
   startNewNote,
 } from '../../store/dashboard'
 import Swal from 'sweetalert2'
+import {GrabView} from '../components'
 
 export const DashboardPage = () => {
   const dispatch = useDispatch()
   const {
     isSaving,
     active: noteActive,
+    section,
     messageSaved,
     errorDB,
   } = useSelector((state) => state.dashboard)
@@ -49,10 +51,12 @@ export const DashboardPage = () => {
     <DashboardLayout>
       {/* nothing selected */}
 
-      {!!noteActive ? <NoteView /> : <NothingSelectedView />}
+      {/* {!!noteActive ? <NoteView /> : <NothingSelectedView />} */}
       {/* <NothingSelectedView /> */}
       {/* noteView */}
       {/* <NoteView /> */}
+
+      <GrabView sectionActive={section} />
 
       <IconButton
         onClick={onClickNewNote}

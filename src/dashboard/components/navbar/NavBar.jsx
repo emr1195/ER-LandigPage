@@ -1,8 +1,8 @@
 import {LogoutOutlined, MenuOutlined} from '@mui/icons-material'
 import {AppBar, Grid, IconButton, Toolbar, Typography} from '@mui/material'
 import React from 'react'
-import {useDispatch} from 'react-redux'
-import {startLogout} from '../../store/auth'
+import {useDispatch, useSelector} from 'react-redux'
+import {startLogout} from '../../../store/auth'
 
 /**
  * The AppBar component represents the top application bar in the Dashboard view.

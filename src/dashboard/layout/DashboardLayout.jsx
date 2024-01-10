@@ -1,16 +1,23 @@
 import {Box, Toolbar} from '@mui/material'
-import React from 'react'
-import {NavBar, SideBar} from '../components'
+import React, {useEffect} from 'react'
 import {NothingSelectedView} from '../views'
+import {NavBar, SideBar} from '../components'
+import {startLoadingLandingPage} from '../../store/landingPage'
+import {useDispatch} from 'react-redux'
 
 const drawerWidth = 240
 
 export const DashboardLayout = ({children}) => {
   const [mobileOpen, setMobileOpen] = React.useState(false)
+  const dispatch = useDispatch()
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
+
+  useEffect(() => {
+    dispatch(startLoadingLandingPage())
+  }, [])
 
   return (
     <Box
@@ -30,9 +37,9 @@ export const DashboardLayout = ({children}) => {
         handleDrawerToggle={handleDrawerToggle}
       />
 
-      <Box component="main" sx={{flexGrow: 1, p: 3}}>
+      <Box component="main" sx={{flexGrow: 1, p: 3, paddingTop: '100px'}}>
         {/* Toolbar */}
-        <Toolbar />
+        {/* <Toolbar /> */}
         {children}
       </Box>
     </Box>

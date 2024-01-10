@@ -20,7 +20,7 @@ export const initialStateExpeditionGroup = {
       },
     ],
     lastModified: '',
-    sectionTitle: '',
+    sectionTitle: 'Grupos',
     title: '',
     updatedBy: '',
   },
