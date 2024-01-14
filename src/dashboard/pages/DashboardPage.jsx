@@ -58,7 +58,7 @@ export const DashboardPage = () => {
 
       <GrabView sectionActive={section} />
 
-      <IconButton
+      {/* <IconButton
         onClick={onClickNewNote}
         disabled={isSaving}
         size="large"
@@ -72,7 +72,7 @@ export const DashboardPage = () => {
         }}
       >
         <AddOutlined sx={{fontSize: 30}} />
-      </IconButton>
+      </IconButton> */}
     </DashboardLayout>
   )
 }

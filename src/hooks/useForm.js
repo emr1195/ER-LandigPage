@@ -27,5 +27,6 @@ export const useForm = (initialForm = {}) => {
     onResetForm,
     validationState,
     setValidationState,
+    setFormState,
   }
 }

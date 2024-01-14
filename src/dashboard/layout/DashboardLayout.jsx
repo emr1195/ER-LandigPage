@@ -1,4 +1,4 @@
-import {Box, Toolbar} from '@mui/material'
+import {Box, Toolbar, useTheme} from '@mui/material'
 import React, {useEffect} from 'react'
 import {NothingSelectedView} from '../views'
 import {NavBar, SideBar} from '../components'
@@ -10,6 +10,7 @@ const drawerWidth = 240
 export const DashboardLayout = ({children}) => {
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const dispatch = useDispatch()
+  const theme = useTheme()
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
@@ -37,7 +38,15 @@ export const DashboardLayout = ({children}) => {
         handleDrawerToggle={handleDrawerToggle}
       />
 
-      <Box component="main" sx={{flexGrow: 1, p: 3, paddingTop: '100px'}}>
+      <Box
+        component="div"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          paddingTop: '100px',
+          backgroundColor: theme.palette.light.main,
+        }}
+      >
         {/* Toolbar */}
         {/* <Toolbar /> */}
         {children}

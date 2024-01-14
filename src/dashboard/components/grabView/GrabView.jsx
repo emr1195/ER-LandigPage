@@ -18,19 +18,19 @@ export const GrabView = ({sectionActive}) => {
     case 'navbar':
       return <Navbar info={sectionActive} />
     case 'hero section':
-      return <HeroSection />
+      return <HeroSection info={sectionActive} />
     case 'historia':
       return <History info={sectionActive} />
     case 'estructura del programa':
-      return <ProgramStructure />
+      return <ProgramStructure info={sectionActive} />
     case 'grupos':
-      return <ExpeditionGroup />
+      return <ExpeditionGroup info={sectionActive} />
     case 'eventos':
-      return <Events />
+      return <Events info={sectionActive} />
     case 'organizacion':
-      return <Organization />
+      return <Organization info={sectionActive} />
     case 'footer':
-      return <Footer />
+      return <Footer info={sectionActive} />
 
     default:
       return <div>GrabView</div>

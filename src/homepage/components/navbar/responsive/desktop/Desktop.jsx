@@ -17,10 +17,12 @@ export const Desktop = ({navbarInfo, functions, headerButton}) => {
       <Logo logo={logo} />
       <MenuDesktop listMenu={listMenu} functions={functions} />
 
-      <EventButton
-        index={`${headerButton}_desktop-header`}
-        displayInfo={headerButton}
-      />
+      {headerButton && (
+        <EventButton
+          index={`${headerButton}_desktop-header`}
+          displayInfo={headerButton}
+        />
+      )}
     </Box>
   )
 }

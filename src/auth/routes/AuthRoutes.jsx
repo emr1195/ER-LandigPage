@@ -31,7 +31,7 @@ export const AuthRoutes = () => {
   // Redirect to /dashboard/ after successful login
   useEffect(() => {
     if (status === 'authenticated') {
-      navigate('/dashboard/', {replace: true})
+      navigate('/dashboard', {replace: true})
     }
   }, [status, navigate])
 

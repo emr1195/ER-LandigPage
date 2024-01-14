@@ -31,6 +31,7 @@ export const EventButton = ({
         variant={
           displayInfo.primary || displayInfo.eventButton ? 'contained' : 'text'
         }
+        disabled={displayInfo.disabled}
         onClick={onClick}
         sx={{
           // p: '16px 32px',
@@ -39,6 +40,7 @@ export const EventButton = ({
           height: '40px',
           borderRadius: '100px',
           fontWeight: displayInfo.eventButton ? '400' : '700',
+
           boxShadow:
             !displayInfo.eventButton &&
             `0px 4px 10px 0px rgba(0, 0, 0, 0.25), 
@@ -50,14 +52,13 @@ export const EventButton = ({
             displayInfo.primary || displayInfo.eventButton
               ? theme.palette.primary.main
               : theme.palette.light.main,
-          // ':hover': {
-          //   boxShadow: 'none',
-          //   outline: '1px solid',
-          //   outlineColor:
-          //     displayInfo.primary || displayInfo.eventButton
-          //       ? theme.palette.light.main
-          //       : theme.palette.black.main,
-          // },
+          '&[disabled]': {
+            backgroundColor:
+              displayInfo.primary || displayInfo.eventButton
+                ? theme.palette.primary.main
+                : theme.palette.light.main,
+            pointerEvents: 'none',
+          },
           ':hover': {
             outline: 'none',
           },
@@ -68,6 +69,7 @@ export const EventButton = ({
           <Link
             key={`${displayInfo.url}_${displayInfo.title}`}
             component={RouterLink}
+            disabled={displayInfo.disabled}
             sx={{
               color:
                 displayInfo.primary || displayInfo.eventButton
@@ -77,6 +79,9 @@ export const EventButton = ({
               textDecoration: 'none',
               fontSize: theme.fonts.size.button,
               lineHeight: theme.fonts.lineHeight.button,
+              '&[disabled]': {
+                pointerEvents: 'none',
+              },
               ...sxLink,
             }}
             to={

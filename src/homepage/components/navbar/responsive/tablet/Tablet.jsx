@@ -18,11 +18,12 @@ export const Tablet = ({navbarInfo, functions, headerButton}) => {
       <ToggleMenu functions={functions} listMenu={listMenu} />
 
       <Logo logo={logo} title={logoTitle} showTitle={true} />
-
-      <EventButton
-        index={`${headerButton}_tablet-header`}
-        displayInfo={headerButton}
-      />
+      {headerButton && (
+        <EventButton
+          index={`${headerButton}_tablet-header`}
+          displayInfo={headerButton}
+        />
+      )}
     </Box>
   )
 }

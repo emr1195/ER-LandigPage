@@ -28,6 +28,7 @@ export const Navbar = ({navbarInfo}) => {
         padding: '32px 0',
         color: theme.palette.black.main,
         height: 'fit-content',
+        width: '100%',
         zIndex: 10,
         gridColumn: '1/-1', // it means go from column 1 until the last one
       }}

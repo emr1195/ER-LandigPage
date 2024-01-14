@@ -12,10 +12,13 @@ export const MenuDesktop = ({listMenu, functions}) => {
       sx={{
         flex: 1,
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         gap: {md: '32px', lg: '64px'},
         transition: '.5s',
-        maxWidth: '650px',
+        maxWidth: listMenu.some((item) => item.eventButton)
+          ? '750px'
+          : 'fit-content',
+        flexWrap: 'wrap',
       }}
     >
       {listMenu
@@ -26,11 +29,15 @@ export const MenuDesktop = ({listMenu, functions}) => {
             key={index}
             onClick={handleCloseNavMenu}
             component={RouterLink}
+            disabled={item.disabled}
             sx={{
               color: theme.palette.black50.main,
               listStyle: 'none',
               textDecoration: 'none',
               textTransform: 'capitalize',
+              '&[disabled]': {
+                pointerEvents: 'none',
+              },
               ':hover': {
                 color: theme.palette.black.main,
               },
