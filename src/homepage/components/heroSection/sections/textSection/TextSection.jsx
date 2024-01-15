@@ -6,7 +6,7 @@ export const TextSection = ({textSectionInfo}) => {
   const theme = useTheme()
 
   const {buttons, description, icon, id, title, iconText} = textSectionInfo
-  console.log(textSectionInfo)
+
   return (
     <Box
       className="TextSection-HeroSection"

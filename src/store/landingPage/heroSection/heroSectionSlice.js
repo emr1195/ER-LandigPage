@@ -10,7 +10,6 @@ export const heroSectionSlice = createSlice({
     },
     setHeroSectionInfo: (state, action) => {
       //set infoSection
-      console.log('payload: ', action.payload)
       state.info = action.payload
     },
 
