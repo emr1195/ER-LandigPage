@@ -1,7 +1,7 @@
 import {collection, getDocs} from 'firebase/firestore/lite'
 import {FirebaseDB} from '../../firebase/config'
 import {setNavbarInfo} from './navbar'
-import {startLoadingHeroSection} from './heroSection'
+import {setHeroSectionInfo, startLoadingHeroSection} from './heroSection'
 import {setHistoryInfo} from './history'
 import {setProgramStructureInfo} from './programStructure'
 import {setExpeditionGroupInfo} from './expeditionGroup'
@@ -27,7 +27,7 @@ export const startLoadingLandingPage = () => {
         /* Corresponding dispatch action for 'navbar' */
         navbar: setNavbarInfo,
         /* Corresponding dispatch action for 'hero_section' */
-        // hero_section: setHeroSectionInfo, // is special because it has a collection inside
+        heroSection: setHeroSectionInfo, // is special because it has a collection inside
         /* Corresponding dispatch action for 'historia' */
         history: setHistoryInfo,
         /* Corresponding dispatch action for 'program_structure' */
@@ -48,9 +48,9 @@ export const startLoadingLandingPage = () => {
           dispatch(dispatchAction(element))
           // console.log(dispatchAction(element))
         }
-        if (element.id === 'heroSection') {
-          dispatch(startLoadingHeroSection())
-        }
+        // if (element.id === 'heroSection') {
+        //   dispatch(startLoadingHeroSection())
+        // }
       })
     } catch (error) {
       // Handle errors related to loading notes from the database

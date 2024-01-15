@@ -10,12 +10,8 @@ export const heroSectionSlice = createSlice({
     },
     setHeroSectionInfo: (state, action) => {
       //set infoSection
-      state.info.imageSection = action.payload.find(
-        (item) => item.id === 'imageSection',
-      )
-      state.info.textSection = action.payload.find(
-        (item) => item.id === 'textSection',
-      )
+      console.log('payload: ', action.payload)
+      state.info = action.payload
     },
 
     resetSavingHeroSection: (state, action) => {
