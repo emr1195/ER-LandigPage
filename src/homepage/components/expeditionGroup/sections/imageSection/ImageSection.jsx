@@ -46,7 +46,7 @@ export const ImageSection = ({
           },
         }}
       >
-        <img width="auto" src={group.image} alt={group.title} />
+        <img width="auto" src={group.emblema} alt={group.title} />
 
         <Box
           className="smallLeft-circle"
@@ -139,6 +139,7 @@ export const ImageSection = ({
         />
       </Box>
       <Box
+        className="groupSelector"
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -150,7 +151,7 @@ export const ImageSection = ({
         {expeditionGroups.map((item, index) => (
           <img
             key={`_${index}`}
-            src={item.image}
+            src={item.emblema}
             alt={item.title}
             width={75}
             height={75}
@@ -161,7 +162,8 @@ export const ImageSection = ({
             style={{
               cursor: 'pointer',
               filter: `drop-shadow(rgba(0, 0, 0, .5) 3px 4px 0.25rem)`,
-              objectFit: 'contain',
+              objectFit:
+                item.title.toLowerCase() === 'lideres' ? 'cover' : 'contain',
               transition: '1.5s',
             }}
           />

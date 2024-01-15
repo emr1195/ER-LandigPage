@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {startLoadingLandingPage} from '../../store/landingPage'
 import './styles.css'
@@ -12,8 +12,10 @@ import {
   Organization,
   ProgramStructure,
 } from '../components'
+import {CircularProgress} from '@mui/material'
 export const HomePage = () => {
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(true)
 
   const {info: navbarInfo} = useSelector((state) => state.navbar)
   const {info: heroSectionInfo} = useSelector((state) => state.heroSection)
@@ -31,6 +33,35 @@ export const HomePage = () => {
   useEffect(() => {
     dispatch(startLoadingLandingPage())
   }, [])
+
+  useEffect(() => {
+    // Check if all data is available and set loading to false
+    if (
+      navbarInfo &&
+      heroSectionInfo &&
+      historyInfo &&
+      programStructureInfo &&
+      expeditionGroupInfo &&
+      eventsInfo &&
+      organizationInfo &&
+      footerInfo
+    ) {
+      setLoading(false)
+    }
+  }, [
+    navbarInfo,
+    heroSectionInfo,
+    historyInfo,
+    programStructureInfo,
+    expeditionGroupInfo,
+    eventsInfo,
+    organizationInfo,
+    footerInfo,
+  ])
+
+  if (loading) {
+    return <CircularProgress />
+  }
 
   return (
     <main>

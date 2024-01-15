@@ -17,6 +17,11 @@ export const ProgramStructure = ({programStructureInfo}) => {
 
   return (
     <SectionContainer
+      className="ProgramStructure-Container"
+      sxBox={{
+        marginBottom: '64px',
+        marginTop: '-64px',
+      }}
       sxContainer={{
         flexDirection: {
           xs: 'column',

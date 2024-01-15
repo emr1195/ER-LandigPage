@@ -4,7 +4,14 @@ import {GrabIcon, TypographyPersonalized} from '../../../common'
 
 export const TextSection = ({textSectionInfo}) => {
   const theme = useTheme()
-  const {infoSection, sectionTitle, title, description} = textSectionInfo
+  const {
+    infoSection,
+    subTitle,
+    subTitleText,
+    sectionTitle,
+    title,
+    description,
+  } = textSectionInfo
   const newDescription = description
     .split('.')
     .filter((part) => part.trim() !== '')
@@ -37,8 +44,26 @@ export const TextSection = ({textSectionInfo}) => {
         {newDescription.map((text, index) => (
           <TypographyPersonalized title={`${text}.`} variant={'body'} />
         ))}
+        <br />
+        <TypographyPersonalized
+          title={subTitle}
+          variant="h4"
+          sx={{
+            mx: {xs: 'auto'},
+            marginTop: '64px',
+            marginBottom: '8px',
+            fontWeight: 'bold',
+            maxWidth: {xs: '290px', lgMobile: 'none'},
+          }}
+        />
+        <br />
+        <TypographyPersonalized
+          sx={{mt: 4}}
+          title={subTitleText}
+          variant={'body'}
+        />
       </Box>
-      <Box className="ExtraInfoContainer">
+      {/* <Box className="ExtraInfoContainer">
         {infoSection
           .map((section, index) => (
             <Box
@@ -77,7 +102,7 @@ export const TextSection = ({textSectionInfo}) => {
             </Box>
           ))
           .sort((a, b) => a.position - b.position)}
-      </Box>
+      </Box> */}
     </Box>
   )
 }

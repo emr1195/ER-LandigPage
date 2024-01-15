@@ -75,6 +75,7 @@ export const CardContainer = ({events, sliderValue}) => {
               }}
             >
               <CardContent
+                className="cardContent"
                 sx={{
                   width: '100%',
                   height: '100%',
@@ -88,11 +89,16 @@ export const CardContainer = ({events, sliderValue}) => {
                   '& img': {
                     width: '100%',
                     height: '300px',
-                    objectFit: 'cover',
+                    objectFit: 'contain',
                   },
                 }}
               >
-                <img src={item.image} alt={item.title} />
+                <Box
+                  className="image-Card"
+                  sx={{backgroundColor: '#499cd6', width: '100%'}}
+                >
+                  <img src={item.image} alt={item.title} />
+                </Box>
                 <Box
                   padding="32px"
                   display="flex"

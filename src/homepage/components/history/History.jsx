@@ -6,7 +6,7 @@ export const History = ({historyInfo}) => {
   return (
     <SectionContainer
       className="History"
-      sxBox={{paddingBottom: '0 !important'}}
+      sxBox={{paddingBottom: '0 !important', marginBottom: '-64px'}}
       sxContainer={{
         flexDirection: {
           xs: 'column-reverse',
