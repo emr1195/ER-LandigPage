@@ -119,7 +119,7 @@ export const RegisterPageUI = ({props}) => {
             <Link
               component={RouterLink}
               color="inherit"
-              to="/auth/login"
+              // to="/auth/login"
               to={
                 displayInfo.outsideURL
                   ? displayInfo.url

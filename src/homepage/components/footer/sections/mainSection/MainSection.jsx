@@ -16,7 +16,6 @@ export const MainSection = ({mainSection}) => {
           gap: '8px',
           alignItems: 'center',
           justifyContent: 'space-between',
-          alignItems: 'center',
           width: {xs: '100%', lgMobile: 'fit-content'},
           flexDirection: {xs: 'column', lgMobile: 'row'},
         }}

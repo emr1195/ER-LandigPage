@@ -95,7 +95,7 @@ export const ImageSection = ({
             width: '96px',
             height: '96px',
             filter: 'blur(6px)',
-            background: theme.palette.gradient.main,
+            // background: theme.palette.gradient.main,
             // background:
             //   group.title === 'exploradores'
             //     ? group.colors.secondary
