@@ -51,8 +51,8 @@ export const MembersContainer = ({members}) => {
                 >
                   <img src={member.image} alt={member.name} />
                 </Box>
-                <Box py="8px" display="flex" flexDirection="column">
-                  {member.role.length > 11 ? (
+                <Box py="8px" display="flex" flexDirection="column" gap="8px">
+                  {/* {member.role.length > 11 ? (
                     <Tooltip title={member.role}>
                       <Box>
                         <TypographyPersonalized
@@ -70,9 +70,19 @@ export const MembersContainer = ({members}) => {
                       variant="body"
                       sx={{fontWeight: 'bold'}}
                     />
-                  )}
+                  )} */}
+                  <TypographyPersonalized
+                    title={member.role}
+                    color={theme.palette.black.main}
+                    variant="body"
+                    sx={{
+                      fontSize: '14px',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}
+                  />
 
-                  {member.name.length > 11 ? (
+                  {/* {member.name.length > 11 ? (
                     <Tooltip
                       title={member.name}
                       sx={{display: member.name.length > 11}}
@@ -91,7 +101,13 @@ export const MembersContainer = ({members}) => {
                       variant="button"
                       color={theme.palette.black50.main}
                     />
-                  )}
+                  )} */}
+                  <TypographyPersonalized
+                    title={member.name}
+                    variant="button"
+                    color={theme.palette.black50.main}
+                    sx={{textAlign: 'center'}}
+                  />
                 </Box>
               </Box>
             )
@@ -143,8 +159,9 @@ export const MembersContainer = ({members}) => {
                 >
                   <img src={member.image} alt={member.name} />
                 </Box>
-                <Box py="8px" display="flex" flexDirection="column">
-                  {member.role.length > 11 ? (
+
+                <Box py="8px" display="flex" flexDirection="column" gap="8px">
+                  {/* {member.role.length > 11 ? (
                     <Tooltip title={member.role}>
                       <Box>
                         <TypographyPersonalized
@@ -162,9 +179,19 @@ export const MembersContainer = ({members}) => {
                       variant="body"
                       sx={{fontWeight: 'bold'}}
                     />
-                  )}
+                  )} */}
+                  <TypographyPersonalized
+                    title={member.role}
+                    color={theme.palette.black.main}
+                    variant="body"
+                    sx={{
+                      fontSize: '14px',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}
+                  />
 
-                  {member.name.length > 11 ? (
+                  {/* {member.name.length > 11 ? (
                     <Tooltip
                       title={member.name}
                       sx={{display: member.name.length > 11}}
@@ -183,7 +210,13 @@ export const MembersContainer = ({members}) => {
                       variant="button"
                       color={theme.palette.black50.main}
                     />
-                  )}
+                  )} */}
+                  <TypographyPersonalized
+                    title={member.name}
+                    variant="button"
+                    color={theme.palette.black50.main}
+                    sx={{textAlign: 'center'}}
+                  />
                 </Box>
               </Box>
             )
@@ -235,8 +268,9 @@ export const MembersContainer = ({members}) => {
                 >
                   <img src={member.image} alt={member.name} />
                 </Box>
-                <Box py="8px" display="flex" flexDirection="column">
-                  {member.role.length > 11 ? (
+
+                <Box py="8px" display="flex" flexDirection="column" gap="8px">
+                  {/* {member.role.length > 11 ? (
                     <Tooltip title={member.role}>
                       <Box>
                         <TypographyPersonalized
@@ -254,9 +288,19 @@ export const MembersContainer = ({members}) => {
                       variant="body"
                       sx={{fontWeight: 'bold'}}
                     />
-                  )}
+                  )} */}
+                  <TypographyPersonalized
+                    title={member.role}
+                    color={theme.palette.black.main}
+                    variant="body"
+                    sx={{
+                      fontSize: '14px',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}
+                  />
 
-                  {member.name.length > 11 ? (
+                  {/* {member.name.length > 11 ? (
                     <Tooltip
                       title={member.name}
                       sx={{display: member.name.length > 11}}
@@ -275,7 +319,13 @@ export const MembersContainer = ({members}) => {
                       variant="button"
                       color={theme.palette.black50.main}
                     />
-                  )}
+                  )} */}
+                  <TypographyPersonalized
+                    title={member.name}
+                    variant="button"
+                    color={theme.palette.black50.main}
+                    sx={{textAlign: 'center'}}
+                  />
                 </Box>
               </Box>
             )
@@ -327,8 +377,9 @@ export const MembersContainer = ({members}) => {
                 >
                   <img src={member.image} alt={member.name} />
                 </Box>
-                <Box py="8px" display="flex" flexDirection="column">
-                  {member.role.length > 11 ? (
+
+                <Box py="8px" display="flex" flexDirection="column" gap="8px">
+                  {/* {member.role.length > 11 ? (
                     <Tooltip title={member.role}>
                       <Box>
                         <TypographyPersonalized
@@ -346,9 +397,19 @@ export const MembersContainer = ({members}) => {
                       variant="body"
                       sx={{fontWeight: 'bold'}}
                     />
-                  )}
+                  )} */}
+                  <TypographyPersonalized
+                    title={member.role}
+                    color={theme.palette.black.main}
+                    variant="body"
+                    sx={{
+                      fontSize: '14px',
+                      fontWeight: 'bold',
+                      textAlign: 'center',
+                    }}
+                  />
 
-                  {member.name.length > 11 ? (
+                  {/* {member.name.length > 11 ? (
                     <Tooltip
                       title={member.name}
                       sx={{display: member.name.length > 11}}
@@ -367,7 +428,13 @@ export const MembersContainer = ({members}) => {
                       variant="button"
                       color={theme.palette.black50.main}
                     />
-                  )}
+                  )} */}
+                  <TypographyPersonalized
+                    title={member.name}
+                    variant="button"
+                    color={theme.palette.black50.main}
+                    sx={{textAlign: 'center'}}
+                  />
                 </Box>
               </Box>
             )

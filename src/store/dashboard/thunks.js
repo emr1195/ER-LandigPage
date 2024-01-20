@@ -1,4 +1,11 @@
-import {collection, deleteDoc, doc, setDoc} from 'firebase/firestore/lite'
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+} from 'firebase/firestore/lite'
 import {FirebaseDB} from '../../firebase/config'
 import {
   addNewEmptyNote,
@@ -7,12 +14,23 @@ import {
   resetIsSaving,
   savingNewNote,
   setActiveNote,
+  setActiveSection,
   setNotes,
   setPhotosToActiveNote,
   setSaving,
   updateNote,
 } from './dashboardSlice'
 import {fileUpload, loadNotes} from '../../helpers'
+import {
+  setEventsInfo,
+  setExpeditionGroupInfo,
+  setHeroSectionInfo,
+  setHistoryInfo,
+  setNavbarInfo,
+  setOrganizationInfo,
+  setProgramStructureInfo,
+} from '../landingPage'
+import {setFooterInfo} from '../landingPage/footer'
 
 /**
  * Initiates the process of creating a new note in the Firestore database.
@@ -205,6 +223,48 @@ export const startDeletingNote = () => {
 
       // Throw an error to indicate the failure of the deletion process
       throw new Error('Error eliminando nota!!', error.message)
+    }
+  }
+}
+
+export const resetInfo = (section = '') => {
+  return async (dispatch, getState) => {
+    try {
+      // Reference to the Firestore collection containing user's notes
+      const docRef = doc(FirebaseDB, `er_landing_page/${section}`)
+
+      const docSnap = await getDoc(docRef)
+
+      const infoReset = docSnap.data()
+
+      const idToDispatchMap = {
+        /* Corresponding dispatch action for 'navbar' */
+        navbar: setNavbarInfo,
+        /* Corresponding dispatch action for 'hero_section' */
+        heroSection: setHeroSectionInfo, // is special because it has a collection inside
+        /* Corresponding dispatch action for 'historia' */
+        history: setHistoryInfo,
+        /* Corresponding dispatch action for 'program_structure' */
+        programStructure: setProgramStructureInfo,
+        /* Corresponding dispatch action for 'expedition_group' */
+        expeditionGroup: setExpeditionGroupInfo,
+        /* Corresponding dispatch action for 'events' */
+        events: setEventsInfo,
+        /* Corresponding dispatch action for 'organization' */
+        organization: setOrganizationInfo,
+        /* Corresponding dispatch action for 'footer' */
+        footer: setFooterInfo,
+      }
+
+      const dispatchAction = idToDispatchMap[section]
+      if (dispatchAction) {
+        dispatch(dispatchAction(infoReset))
+        dispatch(setActiveSection(infoReset))
+      }
+    } catch (error) {
+      // Handle errors during file uploads
+      dispatch(handleError(error.message))
+      throw new Error('Error reseteando la informacion!!', error.message)
     }
   }
 }

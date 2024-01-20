@@ -45,6 +45,8 @@ export const initialMenu = [
 
 export const initialStateNavbar = {
   isSaving: false,
+  message: '',
+  errorDB: '',
   info: {
     listMenu: initialMenu,
     sectionTitle: 'Navbar',

@@ -33,6 +33,7 @@ export const dashboardSlice = createSlice({
       state.notes = action.payload
     },
     setSaving: (state) => {
+      state.messageSaved = 'Guardando...'
       state.isSaving = true
       //TODO: mensaje de error...
     },

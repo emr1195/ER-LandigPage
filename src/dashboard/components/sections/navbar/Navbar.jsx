@@ -4,33 +4,43 @@ import {
   Checkbox,
   CircularProgress,
   FormControlLabel,
-  FormGroup,
   Grid,
   IconButton,
   TextField,
   Typography,
   useTheme,
 } from '@mui/material'
-import React, {useMemo, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {TypographyPersonalized} from '../../../../homepage/components/common'
-import {useForm, yupValidation} from '../../../../hooks'
-import DeleteIcon from '@mui/icons-material/Delete'
 import {Navbar as HomePageNavbar} from '../../../../homepage/components'
 import {DeleteOutline, UploadOutlined} from '@mui/icons-material'
+import {useDispatch, useSelector} from 'react-redux'
+import {
+  savingNewNavbar,
+  startUploadingLogo,
+} from '../../../../store/landingPage/navbar/thunks'
+import {resetInfo} from '../../../../store/dashboard'
 
 export const Navbar = ({info}) => {
   const qqq = structuredClone(info)
   qqq.listMenu.forEach((item) => (item.disabled = true))
 
+  const {isSaving, message} = useSelector((state) => state.navbar)
   const [infoCopy, setInfoCopy] = useState(qqq)
   const [loading, setLoading] = useState(false)
+
   const fileInputRef = useRef()
   const theme = useTheme()
+  const dispatch = useDispatch()
 
-  console.log(infoCopy)
+  useEffect(() => {
+    const qqq = structuredClone(info)
+    qqq.listMenu.forEach((item) => (item.disabled = true))
+    setInfoCopy(qqq)
+  }, [info])
 
   // Wrap the infoCopy in useMemo to memoize its value
-  const memoizedInfoCopy = useMemo(() => infoCopy, [infoCopy])
+  // const memoizedInfoCopy = useMemo(() => infoCopy, [infoCopy])
 
   const handleChange = ({target}) => {
     const {name, value} = target
@@ -38,6 +48,11 @@ export const Navbar = ({info}) => {
       ...prevInfoCopy,
       [name]: value,
     }))
+  }
+
+  const handleReset = () => {
+    const section = infoCopy.sectionTitle.toLowerCase()
+    dispatch(resetInfo(section))
   }
 
   const handleListMenuChange = (e, itemID, checkBox = false) => {
@@ -115,25 +130,25 @@ export const Navbar = ({info}) => {
       return
     }
 
-    console.log(target.files)
-    // dispatch(startUploadingFiles(target.files))
+    dispatch(startUploadingLogo(target.files[0]))
   }
 
   const onSubmit = async (event) => {
     // Prevent the default form submission behavior
     event.preventDefault()
 
-    // Perform form validation using the login schema
-    const validation = await formValidation(loginSchema, formState)
+    dispatch(savingNewNavbar(infoCopy))
+  }
 
-    // Update the validation state with the validation results, or use the default login form data if validation is null
-    setValidationState(validation ?? loginFormData)
+  const disableSubmitButton =
+    infoCopy.logo === '' ||
+    infoCopy.logoTitle === '' ||
+    infoCopy.listMenu.some(
+      (item) => item.url === '' || item.title === '' || item.position === '',
+    )
 
-    // Check if there are no validation errors (all values are empty strings)
-    if (!Object.values(validation || {}).some((value) => value !== '')) {
-      // Dispatch the action to start the login process with the provided email and password
-      // dispatch(startLoginWithEmailPassword({email, password}))
-    }
+  if (isSaving) {
+    return <CircularProgress />
   }
 
   return (
@@ -163,7 +178,7 @@ export const Navbar = ({info}) => {
           px="32px"
           className={`Preview-Navbar `}
         >
-          <HomePageNavbar navbarInfo={memoizedInfoCopy} />
+          <HomePageNavbar navbarInfo={infoCopy} />
         </Box>
 
         <Box
@@ -174,11 +189,10 @@ export const Navbar = ({info}) => {
         >
           <Box>
             <form
-              // onSubmit={onSubmit}
+              onSubmit={onSubmit}
               className="animate__animated animate__fadeIn animate_faster"
             >
               <Grid container gap={'8px'} className="LogoImage-Form">
-                {/* Email Input */}
                 <Grid
                   item
                   xs={12}
@@ -197,14 +211,14 @@ export const Navbar = ({info}) => {
                     sx={{minWidth: '150px', flex: 1}}
                   />
                   <TextField
-                    // label="Correo"
                     type="text"
                     fullWidth
                     name="infoCopy.logo"
                     onChange={handleChange}
                     value={infoCopy.logo}
-                    // error={!!validationState.logoURL}
-                    // helperText={validationState.logoURL}
+                    required
+                    error={infoCopy.logo === ''}
+                    helperText={infoCopy.logo === '' && '* Es obligatorio.'}
                     autoComplete="off"
                     inputProps={{
                       flex: 3,
@@ -244,7 +258,6 @@ export const Navbar = ({info}) => {
                       sx={{minWidth: '150px'}}
                     />
                   </Grid>
-                  {/* <img src={logo} alt={logoTitle} width="48px" height="48px" /> */}
                 </Grid>
                 <Grid
                   className="LogoTitle-Form"
@@ -270,8 +283,9 @@ export const Navbar = ({info}) => {
                     name="logoTitle"
                     onChange={handleChange}
                     value={infoCopy.logoTitle}
-                    // error={!!validationState.logoTitleText}
-                    // helperText={validationState.logoTitleText}
+                    required
+                    error={infoCopy.logoTitle === ''}
+                    helperText={infoCopy.logoTitle === '' && '* Es obligatorio'}
                     autoComplete="off"
                     inputProps={{
                       autoComplete: 'new-password',
@@ -328,8 +342,8 @@ export const Navbar = ({info}) => {
                               onChange={(e) => handleListMenuChange(e, id)}
                               value={title}
                               required
-                              // error={!!validationState.logoTitleText}
-                              // helperText={validationState.logoTitleText}
+                              error={title === ''}
+                              helperText={title === '' && '* Es obligatorio.'}
                               autoComplete="off"
                               inputProps={{
                                 autoComplete: 'new-password',
@@ -345,8 +359,8 @@ export const Navbar = ({info}) => {
                               onChange={(e) => handleListMenuChange(e, id)}
                               value={url}
                               required
-                              // error={!!validationState.logoTitleText}
-                              // helperText={validationState.logoTitleText}
+                              error={url === ''}
+                              helperText={url === '' && '* Es obligatorio'}
                               autoComplete="off"
                               inputProps={{
                                 autoComplete: 'new-password',
@@ -376,8 +390,10 @@ export const Navbar = ({info}) => {
                                 handleListMenuChange(e, id)
                               }}
                               value={position}
-                              // error={!!validationState.logoTitleText}
-                              // helperText={validationState.logoTitleText}
+                              error={position === ''}
+                              helperText={
+                                position === '' && '* Es obligatorio.'
+                              }
                               autoComplete="off"
                               inputProps={{
                                 autoComplete: 'new-password',
@@ -422,7 +438,6 @@ export const Navbar = ({info}) => {
                         )
                       },
                     )}
-                    {/* // .sort((a, b) => a.position - b.position)} */}
                   </Grid>
                 </Grid>
 
@@ -479,9 +494,10 @@ export const Navbar = ({info}) => {
                       <Grid item xs={12} sm={6}>
                         <Button
                           type="button"
-                          // disabled={isAuthenticating}
+                          disabled={isSaving}
                           variant="contained"
                           fullWidth
+                          onClick={handleReset}
                           sx={{backgroundColor: '#fff', color: '#000'}}
                         >
                           Cancel
@@ -490,8 +506,7 @@ export const Navbar = ({info}) => {
                       <Grid item xs={12} sm={6}>
                         <Button
                           type="submit"
-                          // disabled={isAuthenticating}
-                          onClick={() => console.log('save')}
+                          disabled={isSaving || disableSubmitButton}
                           variant="contained"
                           fullWidth
                         >
@@ -501,8 +516,6 @@ export const Navbar = ({info}) => {
                     </Grid>
                   </Box>
                 </Box>
-
-                {/* Password Input */}
               </Grid>
             </form>
           </Box>

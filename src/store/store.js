@@ -25,6 +25,8 @@ import {footerSlice} from './landingPage/footer/footerSlice'
  * @property {Object} events - The slice reducer managing events-related state.
  * @property {Object} organization - The slice reducer managing organization-related state.
  * @property {Object} footer - The slice reducer managing footer-related state.
+ *
+ *
  */
 export const store = configureStore({
   reducer: {
@@ -38,5 +40,7 @@ export const store = configureStore({
     events: eventsSlice.reducer,
     organization: organizationSlice.reducer,
     footer: footerSlice.reducer,
+
+    // dashboardNavbar: navbarDashboardSlice.reducer,
   },
 })
