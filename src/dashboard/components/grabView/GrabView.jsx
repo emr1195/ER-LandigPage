@@ -11,7 +11,7 @@ import {
 } from '../sections'
 
 export const GrabView = ({sectionActive}) => {
-  // console.log(sectionActive)
+  // console.log('grabview:', sectionActive)
   switch (sectionActive?.sectionTitle?.toLowerCase()) {
     case 'inicio':
       return <div>Inicio</div>

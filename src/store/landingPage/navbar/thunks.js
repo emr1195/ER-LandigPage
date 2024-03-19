@@ -54,6 +54,17 @@ export const savingNewNavbar = (newNavbarInfo) => {
       // cloning newNavbarInfo  to remove property disabled from listMenu
       const copyNNI = structuredClone(newNavbarInfo)
 
+      const date = new Date()
+      const {displayName, email, uid} = getState().auth
+
+      let day = date.getDate()
+      let month = date.getMonth() + 1
+      let year = date.getFullYear()
+      let currentDate = `${day}-${month}-${year}`
+
+      copyNNI.lastModified = currentDate
+      copyNNI.updatedBy = email
+
       const newListMenu = copyNNI.listMenu.map((item) => {
         const QRWV = {...item}
         delete QRWV.disabled // cleaning up disabled for DB
@@ -66,7 +77,7 @@ export const savingNewNavbar = (newNavbarInfo) => {
 
       await setDoc(docRef, copyNNI, {merge: true})
 
-      dispatch(resetInfo('navbar'))
+      dispatch(resetInfo('navbar', false))
     } catch (error) {
       // Handle errors during file uploads
       dispatch(handleError(error.message))

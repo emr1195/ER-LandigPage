@@ -3,18 +3,17 @@ import {
   deleteDoc,
   doc,
   getDoc,
-  getDocs,
   setDoc,
 } from 'firebase/firestore/lite'
 import {FirebaseDB} from '../../firebase/config'
 import {
-  addNewEmptyNote,
-  deleteNoteById,
   handleError,
+  resetIsCanceling,
   resetIsSaving,
   savingNewNote,
   setActiveNote,
   setActiveSection,
+  setCanceling,
   setNotes,
   setPhotosToActiveNote,
   setSaving,
@@ -227,9 +226,13 @@ export const startDeletingNote = () => {
   }
 }
 
-export const resetInfo = (section = '') => {
+export const resetInfo = (section = '', cancelled = true) => {
   return async (dispatch, getState) => {
     try {
+      console.log(cancelled)
+      if (cancelled) {
+        dispatch(setCanceling())
+      }
       // Reference to the Firestore collection containing user's notes
       const docRef = doc(FirebaseDB, `er_landing_page/${section}`)
 
@@ -260,6 +263,9 @@ export const resetInfo = (section = '') => {
       if (dispatchAction) {
         dispatch(dispatchAction(infoReset))
         dispatch(setActiveSection(infoReset))
+        if (cancelled) {
+          dispatch(resetIsCanceling())
+        }
       }
     } catch (error) {
       // Handle errors during file uploads

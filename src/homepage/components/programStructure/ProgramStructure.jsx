@@ -59,8 +59,10 @@ export const ProgramStructure = ({programStructureInfo}) => {
         >
           {/* item: {active: boolean, description: string, details[]: {bullet: string, definition: string, position: number}, id: string, image: string, position: number, title: string} */}
           {programValues
+
             .map((item, index) => (
               <EventButton
+                index={`${index}_`}
                 key={index}
                 displayInfo={item}
                 link={false}
@@ -82,7 +84,7 @@ export const ProgramStructure = ({programStructureInfo}) => {
                 }}
               />
             ))
-            .sort((a, b) => a.position - b.position)}
+            .sort((a, b) => a?.position - b?.position)}
         </Box>
       </Box>
 
@@ -103,6 +105,7 @@ export const ProgramStructure = ({programStructureInfo}) => {
           {programValues
             .map((item, index) => (
               <CardComponent
+                key={`${index}_`}
                 index={index}
                 className={`${adjustCarouselClass(
                   item.position,

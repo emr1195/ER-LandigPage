@@ -38,7 +38,7 @@ export const InfoBox = ({title, icon, style = {}}) => {
   }
   return (
     <Box
-      display="flex"
+      display={title && icon ? 'flex' : 'none'}
       flex={1}
       justifyContent="center"
       alignItems="center"

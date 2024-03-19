@@ -1,13 +1,18 @@
-import {collection, getDocs} from 'firebase/firestore/lite'
+import {collection, doc, getDocs, setDoc} from 'firebase/firestore/lite'
 import {FirebaseDB} from '../../firebase/config'
 import {setNavbarInfo} from './navbar'
 import {setHeroSectionInfo, startLoadingHeroSection} from './heroSection'
 import {setHistoryInfo} from './history'
-import {setProgramStructureInfo} from './programStructure'
+import {
+  resetSavingProgramStructure,
+  setProgramStructureInfo,
+  setSavingProgramStructure,
+} from './programStructure'
 import {setExpeditionGroupInfo} from './expeditionGroup'
 import {setEventsInfo} from './events'
 import {setOrganizationInfo} from './organization'
 import {setFooterInfo} from './footer'
+import {handleError, resetInfo, resetIsSaving, setSaving} from '../dashboard'
 
 export const startLoadingLandingPage = () => {
   return async (dispatch, getState) => {
@@ -55,6 +60,44 @@ export const startLoadingLandingPage = () => {
     } catch (error) {
       // Handle errors related to loading notes from the database
       throw new Error('Error cargando Toda la Info de la DB!', error)
+    }
+  }
+}
+
+export const savingNewProgramStructure = (newProgramStructureInfo) => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(setSavingProgramStructure())
+      dispatch(setSaving())
+
+      const {displayName, email, uid} = getState().auth
+      const date = new Date()
+
+      let day = date.getDate()
+      let month = date.getMonth() + 1
+      let year = date.getFullYear()
+      let currentDate = `${day}-${month}-${year}`
+
+      const copyNNI = structuredClone(newProgramStructureInfo)
+
+      copyNNI.lastModified = currentDate
+      copyNNI.updatedBy = email
+
+      const docRef = doc(FirebaseDB, `er_landing_page/programStructure`)
+
+      await setDoc(docRef, copyNNI, {merge: true})
+
+      dispatch(resetInfo('programStructure', false))
+    } catch (error) {
+      // Handle errors during file uploads
+      dispatch(handleError(error.message))
+      throw new Error(
+        'Error guardando la informacion de Estructure del Programa!!',
+        error.message,
+      )
+    } finally {
+      dispatch(resetSavingProgramStructure())
+      dispatch(resetIsSaving())
     }
   }
 }

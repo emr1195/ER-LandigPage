@@ -13,7 +13,7 @@ export const TextSection = ({textSectionInfo}) => {
     description,
   } = textSectionInfo
   const newDescription = description
-    .split('.')
+    .split(';')
     .filter((part) => part.trim() !== '')
 
   return (
@@ -42,10 +42,12 @@ export const TextSection = ({textSectionInfo}) => {
         />
 
         {newDescription.map((text, index) => (
-          <TypographyPersonalized title={`${text}.`} variant={'body'} />
+          <p key={index}>
+            <TypographyPersonalized title={`${text}`} variant={'body'} />
+          </p>
         ))}
         <br />
-        <TypographyPersonalized
+        {/* <TypographyPersonalized
           title={subTitle}
           variant="h4"
           sx={{
@@ -55,13 +57,13 @@ export const TextSection = ({textSectionInfo}) => {
             fontWeight: 'bold',
             maxWidth: {xs: '290px', lgMobile: 'none'},
           }}
-        />
+        /> */}
         <br />
-        <TypographyPersonalized
+        {/* <TypographyPersonalized
           sx={{mt: 4}}
           title={subTitleText}
           variant={'body'}
-        />
+        /> */}
       </Box>
       {/* <Box className="ExtraInfoContainer">
         {infoSection

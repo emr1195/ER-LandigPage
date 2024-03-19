@@ -8,6 +8,7 @@ export const dashboardSlice = createSlice({
     section: [],
     active: null,
     errorDB: '',
+    isCanceling: false,
     // active: {
     //     id: 'ABC123',
     //     title: '',
@@ -26,7 +27,8 @@ export const dashboardSlice = createSlice({
       state.messageSaved = 'Nueva entrada guardada exitosamente!'
     },
     setActiveSection: (state, action) => {
-      // console.log(action.payload)
+      console.log('active:', state.section, action.payload)
+
       state.section = action.payload
     },
     setNotes: (state, action) => {
@@ -35,6 +37,11 @@ export const dashboardSlice = createSlice({
     setSaving: (state) => {
       state.messageSaved = 'Guardando...'
       state.isSaving = true
+      //TODO: mensaje de error...
+    },
+    setCanceling: (state) => {
+      state.messageSaved = 'Cancelando...'
+      state.isCanceling = true
       //TODO: mensaje de error...
     },
     updateNote: (state, action) => {
@@ -80,6 +87,9 @@ export const dashboardSlice = createSlice({
     resetIsSaving: (state) => {
       state.isSaving = false
     },
+    resetIsCanceling: (state) => {
+      state.isCanceling = false
+    },
   },
 })
 
@@ -101,6 +111,8 @@ export const {
 
   ////////////////////////////
   setActiveSection,
+  setCanceling,
+  resetIsCanceling,
 } = dashboardSlice.actions
 
 // export const {setActiveSection} = dashboardSlice.actions

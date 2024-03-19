@@ -59,7 +59,11 @@ export const TextSection = ({textSectionInfo}) => {
         py={1}
       >
         {buttons.map((item, index) => (
-          <EventButton index={`${index}_${item.title}`} displayInfo={item} />
+          <EventButton
+            key={index}
+            index={`${index}_${item.title}`}
+            displayInfo={item}
+          />
         ))}
       </Box>
     </Box>

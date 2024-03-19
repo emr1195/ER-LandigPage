@@ -476,13 +476,18 @@ export const Navbar = ({info}) => {
                   <Box flex={1}>
                     <TypographyPersonalized
                       variant="caption"
-                      title={'Last Modified: '}
+                      title={'Last Modified:'}
+                      sx={{fontStyle: 'italic', fontWeight: 'bold'}}
                     />
                     <TypographyPersonalized
                       variant="caption"
-                      title={`${infoCopy.lastModified},`}
+                      title={`${infoCopy.lastModified}`}
                     />
-                    <TypographyPersonalized variant="caption" title={'by: '} />
+                    <TypographyPersonalized
+                      variant="caption"
+                      title={', by:'}
+                      sx={{fontStyle: 'italic', fontWeight: 'bold'}}
+                    />
                     <TypographyPersonalized
                       variant="caption"
                       title={`${infoCopy.updatedBy}.`}

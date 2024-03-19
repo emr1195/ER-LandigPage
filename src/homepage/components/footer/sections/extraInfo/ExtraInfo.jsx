@@ -18,7 +18,7 @@ export const ExtraInfo = ({aditionalFooterInfo}) => {
       gap="32px"
     >
       {aditionalFooterInfo.map(
-        ({name, disable, outsideURL, url}, socialMediaIndex) => {
+        ({name, disabled, outsideURL, url}, socialMediaIndex) => {
           return (
             <Link
               key={socialMediaIndex}
@@ -27,7 +27,7 @@ export const ExtraInfo = ({aditionalFooterInfo}) => {
               to={outsideURL ? url : `#${url ?? ''}`}
               target={outsideURL ? '_blank' : ''}
               sx={{
-                pointerEvents: disable ? 'none' : 'inherit',
+                pointerEvents: disabled ? 'none' : 'inherit',
                 textDecoration: 'none',
                 display: 'inline-block',
                 color: theme.palette.black50.main,
