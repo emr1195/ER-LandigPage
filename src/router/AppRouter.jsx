@@ -27,6 +27,7 @@ export const AppRouter = () => {
   const unauthenticatedRoutes = (
     <>
       {/* Routes for unauthenticated users */}
+      <Route path="/dashboard*" element={<AuthRoutes />} />
       <Route path="/auth/*" element={<AuthRoutes />} />
       {/* <Route path="/*" element={<HomepageRoutes />} /> */}
     </>
