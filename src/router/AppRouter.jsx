@@ -2,7 +2,7 @@ import React from 'react'
 import {Navigate, Route, Routes} from 'react-router-dom'
 import {AuthRoutes} from '../auth/routes/AuthRoutes'
 import {DashboardRoutes} from '../dashboard/routes/DashboardRoutes'
-import {HomepageRoutes} from '../homepage/routes/HomepageRoutes'
+import {HomepageRoutes} from '../homepage/routes/HomepageRoutes.jsx'
 import {CheckingAuth} from '../ui'
 import {useCheckAuth} from '../hooks'
 
