@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://emr1195.github.io/ER-LandigPage/",
+  "homepage": "https://emr1195.github.io/ER-LandigPage/#",
   "scripts": {
     "start": "vite",
     "dev": "vite",
