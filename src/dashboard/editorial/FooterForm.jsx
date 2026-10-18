@@ -16,7 +16,7 @@ export const FooterForm = ({value, onChange}) => (
     </p>
     <Fields
       fields={[
-        {key: 'title', label: 'Título de referencia'},
+        {key: 'title', label: 'Título de referencia', secondary: true},
         {key: 'sectionTitle', label: 'Nombre de la sección'},
       ]}
       value={value}

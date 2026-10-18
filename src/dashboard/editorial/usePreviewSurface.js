@@ -2,16 +2,22 @@ import {useEffect, useRef, useState} from 'react'
 
 export const previewDevices = {
   desktop: {label: 'Escritorio', width: 1280},
-  tablet: {label: 'Tablet', width: 768},
-  mobile: {label: 'Móvil', width: 390},
+  tablet: {label: 'Tablet', width: 768, height: 1024},
+  mobile: {label: 'Móvil', width: 390, height: 844},
 }
 
 export const usePreviewSurface = (sectionKey, data, device) => {
   const frame = useRef(null)
   const stage = useRef(null)
   const [availableWidth, setAvailableWidth] = useState(0)
-  const [height, setHeight] = useState(720)
+  const [contentHeight, setHeight] = useState(720)
   const width = previewDevices[device].width
+  // Navigation menus render in a portal outside the measured header. Give
+  // their mobile/tablet viewport enough room to open, as on the public page.
+  const height = Math.max(
+    contentHeight,
+    sectionKey === 'navbar' ? previewDevices[device].height || 64 : 64,
+  )
   useEffect(() => {
     const element = stage.current
     const measure = () => setAvailableWidth(element.clientWidth)

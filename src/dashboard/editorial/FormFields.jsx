@@ -118,14 +118,13 @@ export const Field = ({
 
 export const Fields = ({fields, value = {}, onChange}) => {
   const secondary = fields.filter(
-    (field) =>
-      field.key === 'sectionTitle' || field.label === 'Título de referencia',
+    (field) => field.key === 'sectionTitle' || field.secondary,
   )
   const primary = fields.filter((field) => !secondary.includes(field))
-  const render = ({key, ...field}) => (
+  const render = ({key, secondary = false, ...field}) => (
     <Field
       key={key}
-      wide={['title', 'name', 'url', 'logoTitle'].includes(key)}
+      wide={secondary || ['title', 'name', 'url', 'logoTitle'].includes(key)}
       type={key === 'icon' ? 'icon' : 'text'}
       {...field}
       value={value[key]}

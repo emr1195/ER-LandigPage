@@ -19,6 +19,8 @@ su historial. Se mantiene Editorial y las dos paletas claras aceptadas.
   escalado a la columna. Su altura sigue al contenido real y permanece junto al
   formulario en escritorio. Ampliar abre un diálogo con el mismo borrador;
   Escape cierra y devuelve el foco. No publica ni cambia el diseño público.
+  Navegación reserva un viewport de 768 × 1024 o 390 × 844 al elegir tablet o
+  móvil: su menú aparece en un portal fuera del alto medido de la cabecera.
 - Barra de publicación fija, con espacio reservado al final del contenido y
   margen de scroll para enfocar campos sin ocultarlos detrás de las acciones.
 - La medición y mensajería del preview se encapsulan en `usePreviewSurface`;
@@ -63,6 +65,27 @@ fieldset inválido antes que el input. La búsqueda ahora apunta a los controles
 invalidables. La prueba exige registro abierto, foco y publicación corregida.
 
 La matriz responsive agrega 1024 px a 320/390/768/1440 y al espacio equivalente
-de zoom 200 %. Pendiente al preparar la revisión: ejecución integral, build y
-resultados de los dos ejes de revisión. Las pruebas de escritura usan únicamente
+de zoom 200 %. La primera ejecución integral pasó **63/63**; lint, build y las
+5 suites Jest (21 pruebas) también pasaron. Persiste el aviso del paquete público
+de aproximadamente 501 kB, ajeno a este ajuste.
+
+La revisión encontró un caso adicional: el servidor rechazaba una fecha con
+espacios, pero el editor seguía mostrando Preview en móvil. La regresión falló
+antes del cambio y pasó al centralizar retorno a Editar, apertura de contenedores
+y foco en `useEditorValidation`. También pasó el caso de error en Portada desde
+otra pestaña y desde Preview.
+
+Se comprobó un riesgo adicional del preview de Navegación: al ajustar el iframe
+solo al alto de la cabecera, el menú público quedaba reducido a 16 px en móvil
+y 32 px en tablet. Dos pruebas reprodujeron el recorte antes de corregirlo y
+pasaron después. Sus viewports ahora reservan espacio para desplegar el menú.
+No se modificaron componentes públicos. El seguimiento agrega cuatro pruebas
+en `tests/density-edge-cases.spec.mjs`.
+
+El recorrido local adicional verificó los nueve previews en los tres dispositivos
+(**27 combinaciones**), sin errores de JavaScript ni cambios en el JSON público.
+Métricas: `after-density-nine-previews.json`, en la carpeta de capturas ignorada.
+
+[Revisión de ambos ejes y resolución](density-review.md). Pendiente tras las
+correcciones: repetición integral final. Las pruebas de escritura usan únicamente
 PostgreSQL de prueba aislado en 55439; no la base del usuario.

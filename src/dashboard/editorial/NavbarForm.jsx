@@ -5,7 +5,7 @@ import {CollectionEditor} from './CollectionEditor'
 const identity = [
   {key: 'logoTitle', label: 'Texto junto al logo'},
   {key: 'logo', label: 'Logo del sitio', type: 'image'},
-  {key: 'title', label: 'Título de referencia'},
+  {key: 'title', label: 'Título de referencia', secondary: true},
   {key: 'sectionTitle', label: 'Nombre de la sección'},
 ]
 const links = [

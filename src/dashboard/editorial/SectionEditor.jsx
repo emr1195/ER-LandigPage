@@ -8,6 +8,7 @@ import {PublishBar} from './PublishBar'
 import {PublicationFeedback} from './PublicationFeedback'
 import {useUploadQueue, UploadContext} from './useUploads'
 import {ValidationContext} from './formChanges'
+import {useEditorValidation} from './useEditorValidation'
 
 export const SectionEditor = ({
   section,
@@ -58,6 +59,7 @@ export const SectionEditor = ({
     if (editor.error?.status === 401) onSessionExpired?.()
   }, [editor.error, onSessionExpired])
   const [view, setView] = useState('edit')
+  const {form, validate} = useEditorValidation(editor.error?.fields, setView)
   const blocker = useBlocker(
     ({currentLocation, nextLocation}) =>
       !exitAuthorized.current &&
@@ -100,16 +102,7 @@ export const SectionEditor = ({
   const submit = (event) => {
     event.preventDefault()
     if (uploads.pending || uploads.failed) return
-    if (event.currentTarget.checkValidity()) editor.publish()
-    else {
-      const form = event.currentTarget
-      setView('edit')
-      requestAnimationFrame(() =>
-        form
-          .querySelector('input:invalid, select:invalid, textarea:invalid')
-          ?.focus(),
-      )
-    }
+    if (validate()) editor.publish()
   }
   return (
     <ValidationContext.Provider value={editor.error?.fields || {}}>
@@ -137,7 +130,7 @@ export const SectionEditor = ({
             Vista previa
           </button>
         </div>
-        <form onSubmit={submit} noValidate>
+        <form ref={form} onSubmit={submit} noValidate>
           <div className={'admin-editor-grid admin-view-' + view}>
             <div className="admin-panel admin-edit-panel">
               <fieldset
