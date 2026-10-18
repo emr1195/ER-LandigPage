@@ -46,3 +46,17 @@ posterior del usuario y no son un defecto de la entrega local.
 Inicial: Standards **0 infracciones y 1 observación opcional**; Spec **1 P2**.
 Las dos observaciones tienen corrección; la comprobación final se registra
 en [validación](validation.md).
+
+Segunda revisión de `c25bb49`: Standards confirma que no quedan infracciones
+ni observaciones accionables. Spec confirma que el guion corregido cierra P2
+y no encuentra otro problema material; el cierre del artefacto requiere que
+la nueva toma se incorpore al MP4 y pase la revisión visual registrada.
+
+Verificación del artefacto completada: la toma `take-1792343332238` muestra
+Portada a 2:44–2:46 y Eventos a continuación. Se revisó el fotograma completo
+de Portada (2:45), las diez hojas cronológicas y el informe generado con ambos
+detalles. MP4 de 234,60 s, SHA-256
+`aa3350351ab7cdc5e77f05024b7199e9ebdcaa75b47a2425e2aab6ac751c3dec`.
+El reproductor final pasó 9/9 pruebas y la comprobación de ruta base.
+
+Cierre: **Standards 0 hallazgos pendientes; Spec 0 hallazgos pendientes**.

@@ -172,7 +172,7 @@ def render(take):
     run(["-f", "concat", "-safe", "0", "-i", concatenation, "-c", "copy", "-movflags", "+faststart", final])
     (destination / "exploradores-walkthrough.vtt").write_text("\n".join(vtt), encoding="utf-8")
     poster = destination / "poster.jpg"
-    run(["-ss", str(chapters[1]['start'] + 2), "-i", final, "-frames:v", "1", "-q:v", "2", poster])
+    run(["-ss", str(max(0, chapters[1]['start'] - 2)), "-i", final, "-frames:v", "1", "-q:v", "2", poster])
     # Decode the full file to catch truncated or corrupt frames.
     run(["-i", final, "-f", "null", "-"])
     info = metadata(final)
