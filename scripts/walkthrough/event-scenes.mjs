@@ -1,4 +1,5 @@
 import {expect} from '@playwright/test'
+import {demoTitle, demoDescription} from './portada-scenes.mjs'
 
 export const eventName = 'Jornada de exploradores'
 export async function eventScenes({page,c,scene,visit,assets,origin,checks,pause}) {
@@ -49,8 +50,14 @@ export async function eventScenes({page,c,scene,visit,assets,origin,checks,pause
     'Actividad muestra el autor y el momento de cada publicación.',
     'Compara Antes y Después, incluida la eliminación del evento.',
   ],async()=>{
-    await c.click(page.getByRole('button',{name:'Ver cambios'}).first())
     const panel=page.locator('[aria-label="Detalle de la actividad"]')
+    const publicationRow = section => page.locator('.admin-activity-list article').filter({has:page.getByRole('heading',{name:'Contenido publicado · '+section,exact:true})})
+    await c.click(publicationRow('Portada').getByRole('button',{name:'Ver cambios'}))
+    await expect(panel.getByText(demoTitle,{exact:true})).toBeVisible()
+    await c.highlight(panel.getByText(demoTitle,{exact:true}),1200)
+    await pause(1000)
+    await c.click(publicationRow('Eventos').getByRole('button',{name:'Ver cambios'}))
+    await expect(panel.getByRole('heading',{name:/Encuentro de familias/}).first()).toBeVisible()
     await expect(panel).toBeVisible()
     await c.highlight(panel.getByRole('heading',{name:'Detalle de la actividad'}),1200)
     await c.highlight(panel.getByRole('heading',{name:'Después'}).first(),1000)
@@ -58,11 +65,17 @@ export async function eventScenes({page,c,scene,visit,assets,origin,checks,pause
     const publications=list.filter(item=>item.action==='publication')
     expect(publications).toHaveLength(2)
     const eventPublication=publications.find(item=>item.section_key==='events')
+    const heroPublication=publications.find(item=>item.section_key==='heroSection')
+    const heroDetail=await (await page.request.get(origin+'/api/activity/'+heroPublication.id)).json()
+    expect(heroDetail.actor_email).toBe('admin@example.test')
+    expect(heroDetail.before.textSection.title).not.toBe(demoTitle)
+    expect(heroDetail.after.textSection.title).toBe(demoTitle)
+    expect(heroDetail.after.textSection.description).toBe(demoDescription)
     const eventDetail=await (await page.request.get(origin+'/api/activity/'+eventPublication.id)).json()
     expect(eventDetail.actor_email).toBe('admin@example.test')
     expect(eventDetail.before.events.some(event=>event.id===removed.id)).toBe(true)
     expect(eventDetail.after.events.some(event=>event.id===removed.id)).toBe(false)
     expect(eventDetail.after.events.some(event=>event.title===eventName)).toBe(true)
-    checks.audit={publications:publications.length,actor:eventDetail.actor_email,eventId:eventPublication.id,beforeAfterVerified:true}
+    checks.audit={publications:publications.length,actor:eventDetail.actor_email,eventId:eventPublication.id,heroEventId:heroPublication.id,beforeAfterVerified:true,heroBeforeAfterVerified:true,detailsShown:['heroSection','events']}
   },{camera:{x:.52,y:.58}})
 }

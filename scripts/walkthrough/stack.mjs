@@ -2,8 +2,10 @@ import {spawn, spawnSync} from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 import {randomUUID} from 'node:crypto'
+import {resolvePostgresBin} from '../../tests/support/postgres.mjs'
 
 export async function startDemoStack(output) {
+  const pgBin = resolvePostgresBin()
   for (const port of [3410, 3411]) {
     try {
       await fetch(`http://127.0.0.1:${port}/api/health`, {signal: AbortSignal.timeout(1000)})
@@ -31,8 +33,7 @@ export async function startDemoStack(output) {
     if (child.pid && child.exitCode === null)
       spawnSync('taskkill', ['/PID', String(child.pid), '/T', '/F'], {windowsHide: true, stdio: 'ignore'})
     const data = path.join(scratch, 'postgres')
-    const binary = [process.env.PG_BIN && path.join(process.env.PG_BIN, 'pg_ctl.exe'), 'C:/Program Files/PostgreSQL/18/bin/pg_ctl.exe', 'C:/Program Files/PostgreSQL/17/bin/pg_ctl.exe'].find(value => value && fs.existsSync(value))
-    if (binary) spawnSync(binary, ['-D', data, '-m', 'fast', '-w', 'stop'], {windowsHide: true, stdio: 'ignore'})
+    spawnSync(path.join(pgBin, 'pg_ctl.exe'), ['-D', data, '-m', 'fast', '-w', 'stop'], {windowsHide: true, stdio: 'ignore'})
     if (fs.existsSync(lock) && JSON.parse(fs.readFileSync(lock, 'utf8')).token === token) fs.unlinkSync(lock)
     fs.closeSync(log)
   }

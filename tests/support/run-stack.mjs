@@ -3,6 +3,7 @@ import {spawn, spawnSync} from 'node:child_process'
 import {existsSync, mkdirSync, readFileSync} from 'node:fs'
 import path from 'node:path'
 import pg from 'pg'
+import {resolvePostgresBin} from './postgres.mjs'
 
 const root = process.cwd()
 const scratch = path.join(root, '.tmp', 'dashboard-test.local')
@@ -11,15 +12,7 @@ mkdirSync(scratch, {recursive: true})
 const recordingLock = path.join(scratch, 'walkthrough.lock')
 if (existsSync(recordingLock) && JSON.parse(readFileSync(recordingLock, 'utf8')).token !== process.env.WALKTHROUGH_LEASE)
   throw new Error('Hay una captura de walkthrough en curso; no se restableció la base de prueba.')
-const pgBin = [
-  process.env.PG_BIN,
-  'C:/Program Files/PostgreSQL/18/bin',
-  'C:/Program Files/PostgreSQL/17/bin',
-].find((value) => value && existsSync(path.join(value, 'initdb.exe')))
-if (!pgBin)
-  throw new Error(
-    'Configura PG_BIN para ejecutar PostgreSQL de prueba aislado.',
-  )
+const pgBin = resolvePostgresBin()
 const pgRun = (name, args) => {
   const result = spawnSync(path.join(pgBin, `${name}.exe`), args, {
     windowsHide: true,
