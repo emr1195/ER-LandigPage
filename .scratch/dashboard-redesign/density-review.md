@@ -62,6 +62,6 @@ pasaron después, incluida la publicación corregida. El conjunto afectado pasó
 
 Resumen: Standards 0 infracciones / 1 heurística menor corregida; Spec 2 P2
 corregidos, más la comprobación del menú corregida. Standards confirmó
-estáticamente 0 pendientes en el primer seguimiento. Pendiente al registrar
-este cierre: confirmación estática final de Spec sobre la asociación del error
-de imagen; las pruebas de navegador ya pasaron.
+estáticamente 0 pendientes en el primer seguimiento. Spec confirmó
+estáticamente en `aac58f0` el cierre del error de imagen y **0 requisitos
+pendientes identificados**. Las pruebas de navegador ya pasaron.
