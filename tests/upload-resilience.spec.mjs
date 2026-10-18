@@ -1,4 +1,4 @@
-import {test, expect} from '@playwright/test'
+import {test, expect} from './support/fixture.mjs'
 import {signIn} from './support/session.mjs'
 import {readdir} from 'node:fs/promises'
 import pg from 'pg'

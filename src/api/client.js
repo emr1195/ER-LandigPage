@@ -20,9 +20,13 @@ export const apiResponse = async (path, options = {}) => {
         : {}),
       ...options.headers,
     },
-  }).catch(error => {
+  }).catch((error) => {
     if (error.name === 'AbortError') throw error
-    throw new ApiError('No pudimos conectar con el servidor. Revisa tu conexión e inténtalo de nuevo.', undefined, 'NETWORK_ERROR')
+    throw new ApiError(
+      'No pudimos conectar con el servidor. Revisa tu conexión e inténtalo de nuevo.',
+      undefined,
+      'NETWORK_ERROR',
+    )
   })
 
   if (!response.ok) {

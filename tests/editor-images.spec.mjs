@@ -61,6 +61,21 @@ for (const [section, label, path] of cases) {
     ).json()
     expect(path.reduce((value, key) => value[key], detail.after)).toBe(uploaded)
     await page.getByRole('button', {name: 'Vista previa', exact: true}).click()
-    await expect.poll(() => page.frameLocator('iframe').locator('*').evaluateAll((elements, url) => elements.some(element => element.getAttribute('src') === url || getComputedStyle(element).backgroundImage.includes(url)), uploaded)).toBe(true)
+    await expect
+      .poll(() =>
+        page
+          .frameLocator('iframe')
+          .locator('*')
+          .evaluateAll(
+            (elements, url) =>
+              elements.some(
+                (element) =>
+                  element.getAttribute('src') === url ||
+                  getComputedStyle(element).backgroundImage.includes(url),
+              ),
+            uploaded,
+          ),
+      )
+      .toBe(true)
   })
 }

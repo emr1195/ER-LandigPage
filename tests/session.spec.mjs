@@ -1,4 +1,4 @@
-import {test, expect} from '@playwright/test'
+import {test, expect} from './support/fixture.mjs'
 import {signIn} from './support/session.mjs'
 
 test('la sesión vencida permite reingresar sin publicar ni perder la edición', async ({
