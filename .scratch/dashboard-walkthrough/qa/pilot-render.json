@@ -1,0 +1,79 @@
+{
+  "applicationCommit": "611f16f1ef9e3869d4f6d2dde0a1782a63e10034",
+  "origin": "http://127.0.0.1:3410",
+  "duration": 56.04,
+  "size": [
+    1920,
+    1080
+  ],
+  "fps": 25.0,
+  "bytes": 5180834,
+  "audio": "none; Spanish captions are embedded",
+  "checks": {
+    "portada": {
+      "title": "Una nueva aventura comienza aquí",
+      "image": "/api/uploads/files/a5f2acad-32c2-400d-810c-9d8beb2c545b.png",
+      "draftWasPrivate": true
+    },
+    "userContentUnchanged": true,
+    "browserErrors": []
+  },
+  "chapters": [
+    {
+      "id": "acceso",
+      "title": "01 / Un espacio para tu comunidad",
+      "start": 0,
+      "duration": 7.24
+    },
+    {
+      "id": "inicio",
+      "title": "02 / Elige qué quieres actualizar",
+      "start": 7.24,
+      "duration": 4.52
+    },
+    {
+      "id": "texto",
+      "title": "03 / Dale voz a tu portada",
+      "start": 11.76,
+      "duration": 10.84
+    },
+    {
+      "id": "imagen",
+      "title": "04 / Actualiza también las imágenes",
+      "start": 22.6,
+      "duration": 6.32
+    },
+    {
+      "id": "preview",
+      "title": "05 / Mira el resultado antes de publicar",
+      "start": 28.92,
+      "duration": 9.04
+    },
+    {
+      "id": "proteccion",
+      "title": "06 / Continúa con confianza",
+      "start": 37.96,
+      "duration": 8.12
+    },
+    {
+      "id": "publicar",
+      "title": "07 / Comparte los cambios con tu comunidad",
+      "start": 46.08,
+      "duration": 4.52
+    },
+    {
+      "id": "sitio",
+      "title": "08 / El resultado ya está en la página pública",
+      "start": 50.6,
+      "duration": 5.44
+    }
+  ],
+  "fullDecode": "passed",
+  "files": [
+    "public/walkthrough/exploradores-walkthrough.mp4",
+    "public/walkthrough/exploradores-walkthrough.vtt",
+    "public/walkthrough/poster.jpg"
+  ],
+  "sha256": "86ef76af988e91808ef6e0a3df6cc8eec4dfb638dc3b7ad7571af1a2dc34f3d1",
+  "provisional": true
+}

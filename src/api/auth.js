@@ -7,10 +7,12 @@ export const authClient = createAuthClient({
   baseURL: window.location.origin,
 })
 
-export const signInWithGoogle = async () => {
+export const signInWithGoogle = async (
+  callbackURL = `${window.location.origin}${import.meta.env.BASE_URL}dashboard`,
+) => {
   const {error} = await authClient.signIn.social({
     provider: 'google',
-    callbackURL: `${window.location.origin}${import.meta.env.BASE_URL}dashboard`,
+    callbackURL,
   })
 
   if (error) return {ok: false, errorMessage: error.message}

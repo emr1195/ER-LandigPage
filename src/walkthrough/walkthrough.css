@@ -1,0 +1,59 @@
+@font-face {
+  font-family: Walkthrough Manrope;
+  src: url('../dashboard/editorial/assets/manrope.ttf') format('truetype');
+  font-display: swap;
+}
+.walkthrough-page {
+  --walk-bg: #f5f6f7;
+  --walk-surface: #fff;
+  --walk-ink: #253342;
+  --walk-muted: #536474;
+  --walk-line: #cbd3da;
+  --walk-accent: #1268b3;
+  color: var(--walk-ink);
+  background: var(--walk-bg);
+  min-height: 100vh;
+  font: 400 15px/1.6 'Walkthrough Manrope', sans-serif;
+}
+.walkthrough-page * { box-sizing: border-box; }
+.walkthrough-page a { color: var(--walk-accent); text-underline-offset: 4px; }
+.walkthrough-page :is(a, button, video):focus-visible { outline: 3px solid var(--walk-accent); outline-offset: 5px; }
+.walkthrough-page .walkthrough-skip { position: fixed; z-index: 10; left: 16px; top: -100px; padding: 12px; background: white; }
+.walkthrough-page .walkthrough-skip:focus { top: 12px; }
+.walkthrough-header, .walkthrough-page main, .walkthrough-page footer { width: min(1200px, calc(100% - 64px)); margin: auto; }
+.walkthrough-page main { display: block; padding: 0; min-height: 0; }
+.walkthrough-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 88px; border-bottom: 1px solid var(--walk-line); }
+.walkthrough-header a { font-size: 14px; }
+.walkthrough-header .walkthrough-brand { color: var(--walk-ink); font-weight: 750; text-decoration: none; display: flex; align-items: center; gap: 12px; }
+.walkthrough-brand span { display: grid; place-items: center; width: 36px; height: 40px; border-radius: 12px; background: var(--walk-ink); color: white; font-size: 13px; flex: 0 0 auto; }
+.walkthrough-intro { padding: 36px 0 24px; display: flex; gap: 24px; justify-content: space-between; align-items: end; }
+.walkthrough-page .walkthrough-eyebrow { font-size: 11px; letter-spacing: .12em; font-weight: 750; text-transform: uppercase; margin: 0 0 8px; }
+.walkthrough-page h1 { font: 400 clamp(32px, 4vw, 48px)/1.15 Georgia, serif; margin: 0 0 12px; letter-spacing: -.03em; }
+.walkthrough-page p { margin: 0; }
+.walkthrough-intro p:not(.walkthrough-eyebrow), .walkthrough-meta { color: var(--walk-muted); }
+.walkthrough-page .walkthrough-meta { flex: 0 0 auto; font-size: 12px; text-align: right; }
+.walkthrough-page video { width: 100%; aspect-ratio: 16 / 9; display: block; background: #102b30; border-radius: 8px; }
+.walkthrough-actions { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 16px 0 24px; border-bottom: 1px solid var(--walk-line); }
+.walkthrough-actions p { font-size: 12px; color: var(--walk-muted); max-width: 640px; }
+.walkthrough-actions a { flex: 0 0 auto; font-weight: 700; padding: 8px 0; }
+.walkthrough-transcript { padding: 32px 0; }
+.walkthrough-transcript-heading { display: flex; gap: 16px; justify-content: space-between; align-items: baseline; }
+.walkthrough-page h2 { font: 400 28px/1.3 Georgia, serif; margin: 0 0 8px; }
+.walkthrough-transcript-heading a, .walkthrough-transcript > p { font-size: 13px; }
+.walkthrough-transcript > p { color: var(--walk-muted); }
+.walkthrough-transcript ol { list-style: none; padding: 0; margin: 24px 0 0; }
+.walkthrough-transcript li { display: grid; grid-template-columns: 370px 1fr; gap: 32px; border-top: 1px solid var(--walk-line); padding: 16px 0; }
+.walkthrough-transcript button { align-self: start; text-align: left; font: inherit; font-weight: 700; background: transparent; border: 0; padding: 4px 0; color: var(--walk-accent); cursor: pointer; display: flex; align-items: baseline; gap: 16px; }
+.walkthrough-transcript button span { font-size: 12px; font-weight: 500; font-variant-numeric: tabular-nums; min-width: 36px; }
+.walkthrough-transcript li p { color: var(--walk-muted); font-size: 13px; margin: 4px 0; }
+.walkthrough-page footer { display: flex; justify-content: space-between; gap: 24px; padding: 20px 0 32px; border-top: 1px solid var(--walk-line); font-size: 12px; }
+@media (max-width: 768px) {
+  .walkthrough-header, .walkthrough-page main, .walkthrough-page footer { width: calc(100% - 32px); }
+  .walkthrough-header { min-height: 76px; gap: 16px; }
+  .walkthrough-header a { font-size: 12px; }
+  .walkthrough-intro { display: block; padding-top: 24px; }
+  .walkthrough-page .walkthrough-meta { text-align: left; margin-top: 16px; }
+  .walkthrough-meta br { display: none; }
+  .walkthrough-actions, .walkthrough-transcript-heading, .walkthrough-page footer { align-items: start; flex-direction: column; gap: 8px; }
+  .walkthrough-transcript li { grid-template-columns: 1fr; gap: 4px; }
+}

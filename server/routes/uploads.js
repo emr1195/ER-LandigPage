@@ -5,9 +5,11 @@ import {fileURLToPath} from 'node:url'
 import {Router} from 'express'
 import multer from 'multer'
 import {requireAdmin} from '../middleware/auth.js'
+import {completeUpload} from '../services/uploadActivity.js'
 
 const currentDir = path.dirname(fileURLToPath(import.meta.url))
-export const uploadsDirectory = path.resolve(currentDir, '../../uploads')
+export const uploadsDirectory =
+  process.env.UPLOADS_DIRECTORY || path.resolve(currentDir, '../../uploads')
 
 mkdirSync(uploadsDirectory, {recursive: true})
 
@@ -41,16 +43,26 @@ const upload = multer({
 export const uploadsRouter = Router()
 
 uploadsRouter.post('/', requireAdmin, (req, res, next) => {
-  upload.single('file')(req, res, (error) => {
+  upload.single('file')(req, res, async (error) => {
     if (error) {
       error.status = 400
+      if (error.code === 'LIMIT_FILE_SIZE')
+        error.message = 'La imagen supera el límite de 8 MB.'
+      if (error.code === 'LIMIT_UNEXPECTED_FILE')
+        error.message = 'Selecciona una sola imagen.'
       return next(error)
     }
     if (!req.file) {
       return res.status(400).json({error: 'Selecciona una imagen.'})
     }
-    return res.status(201).json({
-      url: `/api/uploads/files/${req.file.filename}`,
-    })
+    try {
+      return res
+        .status(201)
+        .json(
+          await completeUpload(req.file, req.body, res.locals.authSession.user),
+        )
+    } catch (failure) {
+      return next(failure)
+    }
   })
 })

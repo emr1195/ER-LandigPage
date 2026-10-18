@@ -1,0 +1,161 @@
+{
+  "duration": 234.6,
+  "durationLabel": "3:54",
+  "provisional": false,
+  "chapters": [
+    {
+      "id": "acceso",
+      "title": "01 / Un espacio para tu comunidad",
+      "start": 0,
+      "duration": 16.04,
+      "captions": [
+        "Exploradores del Rey · Administración del sitio",
+        "Actualiza el contenido de tu comunidad sin editar código. Datos ficticios de demostración."
+      ]
+    },
+    {
+      "id": "inicio",
+      "title": "02 / Elige qué quieres actualizar",
+      "start": 16.04,
+      "duration": 10.0,
+      "captions": [
+        "Nueve secciones para mantener tu sitio desde un mismo lugar."
+      ]
+    },
+    {
+      "id": "texto",
+      "title": "03 / Dale voz a tu portada",
+      "start": 26.04,
+      "duration": 24.04,
+      "captions": [
+        "Edita el mensaje principal y su descripción.",
+        "Tus cambios todavía son un borrador: los visitantes aún no los ven."
+      ]
+    },
+    {
+      "id": "imagen",
+      "title": "04 / Actualiza también las imágenes",
+      "start": 50.08,
+      "duration": 14.04,
+      "captions": [
+        "Sube una imagen y revisa cómo acompaña tu mensaje."
+      ]
+    },
+    {
+      "id": "preview",
+      "title": "05 / Mira el resultado antes de publicar",
+      "start": 64.12,
+      "duration": 20.04,
+      "captions": [
+        "Comprueba la vista previa en distintos tamaños de pantalla.",
+        "Amplía el resultado y vuelve a la edición cuando quieras."
+      ]
+    },
+    {
+      "id": "proteccion",
+      "title": "06 / Continúa con confianza",
+      "start": 84.16,
+      "duration": 18.04,
+      "captions": [
+        "El panel avisa si intentas salir con cambios sin guardar.",
+        "Corrige los campos necesarios antes de publicar."
+      ]
+    },
+    {
+      "id": "publicar",
+      "title": "07 / Comparte los cambios con tu comunidad",
+      "start": 102.2,
+      "duration": 10.04,
+      "captions": [
+        "Guardar y publicar hace visibles los cambios en tu sitio."
+      ]
+    },
+    {
+      "id": "sitio",
+      "title": "08 / El resultado ya está en la página pública",
+      "start": 112.24,
+      "duration": 12.04,
+      "captions": [
+        "El título y la imagen publicados aparecen en la página que ven tus visitantes."
+      ]
+    },
+    {
+      "id": "crear-evento",
+      "title": "09 / Prepara la próxima actividad",
+      "start": 124.28,
+      "duration": 24.04,
+      "captions": [
+        "Agrega un evento con fecha, lugar, equipo organizador e imagen.",
+        "Prepara todos los cambios antes de publicarlos."
+      ]
+    },
+    {
+      "id": "eliminar-evento",
+      "title": "10 / Una baja espera a la publicación",
+      "start": 148.32,
+      "duration": 14.04,
+      "captions": [
+        "Confirma la eliminación del evento que ya no necesitas.",
+        "La creación y la baja se hacen públicas al guardar y publicar."
+      ]
+    },
+    {
+      "id": "auditoria",
+      "title": "11 / Consulta quién publicó y qué cambió",
+      "start": 162.36,
+      "duration": 22.04,
+      "captions": [
+        "Actividad muestra el autor y el momento de cada publicación.",
+        "Compara Antes y Después, incluida la eliminación del evento."
+      ]
+    },
+    {
+      "id": "apariencias",
+      "title": "12 / Tu apariencia, a tu manera",
+      "start": 184.4,
+      "duration": 12.04,
+      "captions": [
+        "Carbon & Azure y Petrol & Apricot: dos apariencias claras.",
+        "Tu cuenta recuerda la apariencia elegida."
+      ]
+    },
+    {
+      "id": "preferencia",
+      "title": "13 / La elección se conserva",
+      "start": 196.44,
+      "duration": 6.04,
+      "captions": [
+        "Después de recargar, tu apariencia sigue aquí."
+      ]
+    },
+    {
+      "id": "movil-nav",
+      "title": "14 / Tu comunidad, en cada pantalla",
+      "start": 202.48,
+      "duration": 12.04,
+      "captions": [
+        "Navegación real en una pantalla móvil."
+      ]
+    },
+    {
+      "id": "movil-edicion",
+      "title": "15 / Edita y revisa desde el móvil",
+      "start": 214.52,
+      "duration": 12.04,
+      "captions": [
+        "El evento publicado también está disponible desde el móvil.",
+        "Revisa la vista previa con el mismo contenido."
+      ]
+    },
+    {
+      "id": "cierre",
+      "title": "Edita, revisa y publica",
+      "start": 226.56,
+      "duration": 8.04,
+      "captions": [
+        "Cada publicación tiene un registro de sus cambios.",
+        "Encuentra el video y la guía de configuración en el README."
+      ]
+    }
+  ]
+}

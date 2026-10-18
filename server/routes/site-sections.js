@@ -2,6 +2,7 @@ import {Router} from 'express'
 import {pool} from '../db.js'
 import {requireAdmin} from '../middleware/auth.js'
 import {prepareDetachmentSection} from '../services/detachments.js'
+import {publishSection} from '../services/siteSections.js'
 
 export const siteSectionsRouter = Router()
 
@@ -19,9 +20,10 @@ siteSectionsRouter.get('/', async (_req, res, next) => {
 siteSectionsRouter.get('/:id', async (req, res, next) => {
   try {
     const {rows} = await pool.query(
-      'select data from site_sections where id = $1',
+      'select data, revision from site_sections where id = $1',
       [req.params.id],
     )
+    res.set('ETag', '"' + (rows[0]?.revision || '0') + '"')
     return res.json(rows[0]?.data ?? null)
   } catch (error) {
     return next(error)
@@ -30,25 +32,14 @@ siteSectionsRouter.get('/:id', async (req, res, next) => {
 
 siteSectionsRouter.put('/:id', requireAdmin, async (req, res, next) => {
   try {
-    let sectionData = req.body
-    if (req.params.id === 'detachment') {
-      try {
-        sectionData = await prepareDetachmentSection(req.body)
-      } catch (error) {
-        return res.status(400).json({error: error.message})
-      }
-    }
-    const {rows} = await pool.query(
-      `insert into site_sections (id, data, updated_by, updated_at)
-       values ($1, $2::jsonb, $3, now())
-       on conflict (id) do update
-       set data = excluded.data,
-           updated_by = excluded.updated_by,
-           updated_at = now()
-       returning id, data`,
-      [req.params.id, JSON.stringify(sectionData), res.locals.authSession.user.email],
+    const result = await publishSection(
+      req.params.id,
+      req.body,
+      req.headers['if-match'],
+      res.locals.authSession.user,
     )
-    return res.json(rows[0])
+    res.set('ETag', '"' + result.revision + '"')
+    return res.json({id: result.id, data: result.data})
   } catch (error) {
     return next(error)
   }

@@ -1,0 +1,20 @@
+{
+  "base": "/demo/",
+  "routes": [
+    "walkthrough",
+    "walktrough"
+  ],
+  "reload": true,
+  "playback": true,
+  "seek": true,
+  "mime": "video/mp4",
+  "partial": 206,
+  "sha256": "aa3350351ab7cdc5e77f05024b7199e9ebdcaa75b47a2425e2aab6ac751c3dec",
+  "widths": [
+    320,
+    768,
+    1024,
+    1440
+  ],
+  "browserErrors": []
+}
