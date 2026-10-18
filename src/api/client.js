@@ -1,6 +1,8 @@
+import {apiUrl, externalApi} from './deployment'
+
 export const apiRequest = async (path, options = {}) => {
-  const response = await fetch(path, {
-    credentials: 'include',
+  const response = await fetch(apiUrl(path), {
+    credentials: externalApi ? 'omit' : 'include',
     ...options,
     headers: {
       ...(options.body ? {'Content-Type': 'application/json'} : {}),

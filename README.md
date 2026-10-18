@@ -64,6 +64,10 @@ El botón de Google solo aparece cuando ambas variables están configuradas. Des
 
 ## Producción
 
+Para GitHub Pages conectado a un VPS con PostgreSQL independiente, ver
+[la guía de despliegue](deploy/README.md). Incluye HTTPS, Docker, volúmenes
+persistentes, migración del contenido y publicación del frontend.
+
 ```powershell
 npm run build
 npm start

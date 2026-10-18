@@ -1,0 +1,62 @@
+name: er-landing
+services:
+  db:
+    image: postgres:18-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: er_landing
+      POSTGRES_USER: er_app
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U er_app -d er_landing']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    # No ports: PostgreSQL is private to this Docker network.
+  app:
+    build: ..
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://er_app:${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD}@db:5432/er_landing
+      DATABASE_SSL: 'false'
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?Define BETTER_AUTH_SECRET}
+      BETTER_AUTH_URL: https://${DOMAIN:?Define DOMAIN}
+      CLIENT_ORIGIN: https://${DOMAIN:?Define DOMAIN}
+      PUBLIC_SITE_ORIGIN: ${PUBLIC_SITE_ORIGIN:?Define PUBLIC_SITE_ORIGIN}
+      TRUST_PROXY: 'true'
+      ADMIN_NAME: ${ADMIN_NAME:-Administrador}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?Define ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Define ADMIN_PASSWORD}
+    volumes:
+      - uploads:/app/uploads
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3001/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+  proxy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    environment:
+      DOMAIN: ${DOMAIN:?Define DOMAIN}
+    ports:
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+volumes:
+  postgres_data:
+  uploads:
+  caddy_data:
+  caddy_config:

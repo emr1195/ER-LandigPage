@@ -1,3 +1,5 @@
+import {publicImageUrl} from '../api/deployment'
+
 export const prepareSection = (info) => {
   const visit = (value) => {
     if (Array.isArray(value)) {
@@ -14,7 +16,7 @@ export const prepareSection = (info) => {
     if (value && typeof value === 'object') {
       return Object.fromEntries(Object.entries(value).map(([key, entry]) => [key, visit(entry)]))
     }
-    return value
+    return publicImageUrl(value)
   }
   const result = visit(info)
   if (result.listMenu) result.logoTitle ??= ''

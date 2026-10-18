@@ -9,6 +9,7 @@ import {toNodeHandler} from 'better-auth/node'
 import {auth, googleEnabled} from './auth.js'
 import {pool} from './db.js'
 import {requireAdmin} from './middleware/auth.js'
+import {publicOrigin} from './middleware/publicOrigin.js'
 import {notesRouter} from './routes/notes.js'
 import {siteSectionsRouter} from './routes/site-sections.js'
 import {mapsRouter} from './routes/maps.js'
@@ -21,6 +22,9 @@ const currentDir = path.dirname(fileURLToPath(import.meta.url))
 const distDir = path.resolve(currentDir, '../dist')
 
 app.disable('x-powered-by')
+// One trusted reverse proxy (Caddy); never expose the app port publicly.
+if (process.env.TRUST_PROXY === 'true') app.set('trust proxy', 1)
+app.use('/api/site-sections', publicOrigin)
 
 // Los administradores se crean exclusivamente con npm run db:seed-admin.
 app.post('/api/auth/sign-up/email', (_req, res) => {

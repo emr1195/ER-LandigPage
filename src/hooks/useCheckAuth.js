@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {login, logout} from '../store/auth'
 import {startLoadingNotes} from '../store/dashboard'
 import {getAuthorizedUser} from '../api'
+import {externalApi} from '../api/deployment'
 
 /**
  * Custom hook responsible for checking the user's authentication status.
@@ -21,6 +22,10 @@ export const useCheckAuth = () => {
 
   useEffect(() => {
     let active = true
+    if (externalApi) {
+      dispatch(logout())
+      return undefined
+    }
 
     getAuthorizedUser()
       .then((authorizedUser) => {
