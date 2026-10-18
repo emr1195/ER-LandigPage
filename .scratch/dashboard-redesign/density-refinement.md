@@ -79,13 +79,20 @@ Se comprobó un riesgo adicional del preview de Navegación: al ajustar el ifram
 solo al alto de la cabecera, el menú público quedaba reducido a 16 px en móvil
 y 32 px en tablet. Dos pruebas reprodujeron el recorte antes de corregirlo y
 pasaron después. Sus viewports ahora reservan espacio para desplegar el menú.
-No se modificaron componentes públicos. El seguimiento agrega cuatro pruebas
-en `tests/density-edge-cases.spec.mjs`.
+No se modificaron componentes públicos. El seguimiento agrega seis pruebas
+en `tests/density-edge-cases.spec.mjs`, incluidas las dos de errores de imagen
+descritas en la revisión.
 
 El recorrido local adicional verificó los nueve previews en los tres dispositivos
 (**27 combinaciones**), sin errores de JavaScript ni cambios en el JSON público.
 Métricas: `after-density-nine-previews.json`, en la carpeta de capturas ignorada.
 
-[Revisión de ambos ejes y resolución](density-review.md). Pendiente tras las
-correcciones: repetición integral final. Las pruebas de escritura usan únicamente
-PostgreSQL de prueba aislado en 55439; no la base del usuario.
+[Revisión de ambos ejes y resolución](density-review.md). La repetición integral
+tras corregir foco y menú pasó **67/67**. Después se reprodujeron dos errores de
+imagen plegada (Eventos y Portada), se asociaron control y mensaje mediante
+`aria-invalid`/`aria-describedby`, y pasaron **23/23** recorridos afectados:
+las seis regresiones adicionales, siete de densidad, ocho de imágenes y dos
+de validación. Lint y build volvieron a pasar con el código final. No se atribuye
+una tercera ejecución integral de 69 casos: los dos casos nuevos se comprobaron
+en ese conjunto dirigido. Las pruebas de escritura usan únicamente PostgreSQL
+de prueba aislado en 55439; no la base del usuario.

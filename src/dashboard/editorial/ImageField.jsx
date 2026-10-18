@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useId} from 'react'
 import {useImageUpload} from './useImageUpload'
 export const ImageField = ({
   label,
@@ -7,6 +7,7 @@ export const ImageField = ({
   help,
   validationError,
 }) => {
+  const errorId = useId()
   const {pending, error, upload, retry, cancel} = useImageUpload(
     label,
     onChange,
@@ -53,6 +54,8 @@ export const ImageField = ({
           <span>Dirección de {label.toLowerCase()}</span>
           <input
             aria-label={label}
+            aria-invalid={Boolean(validationError)}
+            aria-describedby={validationError ? errorId : undefined}
             type="text"
             value={value}
             onChange={(event) => {
@@ -69,7 +72,7 @@ export const ImageField = ({
         </p>
       )}
       {validationError && (
-        <p className="admin-field-error" role="alert">
+        <p id={errorId} className="admin-field-error" role="alert">
           {validationError}
         </p>
       )}

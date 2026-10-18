@@ -50,6 +50,49 @@ test('un error del servidor vuelve a la pestaña de texto de Portada y enfoca el
   ).toHaveAttribute('aria-selected', 'true')
 })
 
+for (const [section, label] of [
+  ['events', 'Imagen del evento'],
+  ['heroSection', 'Imagen superior izquierda'],
+]) {
+  test(`${section}: un error de imagen abre la dirección plegada y la enfoca desde Preview`, async ({
+    page,
+  }) => {
+    await signIn(page.request)
+    await page.setViewportSize({width: 375, height: 812})
+    await page.goto('/dashboard/' + section)
+    const record = page.locator('details.admin-record').first()
+    if (section === 'events') await record.locator(':scope > summary').click()
+    else await page.getByRole('tab', {name: 'Imágenes', exact: true}).click()
+    const details = page.locator('.admin-image-url').first()
+    await details.locator('summary').click()
+    const image = page.getByLabel(label, {exact: true}).first()
+    const original = await image.inputValue()
+    await image.fill('javascript:alert(1)')
+    await details.locator('summary').click()
+    if (section === 'events') await record.locator(':scope > summary').click()
+    else await page.getByRole('tab', {name: 'Texto', exact: true}).click()
+    await page.getByRole('button', {name: 'Vista previa', exact: true}).click()
+    await page
+      .getByRole('button', {name: 'Guardar y publicar', exact: true})
+      .click()
+    await expect(image).toBeVisible()
+    await expect(image).toHaveAttribute('aria-invalid', 'true')
+    await expect(image).toBeFocused()
+    await expect(image).toHaveAttribute('aria-describedby', /.+/)
+    const errorId = await image.getAttribute('aria-describedby')
+    await expect(page.locator(`[id="${errorId}"]`)).toHaveText(
+      'Sube una imagen o usa una dirección HTTP o HTTPS.',
+    )
+    await image.fill(original + '?valid=1')
+    await page
+      .getByRole('button', {name: 'Guardar y publicar', exact: true})
+      .click()
+    await expect(
+      page.getByRole('status').filter({hasText: 'Contenido publicado'}),
+    ).toBeVisible()
+  })
+}
+
 for (const device of ['mobile', 'tablet']) {
   test(`el menú público de Navegación tiene espacio para abrirse en ${device}`, async ({
     page,
