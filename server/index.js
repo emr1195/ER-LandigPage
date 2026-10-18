@@ -14,6 +14,8 @@ import {notesRouter} from './routes/notes.js'
 import {siteSectionsRouter} from './routes/site-sections.js'
 import {mapsRouter} from './routes/maps.js'
 import {uploadsDirectory, uploadsRouter} from './routes/uploads.js'
+import {activityRouter} from './routes/activity.js'
+import {preferencesRouter} from './routes/preferences.js'
 
 const app = express()
 const port = Number(process.env.PORT || 3001)
@@ -28,7 +30,9 @@ app.use('/api/site-sections', publicOrigin)
 
 // Los administradores se crean exclusivamente con npm run db:seed-admin.
 app.post('/api/auth/sign-up/email', (_req, res) => {
-  return res.status(403).json({error: 'El registro publico esta deshabilitado.'})
+  return res
+    .status(403)
+    .json({error: 'El registro publico esta deshabilitado.'})
 })
 
 // Better Auth debe recibir el cuerpo sin procesar antes de express.json().
@@ -63,7 +67,11 @@ app.get('/api/me', requireAdmin, async (req, res) => {
 
 app.use('/api/site-sections', siteSectionsRouter)
 app.use('/api/notes', notesRouter)
-app.use('/api', (_req, res) => res.status(404).json({error: 'Ruta no encontrada.'}))
+app.use('/api/activity', activityRouter)
+app.use('/api/me/preferences', preferencesRouter)
+app.use('/api', (_req, res) =>
+  res.status(404).json({error: 'Ruta no encontrada.'}),
+)
 
 if (existsSync(distDir)) {
   app.use(express.static(distDir))
@@ -71,11 +79,13 @@ if (existsSync(distDir)) {
 }
 
 app.use((error, _req, res, _next) => {
-  console.error(error)
   const statusCandidate = Number(error.statusCode || error.status || 500)
   const status = Number.isInteger(statusCandidate) ? statusCandidate : 500
+  if (status >= 500) console.error('Error de API:', error.message)
   return res.status(status).json({
     error: status >= 500 ? 'Error interno del servidor.' : error.message,
+    code: status >= 500 ? 'SERVER_ERROR' : error.code || 'REQUEST_ERROR',
+    fields: error.fields || {},
   })
 })
 

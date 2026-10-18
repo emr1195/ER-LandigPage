@@ -4,7 +4,10 @@ import {betterAuth} from 'better-auth'
 import {pool} from './db.js'
 
 const port = process.env.PORT || 3001
-if (!process.env.BETTER_AUTH_SECRET || process.env.BETTER_AUTH_SECRET.length < 32) {
+if (
+  !process.env.BETTER_AUTH_SECRET ||
+  process.env.BETTER_AUTH_SECRET.length < 32
+) {
   throw new Error('BETTER_AUTH_SECRET debe tener al menos 32 caracteres.')
 }
 
@@ -16,7 +19,7 @@ export const auth = betterAuth({
   database: pool,
   baseURL: process.env.BETTER_AUTH_URL || `http://localhost:${port}`,
   secret: process.env.BETTER_AUTH_SECRET,
-  trustedOrigins: [process.env.CLIENT_ORIGIN || 'http://localhost:3000'],
+  trustedOrigins: [process.env.CLIENT_ORIGIN || 'http://localhost:3002'],
   emailAndPassword: {
     enabled: true,
   },

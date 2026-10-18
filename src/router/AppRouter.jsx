@@ -1,52 +1,47 @@
 import React from 'react'
-import {Navigate, Route, Routes} from 'react-router-dom'
-import {AuthRoutes} from '../auth/routes/AuthRoutes'
-import {DashboardRoutes} from '../dashboard/routes/DashboardRoutes'
-import {HomepageRoutes} from '../homepage/routes/HomePageRoutes.jsx'
-import {CheckingAuth} from '../ui'
-import {useCheckAuth} from '../hooks'
+import {Route, Routes, useLocation} from 'react-router-dom'
+import {HomepageRoutes} from '../homepage/routes/HomePageRoutes'
 import {apiOrigin, externalApi} from '../api/deployment'
+const AdminApp = React.lazy(() =>
+  import('../dashboard/editorial/AdminApp').then((module) => ({
+    default: module.AdminApp,
+  })),
+)
+const PreviewPage = React.lazy(() =>
+  import('../dashboard/editorial/PreviewPage').then((module) => ({
+    default: module.PreviewPage,
+  })),
+)
 
-const ServerDashboard = () => {
-  React.useEffect(() => { window.location.replace(`${apiOrigin}/auth/login`) }, [])
-  return <p>Abriendo el dashboard seguro… <a href={`${apiOrigin}/auth/login`}>Continuar al dashboard</a></p>
+const AdministrativeRoute = () => {
+  const location = useLocation()
+  const destination =
+    apiOrigin +
+    '/auth/login?returnTo=' +
+    encodeURIComponent(
+      location.pathname.startsWith('/dashboard')
+        ? location.pathname
+        : '/dashboard',
+    )
+  React.useEffect(() => {
+    if (externalApi) window.location.replace(destination)
+  }, [destination])
+  return externalApi ? (
+    <p>
+      Abriendo el dashboard seguro…{' '}
+      <a href={destination}>Continuar al dashboard</a>
+    </p>
+  ) : (
+    <AdminApp />
+  )
 }
-
-export const AppRouter = () => {
-  // Retrieve authentication status using the useCheckAuth hook
-  const {status} = useCheckAuth()
-
-  // Show loading state while checking authentication
-  // if (status === 'checking') {
-  //   return <CheckingAuth />
-  // }
-
-  const authenticatedRoutes = (
-    <>
-      {/* Routes for authenticated users */}
-      <Route path="/dashboard/*" element={<DashboardRoutes />} />
-      <Route path="/auth/*" element={<AuthRoutes />} />
-      {/* <Route path="/*" element={<HomepageRoutes />} /> */}
-    </>
-  )
-
-  const unauthenticatedRoutes = (
-    <>
-      {/* Routes for unauthenticated users */}
-      <Route path="/dashboard/*" element={<AuthRoutes />} />
-      <Route path="/auth/*" element={<AuthRoutes />} />
-      {/* <Route path="/*" element={<HomepageRoutes />} /> */}
-    </>
-  )
-
-  return (
+export const AppRouter = () => (
+  <React.Suspense fallback={<p role="status">Cargando…</p>}>
     <Routes>
-      {/* Conditionally render routes based on authentication status */}
-      {externalApi ? <>
-        <Route path="/dashboard/*" element={<ServerDashboard />} />
-        <Route path="/auth/*" element={<ServerDashboard />} />
-      </> : status === 'authenticated' ? authenticatedRoutes : unauthenticatedRoutes}
+      <Route path="/preview/:sectionKey" element={<PreviewPage />} />
+      <Route path="/dashboard/*" element={<AdministrativeRoute />} />
+      <Route path="/auth/*" element={<AdministrativeRoute />} />
       <Route path="/*" element={<HomepageRoutes />} />
     </Routes>
-  )
-}
+  </React.Suspense>
+)

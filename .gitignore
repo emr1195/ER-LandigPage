@@ -35,3 +35,7 @@ dist-ssr
 !.env.example
 /uploads/
 /backups/
+/test-results/
+/playwright-report/
+/.design/dashboard-redesign/
+/.scratch/dashboard-redesign/dashboard-variants.html
