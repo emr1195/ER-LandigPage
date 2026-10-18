@@ -43,4 +43,15 @@ runs de Actions ni estados de despliegue que identifiquen el hosting del cliente
 para `develop`. La URL efectiva no fue proporcionada. Por ello, un push confirmado
 no se presentará como comprobación del reproductor desplegado.
 
-La integración está validada para el push autorizado.
+## Intento de push
+
+Merge local: `3b0b56c` (padres `3b52262` y `f419f6c`).
+`git push origin develop` fue ejecutado tras la aprobación y GitHub respondió
+HTTP 403: permiso denegado a `EPraz`. `gh repo view` confirmó
+`viewerPermission: READ`; es la única cuenta configurada tanto en GitHub CLI
+como en Git Credential Manager.
+
+El push no se completó y el remoto no recibió esta entrega. Hace falta una
+cuenta con escritura o conceder ese acceso a `EPraz`. No se alteraron credenciales
+ni se inició otro despliegue. La integración queda validada y lista para reintentar
+el mismo push, sin force push, cuando exista acceso.
