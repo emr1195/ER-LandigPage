@@ -44,12 +44,16 @@ export const DashboardLayout = ({children}) => {
           flexGrow: 1,
           p: 3,
           paddingTop: '100px',
-          backgroundColor: theme.palette.light.main,
+          backgroundColor: theme.palette.background.default,
+          minWidth: 0,
+          minHeight: '100vh',
         }}
       >
         {/* Toolbar */}
         {/* <Toolbar /> */}
-        {children}
+        <Box sx={{bgcolor: 'background.paper', border: 1, borderColor: 'divider', borderRadius: 2, boxShadow: '0 8px 24px rgba(15,23,42,0.08)', p: {xs: 1, md: 2}, minWidth: 0}}>
+          {children}
+        </Box>
       </Box>
     </Box>
   )

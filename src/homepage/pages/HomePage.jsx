@@ -33,42 +33,23 @@ export const HomePage = () => {
   const {info: detachmentInfo} = useSelector((state) => state.detachment)
 
   useEffect(() => {
-    dispatch(startLoadingLandingPage())
+    let active = true
+    // Initial Redux objects exist before the API responds; wait for the request
+    // rather than flashing empty logos, buttons and images from those objects.
+    Promise.resolve(dispatch(startLoadingLandingPage())).finally(() => {
+      if (active) setLoading(false)
+    })
+    return () => { active = false }
   }, [dispatch])
 
-  useEffect(() => {
-    // Check if all data is available and set loading to false
-    if (
-      navbarInfo &&
-      heroSectionInfo &&
-      historyInfo &&
-      programStructureInfo &&
-      expeditionGroupInfo &&
-      eventsInfo &&
-      organizationInfo &&
-      footerInfo
-    ) {
-      setLoading(false)
-    }
-  }, [
-    navbarInfo,
-    heroSectionInfo,
-    historyInfo,
-    programStructureInfo,
-    expeditionGroupInfo,
-    eventsInfo,
-    organizationInfo,
-    footerInfo,
-  ])
-
   if (loading) {
-    return <CircularProgress />
+    return <CircularProgress aria-label="Cargando información del sitio" />
   }
 
   return (
     <main>
       <Navbar navbarInfo={navbarInfo} />
-      <HeroSection heroSectionInfo={heroSectionInfo} />
+      <HeroSection heroSectionInfo={heroSectionInfo} fallbackImage={{imageURL: historyInfo.imageSection?.imageRight, title: 'Encuentro institucional de Exploradores del Rey Panamá'}} />
       <History historyInfo={historyInfo} />
       <ProgramStructure programStructureInfo={programStructureInfo} />
       <ExpeditionGroup expeditionGroupInfo={expeditionGroupInfo} />

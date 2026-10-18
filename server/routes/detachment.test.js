@@ -41,9 +41,26 @@ test('guarda sin logo y genera en el servidor la ubicación que se entrega a Pos
   expect(pool.query.mock.calls[0][1][2]).toBe('test@example.test')
 })
 
-test.each([{...body, name: ''}, {...body, number: '?invalid'}, {...body, mapsUrl: 'https://evil.example/maps'}])('rechaza campos inválidos antes de escribir datos', async (payload) => {
+test.each([{...body, name: null}, {...body, number: '?invalid'}, {...body, mapsUrl: 'https://evil.example/maps'}])('rechaza campos inválidos antes de escribir datos', async (payload) => {
   expect((await put(payload)).status).toBe(400)
   expect(pool.query).not.toHaveBeenCalled()
+})
+
+test('guarda campos vacíos y asigna identificadores únicos sin exigir número', async () => {
+  pool.query.mockImplementation(async (_sql, args) => ({rows: [{id: args[0], data: JSON.parse(args[1])}]}))
+  const response = await put({detachments: [{name: '', number: ''}, {name: '', number: ''}]})
+  expect(response.status).toBe(200)
+  const records = (await response.json()).data.detachments
+  expect(records).toHaveLength(2)
+  expect(new Set(records.map((record) => record.id)).size).toBe(2)
+  expect(records.every((record) => record.name === '' && record.number === '' && record.mapsUrl === '' && record.logo === '')).toBe(true)
+})
+
+test('conserva el identificador al vaciar el nombre y el número de un registro', async () => {
+  pool.query.mockImplementation(async (_sql, args) => ({rows: [{id: args[0], data: JSON.parse(args[1])}]}))
+  const response = await put({detachments: [{id: 'detachment-24', name: '', number: ''}]})
+  expect(response.status).toBe(200)
+  expect((await response.json()).data.detachments[0].id).toBe('detachment-24')
 })
 
 test('acepta un directorio sin ubicaciones ni logos y lo entrega ordenado a PostgreSQL', async () => {

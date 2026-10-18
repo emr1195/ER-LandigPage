@@ -162,9 +162,6 @@ export const Events = ({info}) => {
                 name="title"
                 onChange={(e) => handleChange(e, false)}
                 value={infoCopy.title}
-                required
-                error={infoCopy.title === ''}
-                helperText={infoCopy.title === '' && '* Es obligatorio'}
                 autoComplete="off"
                 inputProps={{
                   autoComplete: 'new-password',
@@ -220,9 +217,6 @@ export const Events = ({info}) => {
                           handleChange(e, false, 'events', null, id)
                         }
                         value={title}
-                        required
-                        error={title === ''}
-                        helperText={title === '' && '* Es obligatorio'}
                         autoComplete="off"
                         inputProps={{
                           autoComplete: 'new-password',
@@ -244,9 +238,6 @@ export const Events = ({info}) => {
                           handleChange(e, false, 'events', null, id)
                         }
                         value={ubication}
-                        required
-                        error={ubication === ''}
-                        helperText={ubication === '' && '* Es obligatorio'}
                         autoComplete="off"
                         inputProps={{
                           autoComplete: 'new-password',
@@ -278,9 +269,6 @@ export const Events = ({info}) => {
                           handleChange(e, false, 'events', null, id)
                         }
                         value={date}
-                        required
-                        error={date === ''}
-                        helperText={date === '' && '* Es obligatorio'}
                         autoComplete="off"
                         inputProps={{
                           autoComplete: 'new-password',

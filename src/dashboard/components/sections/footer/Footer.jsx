@@ -411,11 +411,6 @@ export const Footer = ({info}) => {
                 name="logo"
                 onChange={(e) => handleChange(e, false, 'mainSection')}
                 value={infoCopy.mainSection.logo}
-                required
-                error={infoCopy.mainSection.logo === ''}
-                helperText={
-                  infoCopy.mainSection.logo === '' && '* Es obligatorio'
-                }
               />
             </Grid>
             <Grid
@@ -443,11 +438,6 @@ export const Footer = ({info}) => {
                 name="logoTitle"
                 onChange={(e) => handleChange(e, false, 'mainSection')}
                 value={infoCopy.mainSection.logoTitle}
-                required
-                error={infoCopy.mainSection.logoTitle === ''}
-                helperText={
-                  infoCopy.mainSection.logoTitle === '' && '* Es obligatorio'
-                }
                 autoComplete="off"
                 inputProps={{
                   autoComplete: 'new-password',
@@ -492,9 +482,6 @@ export const Footer = ({info}) => {
                         handleChange(e, false, 'mainSection', 'moreInfo', id)
                       }
                       value={name}
-                      required
-                      error={name === ''}
-                      helperText={name === '' && '* Es obligatorio'}
                       autoComplete="off"
                       inputProps={{
                         autoComplete: 'new-password',
@@ -516,9 +503,6 @@ export const Footer = ({info}) => {
                         handleChange(e, false, 'mainSection', 'moreInfo', id)
                       }
                       value={description}
-                      required
-                      error={description === ''}
-                      helperText={description === '' && '* Es obligatorio'}
                       autoComplete="off"
                       inputProps={{
                         autoComplete: 'new-password',
@@ -615,9 +599,6 @@ export const Footer = ({info}) => {
                       name="title"
                       onChange={(e) => handleChange(e, false)}
                       value={title}
-                      required
-                      error={title === ''}
-                      helperText={title === '' && '* Es obligatorio'}
                       autoComplete="off"
                       inputProps={{
                         autoComplete: 'new-password',
@@ -662,9 +643,6 @@ export const Footer = ({info}) => {
                             )
                           }
                           value={name}
-                          required
-                          error={name === ''}
-                          helperText={name === '' && '* Es obligatorio'}
                           autoComplete="off"
                           inputProps={{
                             autoComplete: 'new-password',
@@ -692,9 +670,6 @@ export const Footer = ({info}) => {
                             )
                           }
                           value={url}
-                          required
-                          error={url === ''}
-                          helperText={url === '' && '* Es obligatorio'}
                           autoComplete="off"
                           inputProps={{
                             autoComplete: 'new-password',
@@ -816,9 +791,6 @@ export const Footer = ({info}) => {
                         handleChange(e, false, 'aditionalFooterInfo', null, id)
                       }
                       value={name}
-                      required
-                      error={name === ''}
-                      helperText={name === '' && '* Es obligatorio'}
                       autoComplete="off"
                       inputProps={{
                         autoComplete: 'new-password',
@@ -836,9 +808,6 @@ export const Footer = ({info}) => {
                         handleChange(e, false, 'aditionalFooterInfo', null, id)
                       }
                       value={url}
-                      required
-                      error={url === '' && disabled}
-                      helperText={url === '' && disabled && '* Es obligatorio'}
                       autoComplete="off"
                       disabled={disabled}
                       inputProps={{
@@ -974,9 +943,6 @@ export const Footer = ({info}) => {
                       handleChange(e, false, 'socialMedia', null, id)
                     }
                     value={name}
-                    required
-                    error={name === ''}
-                    helperText={name === '' && '* Es obligatorio'}
                     autoComplete="off"
                     inputProps={{
                       autoComplete: 'new-password',
@@ -994,9 +960,6 @@ export const Footer = ({info}) => {
                       handleChange(e, false, 'socialMedia', null, id)
                     }
                     value={icon}
-                    required
-                    error={icon === ''}
-                    helperText={icon === '' && '* Es obligatorio'}
                     autoComplete="off"
                     inputProps={{
                       autoComplete: 'new-password',
@@ -1014,9 +977,6 @@ export const Footer = ({info}) => {
                       handleChange(e, false, 'socialMedia', null, id)
                     }
                     value={url}
-                    required
-                    error={url === ''}
-                    helperText={url === '' && '* Es obligatorio'}
                     autoComplete="off"
                     inputProps={{
                       autoComplete: 'new-password',

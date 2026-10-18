@@ -90,12 +90,6 @@ export const HeroSection = ({info}) => {
 
     dispatch(savingNewHeroSection(infoCopy))
   }
-  const disableSubmitButton =
-    infoCopy.title === '' ||
-    infoCopy.textSection.description == '' ||
-    infoCopy.textSection.icon == '' ||
-    infoCopy.textSection.iconText == '' ||
-    infoCopy.textSection.title == ''
 
   return (
     <form onSubmit={onSubmit}>
@@ -180,11 +174,6 @@ export const HeroSection = ({info}) => {
                 name="title"
                 onChange={(e) => handleChange(e, false, 'textSection')}
                 value={infoCopy.textSection.title}
-                required
-                error={infoCopy.textSection.title === ''}
-                helperText={
-                  infoCopy.textSection.title === '' && '* Es obligatorio'
-                }
                 autoComplete="off"
                 inputProps={{
                   autoComplete: 'new-password',
@@ -220,12 +209,6 @@ export const HeroSection = ({info}) => {
                   name="description"
                   onChange={(e) => handleChange(e, false, 'textSection')}
                   value={infoCopy.textSection.description}
-                  required
-                  error={infoCopy.textSection.description === ''}
-                  helperText={
-                    infoCopy.textSection.description === '' &&
-                    '* Es obligatorio'
-                  }
                   autoComplete="off"
                   inputProps={{
                     autoComplete: 'new-password',
@@ -259,11 +242,6 @@ export const HeroSection = ({info}) => {
                   name="iconText"
                   onChange={(e) => handleChange(e, false, 'textSection')}
                   value={infoCopy.textSection.iconText}
-                  required
-                  error={infoCopy.textSection.iconText === ''}
-                  helperText={
-                    infoCopy.textSection.iconText === '' && '* Es obligatorio'
-                  }
                   autoComplete="off"
                   inputProps={{
                     autoComplete: 'new-password',
@@ -297,11 +275,6 @@ export const HeroSection = ({info}) => {
                   name="icon"
                   onChange={(e) => handleChange(e, false, 'textSection')}
                   value={infoCopy.textSection.icon}
-                  required
-                  error={infoCopy.textSection.icon === ''}
-                  helperText={
-                    infoCopy.textSection.icon === '' && '* Es obligatorio'
-                  }
                   autoComplete="off"
                   inputProps={{
                     autoComplete: 'new-password',
@@ -392,13 +365,7 @@ export const HeroSection = ({info}) => {
                       // value={infoCopy.textSection.buttons[0].title}
                       value={btn.title}
                       // required={infoCopy.textSection.buttons[0].display}
-                      required={btn.display}
                       // error={infoCopy.textSection.buttons[0].title === ''}
-                      error={btn.display && btn.title === ''}
-                      helperText={
-                        // infoCopy.textSection.buttons[0].title === '' &&
-                        btn.display && btn.title === '' && '* Es obligatorio'
-                      }
                       autoComplete="off"
                       inputProps={{
                         autoComplete: 'new-password',
@@ -422,13 +389,7 @@ export const HeroSection = ({info}) => {
                       // value={infoCopy.textSection.buttons[0].url}
                       value={btn.url}
                       // required={infoCopy.textSection.buttons[0].display}
-                      required={btn.display}
                       // error={infoCopy.textSection.buttons[0].url === ''}
-                      error={btn.display && btn.url === ''}
-                      helperText={
-                        // infoCopy.textSection.buttons[0].url === '' &&
-                        btn.display && btn.url === '' && '* Es obligatorio'
-                      }
                       autoComplete="off"
                       inputProps={{
                         autoComplete: 'new-password',
@@ -489,12 +450,6 @@ export const HeroSection = ({info}) => {
                   handleChange(e, false, 'imageSection', 'imageTopLeft')
                 }
                 value={infoCopy.imageSection.imageTopLeft.imageURL}
-                required
-                error={infoCopy.imageSection.imageTopLeft.imageURL === ''}
-                helperText={
-                  infoCopy.imageSection.imageTopLeft.imageURL === '' &&
-                  '* Es obligatorio'
-                }
               />
               <TypographyPersonalized variant="body" title={'Icon: '} />
               <TextField
@@ -557,12 +512,6 @@ export const HeroSection = ({info}) => {
                   handleChange(e, false, 'imageSection', 'imageBottomLeft')
                 }
                 value={infoCopy.imageSection.imageBottomLeft.imageURL}
-                required
-                error={infoCopy.imageSection.imageBottomLeft.imageURL === ''}
-                helperText={
-                  infoCopy.imageSection.imageBottomLeft.imageURL === '' &&
-                  '* Es obligatorio'
-                }
               />
               <TypographyPersonalized variant="body" title={'Icon: '} />
               <TextField
@@ -625,12 +574,6 @@ export const HeroSection = ({info}) => {
                   handleChange(e, false, 'imageSection', 'imageRightCenter')
                 }
                 value={infoCopy.imageSection.imageRightCenter.imageURL}
-                required
-                error={infoCopy.imageSection.imageRightCenter.imageURL === ''}
-                helperText={
-                  infoCopy.imageSection.imageRightCenter.imageURL === '' &&
-                  '* Es obligatorio'
-                }
               />
               <TypographyPersonalized variant="body" title={'Icon: '} />
               <TextField
@@ -737,7 +680,7 @@ export const HeroSection = ({info}) => {
               <Grid item xs={12} sm={6}>
                 <Button
                   type="submit"
-                  disabled={isSaving || disableSubmitButton}
+                  disabled={isSaving}
                   variant="contained"
                   fullWidth
                 >

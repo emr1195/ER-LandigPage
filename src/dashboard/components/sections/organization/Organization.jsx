@@ -170,9 +170,6 @@ export const Organization = ({info}) => {
                 name="title"
                 onChange={(e) => handleChange(e, false)}
                 value={infoCopy.title}
-                required
-                error={infoCopy.title === ''}
-                helperText={infoCopy.title === '' && '* Es obligatorio'}
                 autoComplete="off"
                 inputProps={{
                   autoComplete: 'new-password',
@@ -239,9 +236,6 @@ export const Organization = ({info}) => {
                               handleChange(e, false, 'members', memberType, id)
                             }
                             value={name}
-                            required
-                            error={name === ''}
-                            helperText={name === '' && '* Es obligatorio'}
                             autoComplete="off"
                             inputProps={{
                               autoComplete: 'new-password',
@@ -263,9 +257,6 @@ export const Organization = ({info}) => {
                               handleChange(e, false, 'members', memberType, id)
                             }
                             value={role}
-                            required
-                            error={role === ''}
-                            helperText={role === '' && '* Es obligatorio'}
                             autoComplete="off"
                             inputProps={{
                               autoComplete: 'new-password',
@@ -322,9 +313,6 @@ export const Organization = ({info}) => {
                                 )
                               }
                               value={image}
-                              required
-                              error={image === ''}
-                              helperText={image === '' && '* Es obligatorio'}
                             />
                           </Box>
                         </Box>

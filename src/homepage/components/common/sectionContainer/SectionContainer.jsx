@@ -6,10 +6,12 @@ export const SectionContainer = ({
   className = '',
   sxBox = {},
   sxContainer = {},
+  id,
 }) => {
   return (
     <Box
       className={className}
+      id={id || ({History: 'historia', ExpeditionGroup: 'grupos', FooterSection: 'contactanos'})[className]}
       sx={{
         transition: '.5s',
         position: 'relative',

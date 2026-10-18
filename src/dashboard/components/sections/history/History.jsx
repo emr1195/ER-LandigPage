@@ -128,9 +128,6 @@ export const History = ({info}) => {
                 name="title"
                 onChange={(e) => handleChange(e, false)}
                 value={infoCopy.title}
-                required
-                error={infoCopy.title === ''}
-                helperText={infoCopy.title === '' && '* Es obligatorio'}
                 autoComplete="off"
               />
             </Grid>
@@ -188,11 +185,6 @@ export const History = ({info}) => {
                 name="imageLeft"
                 onChange={(e) => handleChange(e, false, 'imageSection')}
                 value={infoCopy.imageSection.imageLeft}
-                required
-                error={infoCopy.imageSection.imageLeft === ''}
-                helperText={
-                  infoCopy.imageSection.imageLeft === '' && '* Es obligatorio'
-                }
               />
             </Grid>
 
@@ -219,11 +211,6 @@ export const History = ({info}) => {
                 name="imageRight"
                 onChange={(e) => handleChange(e, false, 'imageSection')}
                 value={infoCopy.imageSection.imageRight}
-                required
-                error={infoCopy.imageSection.imageRight === ''}
-                helperText={
-                  infoCopy.imageSection.imageRight === '' && '* Es obligatorio'
-                }
               />
             </Grid>
 
@@ -251,11 +238,6 @@ export const History = ({info}) => {
                 name="icon"
                 onChange={(e) => handleChange(e, false, 'imageSection')}
                 value={infoCopy.imageSection.icon}
-                required
-                error={infoCopy.imageSection.icon === ''}
-                helperText={
-                  infoCopy.imageSection.icon === '' && '* Es obligatorio'
-                }
                 autoComplete="off"
                 inputProps={{
                   autoComplete: 'new-password',
@@ -290,11 +272,6 @@ export const History = ({info}) => {
                 name="iconText"
                 onChange={(e) => handleChange(e, false, 'imageSection')}
                 value={infoCopy.imageSection.iconText}
-                required
-                error={infoCopy.imageSection.iconText === ''}
-                helperText={
-                  infoCopy.imageSection.iconText === '' && '* Es obligatorio'
-                }
                 autoComplete="off"
                 inputProps={{
                   autoComplete: 'new-password',
@@ -332,13 +309,7 @@ export const History = ({info}) => {
                 name="description"
                 onChange={(e) => handleChange(e, false)}
                 value={infoCopy.description}
-                required
-                error={infoCopy.description === ''}
-                helperText={
-                  infoCopy.description === ''
-                    ? '* Es obligatorio'
-                    : '"Punto y Coma (;)" hará salto de linea en el texto'
-                }
+                helperText={'"Punto y Coma (;)" hará salto de linea en el texto'}
                 autoComplete="off"
                 inputProps={{
                   autoComplete: 'new-password',

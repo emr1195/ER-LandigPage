@@ -16,6 +16,18 @@ beforeAll(() => {
   Object.defineProperty(global.crypto, 'randomUUID', {value: require('node:crypto').randomUUID, configurable: true})
 })
 
+test('permite guardar un destacamento con todos los campos vacíos', async () => {
+  const store = configureStore({reducer: {dashboard: dashboardSlice.reducer, detachment: detachmentSlice.reducer}})
+  saveSiteSection.mockResolvedValue(undefined)
+  getSiteSection.mockResolvedValue({detachments: [{...emptyDetachment, id: 'draft-empty'}]})
+  const {container} = render(<Provider store={store}><DetachmentEditor info={emptyDetachment} /></Provider>)
+  expect(container.querySelector('[required]')).toBeNull()
+  expect(screen.getByRole('button', {name: 'Guardar destacamento'}).disabled).toBe(false)
+  fireEvent.click(screen.getByRole('button', {name: 'Guardar destacamento'}))
+  await waitFor(() => expect(saveSiteSection).toHaveBeenCalledWith('detachment', expect.objectContaining({detachments: [expect.objectContaining(emptyDetachment)]})))
+  await waitFor(() => expect(store.getState().detachment.info.detachments[0].id).toBe('draft-empty'))
+})
+
 test('confirma la eliminación y conserva los demás registros guardados', async () => {
   const store = configureStore({reducer: {dashboard: dashboardSlice.reducer, detachment: detachmentSlice.reducer}})
   const first = {...emptyDetachment, id: 'detachment-1', name: 'Primero', number: '1'}

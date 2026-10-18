@@ -85,7 +85,7 @@ export const DetachmentEditor = ({info}) => {
     setSelectedId((current) => next.some((record) => record.id === current) ? current : next[0]?.id || '')
     setPendingDelete(null)
   }
-  const incomplete = records.some((record) => !record.name.trim() || !/^[A-Za-z0-9][A-Za-z0-9-]{0,9}$/.test(record.number.trim()))
+  const invalidNumber = records.some((record) => record.number.trim() && !/^[A-Za-z0-9][A-Za-z0-9-]{0,9}$/.test(record.number.trim()))
 
   return (
     <Box sx={{width: '100%', minWidth: 0, p: {xs: 2, md: 4}}}>
@@ -113,16 +113,16 @@ export const DetachmentEditor = ({info}) => {
       {draft ? <Box component="form" onSubmit={submit} sx={{minWidth: 0}}>
         <Typography component="h2" variant="h6" mb={3}>Editar: {draft.number ? `${draft.number} — ` : ''}{draft.name || 'Nuevo destacamento'}</Typography>
         <Stack spacing={3}>
-          <TextField label="Nombre del destacamento" name="name" value={draft.name} onChange={change} required fullWidth inputProps={{maxLength: 160}} />
-          <TextField label="Número de destacamento" name="number" value={draft.number} onChange={change} required fullWidth inputProps={{pattern: '[A-Za-z0-9][A-Za-z0-9-]{0,9}', maxLength: 10}} helperText="Número asignado o código institucional, como ON o PC." />
+          <TextField label="Nombre del destacamento" name="name" value={draft.name} onChange={change} fullWidth inputProps={{maxLength: 160}} />
+          <TextField label="Número de destacamento" name="number" value={draft.number} onChange={change} fullWidth inputProps={{pattern: '[A-Za-z0-9][A-Za-z0-9-]{0,9}', maxLength: 10}} helperText="Opcional. Número asignado o código institucional, como ON o PC." />
           <TextField label="Ubicación — enlace de Google Maps (opcional)" name="mapsUrl" value={draft.mapsUrl} onChange={change} fullWidth error={Boolean(map.error)} helperText={map.error || 'Puedes dejarlo vacío y agregar la ubicación más adelante.'} />
           {map.loading && <Stack direction="row" spacing={1} alignItems="center"><CircularProgress size={18} /><Typography>Preparando mapa…</Typography></Stack>}
           <ImageUploadField label="Logo del destacamento (opcional)" name="logo" value={draft.logo} onChange={change} />
           {draft.logo && <Button type="button" onClick={() => change({target: {name: 'logo', value: ''}})} sx={{alignSelf: 'flex-start'}}>Quitar logo</Button>}
-          <Alert severity="info">La ubicación y el logo son opcionales. Los destacamentos sin ubicación se muestran como fichas informativas.</Alert>
+          <Alert severity="info">Todos los campos son opcionales. Puedes guardar información incompleta y completarla después.</Alert>
           <Stack direction="row" spacing={2} justifyContent="flex-end">
             <Button type="button" disabled={isSaving} onClick={cancel}>Cancelar</Button>
-            <Button type="submit" variant="contained" disabled={isSaving || map.loading || Boolean(map.error) || incomplete}>{isSaving ? 'Guardando…' : 'Guardar destacamento'}</Button>
+            <Button type="submit" variant="contained" disabled={isSaving || map.loading || Boolean(map.error) || invalidNumber}>{isSaving ? 'Guardando…' : 'Guardar destacamento'}</Button>
           </Stack>
         </Stack>
       </Box> : <Alert severity="info">No hay destacamentos registrados. Usa «Agregar destacamento» para crear uno.</Alert>}

@@ -149,9 +149,6 @@ export const ExpeditionGroup = ({info}) => {
                 name="title"
                 onChange={(e) => handleChange(e, false)}
                 value={infoCopy.title}
-                required
-                error={infoCopy.title === ''}
-                helperText={infoCopy.title === '' && '* Es obligatorio'}
                 autoComplete="off"
                 inputProps={{
                   autoComplete: 'new-password',
@@ -231,9 +228,6 @@ export const ExpeditionGroup = ({info}) => {
                           handleChange(e, false, 'expeditionGroups', null, index)
                         }
                         value={title}
-                        required
-                        error={title === ''}
-                        helperText={title === '' && '* Es obligatorio'}
                         autoComplete="off"
                         inputProps={{
                           autoComplete: 'new-password',
@@ -257,9 +251,6 @@ export const ExpeditionGroup = ({info}) => {
                           handleChange(e, false, 'expeditionGroups', null, index)
                         }
                         value={description}
-                        required
-                        error={description === ''}
-                        helperText={description === '' && '* Es obligatorio'}
                         autoComplete="off"
                         inputProps={{
                           autoComplete: 'new-password',
@@ -290,9 +281,6 @@ export const ExpeditionGroup = ({info}) => {
                           handleChange(e, false, 'expeditionGroups', null, index)
                         }
                         value={emblema}
-                        required
-                        error={emblema === ''}
-                        helperText={emblema === '' && '* Es obligatorio'}
                         sx={{
                           width: '350px',
                         }}

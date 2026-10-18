@@ -114,13 +114,6 @@ export const Navbar = ({info}) => {
     dispatch(savingNewNavbar(infoCopy))
   }
 
-  const disableSubmitButton =
-    infoCopy.logo === '' ||
-    infoCopy.logoTitle === '' ||
-    infoCopy.listMenu.some(
-      (item) => item.url === '' || item.title === '' || item.position === '',
-    )
-
   if (isSaving) {
     return <CircularProgress />
   }
@@ -189,9 +182,6 @@ export const Navbar = ({info}) => {
                     name="logo"
                     onChange={handleChange}
                     value={infoCopy.logo}
-                    required
-                    error={infoCopy.logo === ''}
-                    helperText={infoCopy.logo === '' && '* Es obligatorio.'}
                     sx={{flex: 3}}
                   />
                 </Grid>
@@ -219,9 +209,6 @@ export const Navbar = ({info}) => {
                     name="logoTitle"
                     onChange={handleChange}
                     value={infoCopy.logoTitle}
-                    required
-                    error={infoCopy.logoTitle === ''}
-                    helperText={infoCopy.logoTitle === '' && '* Es obligatorio'}
                     autoComplete="off"
                     inputProps={{
                       autoComplete: 'new-password',
@@ -277,9 +264,6 @@ export const Navbar = ({info}) => {
                               name="title"
                               onChange={(e) => handleListMenuChange(e, id)}
                               value={title}
-                              required
-                              error={title === ''}
-                              helperText={title === '' && '* Es obligatorio.'}
                               autoComplete="off"
                               inputProps={{
                                 autoComplete: 'new-password',
@@ -294,9 +278,6 @@ export const Navbar = ({info}) => {
                               name="url"
                               onChange={(e) => handleListMenuChange(e, id)}
                               value={url}
-                              required
-                              error={url === ''}
-                              helperText={url === '' && '* Es obligatorio'}
                               autoComplete="off"
                               inputProps={{
                                 autoComplete: 'new-password',
@@ -326,10 +307,6 @@ export const Navbar = ({info}) => {
                                 handleListMenuChange(e, id)
                               }}
                               value={position}
-                              error={position === ''}
-                              helperText={
-                                position === '' && '* Es obligatorio.'
-                              }
                               autoComplete="off"
                               inputProps={{
                                 autoComplete: 'new-password',
@@ -447,7 +424,7 @@ export const Navbar = ({info}) => {
                       <Grid item xs={12} sm={6}>
                         <Button
                           type="submit"
-                          disabled={isSaving || disableSubmitButton}
+                          disabled={isSaving}
                           variant="contained"
                           fullWidth
                         >

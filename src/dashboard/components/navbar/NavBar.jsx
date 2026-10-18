@@ -53,7 +53,7 @@ export const NavBar = ({drawerWidth = 240, handleDrawerToggle}) => {
           <Typography variant="h6" noWrap component="div">
             Dashboard
           </Typography>
-          <IconButton onClick={onLogout} color="error">
+          <IconButton onClick={onLogout} color="inherit" aria-label="Cerrar sesión">
             <LogoutOutlined />
           </IconButton>
         </Grid>

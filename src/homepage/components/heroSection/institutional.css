@@ -1,0 +1,62 @@
+.institutional-hero { grid-column: 1 / -1; min-width: 0; width: 100%; color: #102a43; padding: 52px 0 64px; container: hero / inline-size; }
+.institutional-hero *, .institutional-hero *::before, .institutional-hero *::after { box-sizing: border-box; }
+.institutional-hero__inner { max-width: 1280px; margin: auto; display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: 40px; }
+.institutional-hero__content { min-width: 0; }
+.anniversary-badge { display: inline-flex; align-items: center; gap: 8px; max-width: 100%; padding: 8px 12px; margin: 0 0 24px; background: #f6efd9; border: 1px solid #e6d5a4; border-radius: 100px; color: #102a43; font-size: 10px; line-height: 1.5; font-weight: 750; letter-spacing: .07em; }
+.anniversary-badge > span { width: 6px; height: 6px; border-radius: 50%; background: #806015; flex-shrink: 0; }
+.institutional-hero__identity { margin: 0 0 14px; color: #486581; font-size: 15px; line-height: 1.5; font-weight: 650; }
+.institutional-hero h1 { margin: 0 0 24px; color: #102a43; font-size: clamp(36px, 4.3vw, 56px); font-weight: 800; line-height: 1.08; letter-spacing: -.045em; text-wrap: balance; overflow-wrap: break-word; }
+.institutional-hero h1 > span { display: block; }
+.institutional-hero__mission { max-width: 560px; color: #486581; font-size: 17px; line-height: 1.8; margin: 0 0 28px; white-space: pre-line; }
+.institutional-hero__detail { color: #486581; font-size: 14px; line-height: 1.6; margin: 0 0 20px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-action { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 12px 16px; border: 1px solid #102a43; border-radius: 12px; font-size: 13px; font-weight: 700; line-height: 1.5; text-align: center; text-decoration: none; transition: transform 240ms ease, box-shadow 240ms ease, background-color 240ms ease; }
+.hero-action svg { width: 18px; height: 18px; flex-shrink: 0; }
+.hero-action--primary { color: #fff; background: #102a43; box-shadow: 0 4px 12px rgb(15 23 42 / 12%); }
+.hero-action--secondary { color: #102a43; background: #fff; }
+.hero-action--primary:hover { color: #fff; background: #334e68; }
+.hero-action--secondary:hover { color: #102a43; background: #e8eef5; }
+.hero-action:focus-visible { outline: 3px solid #102a43; outline-offset: 4px; box-shadow: 0 0 0 2px #fff; }
+.hero-action[aria-disabled="true"] { color: #486581; background: #e2e8f0; cursor: not-allowed; box-shadow: none; }
+.institutional-hero__values { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 28px 0 0; padding-top: 20px; border-top: 1px solid #cbd5e1; color: #486581; font-size: 12px; line-height: 1.6; font-weight: 600; }
+.institutional-hero__values span { display: inline-flex; align-items: center; gap: 8px; }
+.institutional-hero__values span::before { content: ''; width: 4px; height: 4px; background: #806015; border-radius: 50%; }
+.hero-gallery { min-width: 0; width: 100%; position: relative; }
+.hero-photo { margin: 0; overflow: hidden; min-width: 0; border: 1px solid #d9e2ec; border-radius: 20px; background: #fff; box-shadow: 0 8px 24px rgb(15 23 42 / 8%); transition: transform 240ms ease, box-shadow 240ms ease; }
+.hero-photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.hero-photo--main { border-radius: 24px; position: relative; }
+.hero-photo--main img { aspect-ratio: 4 / 3; }
+.hero-photo figcaption { padding: 10px 14px; font-size: 11px; color: #486581; line-height: 1.5; }
+.hero-photo--main figcaption { position: absolute; top: 12px; left: 12px; max-width: calc(100% - 24px); border: 1px solid #d9e2ec; border-radius: 10px; background: rgb(255 255 255 / 95%); padding: 7px 10px; }
+.hero-gallery__secondary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 16px; margin-top: 16px; }
+.hero-gallery__secondary .hero-photo:last-child { margin-top: 18px; }
+.hero-photo--pending { background: #f8fafc; box-shadow: none; border-style: dashed; border-color: #8295ab; }
+.hero-photo__notice { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 138px; padding: 18px; color: #486581; gap: 6px; }
+.hero-photo--main .hero-photo__notice { aspect-ratio: 4 / 3; min-height: 0; }
+.hero-photo__notice svg { width: 28px; height: 28px; margin-bottom: 4px; }
+.hero-photo__notice strong { font-size: 12px; line-height: 1.5; color: #334e68; }
+.hero-photo__notice span { font-size: 11px; line-height: 1.5; }
+.hero-gallery__anniversary { display: flex; align-items: center; gap: 12px; width: fit-content; max-width: calc(100% - 32px); position: relative; z-index: 1; margin: -26px 0 0 16px; padding: 12px 16px; border: 1px solid #d4a93a; border-radius: 14px; background: #fcfdfe; box-shadow: 0 6px 18px rgb(15 23 42 / 8%); color: #102a43; }
+.hero-gallery__anniversary > strong { font-size: 26px; font-weight: 800; letter-spacing: -.04em; white-space: nowrap; }
+.hero-gallery__anniversary > span { font-size: 11px; line-height: 1.4; font-weight: 600; }
+.hero-gallery__anniversary small { display: block; color: #486581; font-size: 10px; margin-top: 3px; letter-spacing: .08em; }
+@media (min-width: 900px) {
+  .institutional-hero__inner { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 4vw, 56px); }
+  .institutional-hero { padding: 48px 0 64px; }
+}
+@media (max-width: 599px) {
+  .institutional-hero { padding-top: 32px; padding-bottom: 48px; }
+  .hero-action { width: 100%; font-size: 14px; }
+  .institutional-hero__mission { font-size: 16px; }
+  .hero-gallery__secondary { gap: 12px; }
+  .hero-photo__notice { padding: 14px; }
+  .hero-gallery__anniversary { margin-left: 12px; padding: 10px 12px; }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .hero-action:hover, .hero-photo:not(.hero-photo--pending):hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgb(15 23 42 / 12%); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .institutional-hero__content, .hero-gallery { animation: hero-arrive 280ms ease both; }
+  @keyframes hero-arrive { from { opacity: .5; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+}
+@media (prefers-reduced-motion: reduce) { .hero-action, .hero-photo { transition: none; } }

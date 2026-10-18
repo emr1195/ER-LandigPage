@@ -119,9 +119,6 @@ export const ProgramStructure = ({info}) => {
                 name="title"
                 onChange={(e) => handleChange(e, false)}
                 value={infoCopy.title}
-                required
-                error={infoCopy.title === ''}
-                helperText={infoCopy.title === '' && '* Es obligatorio'}
                 autoComplete="off"
                 inputProps={{
                   autoComplete: 'new-password',
@@ -189,11 +186,6 @@ export const ProgramStructure = ({info}) => {
                           handleChange(e, false, 'programValues', null, id)
                         }
                         value={title}
-                        required
-                        error={title === '' && display}
-                        helperText={
-                          title === '' && display && '* Es obligatorio'
-                        }
                         autoComplete="off"
                         inputProps={{
                           autoComplete: 'new-password',
@@ -217,11 +209,6 @@ export const ProgramStructure = ({info}) => {
                           handleChange(e, false, 'programValues', null, id)
                         }
                         value={description}
-                        required
-                        error={description === '' && display}
-                        helperText={
-                          description === '' && display && '* Es obligatorio'
-                        }
                         autoComplete="off"
                         inputProps={{
                           autoComplete: 'new-password',
@@ -253,13 +240,6 @@ export const ProgramStructure = ({info}) => {
                           handleChange(e, false, 'programValues', null, id)
                         }
                         value={position}
-                        required
-                        error={(position === '' || position < 1) && display}
-                        helperText={
-                          (position === '' || position < 1) &&
-                          display &&
-                          '* Es obligatorio'
-                        }
                         autoComplete="off"
                         inputProps={{
                           autoComplete: 'new-password',
