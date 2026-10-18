@@ -23,7 +23,6 @@ export const PublicationFeedback = ({editor, sectionKey, onDiscard}) => (
           Tu edición se conserva arriba. Cargar esta versión descartará tu
           borrador.
         </p>
-        <PreviewFrame sectionKey={sectionKey} data={editor.latest.data} />
         <button
           className="admin-button admin-button-secondary"
           type="button"
@@ -34,6 +33,7 @@ export const PublicationFeedback = ({editor, sectionKey, onDiscard}) => (
         >
           Descartar y cargar versión vigente
         </button>
+        <PreviewFrame sectionKey={sectionKey} data={editor.latest.data} />
       </section>
     )}
     {editor.message && (

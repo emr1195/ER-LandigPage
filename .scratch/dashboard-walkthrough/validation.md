@@ -103,3 +103,10 @@ lo que no basta para identificar la automatización efectiva que, según el
 propietario, publica con el push. Antes de entregar a remoto se confirmará la
 integración y rama efectivas; después se verificarán la URL real y el mismo
 MP4 por SHA-256. No se cambió infraestructura ni se añadió otro despliegue manual.
+
+### Aprobación e integración posterior
+
+El propietario aprobó el README y el video, autorizó el push y confirmó `develop`
+como rama del cliente. Se integró el trabajo público remoto manteniendo el
+dashboard y las validaciones aprobadas. La evidencia actual y los límites de la
+verificación remota se registran en [push-validation.md](push-validation.md).

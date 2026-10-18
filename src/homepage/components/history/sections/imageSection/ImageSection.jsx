@@ -63,7 +63,7 @@ export const ImageSection = ({imageSectionInfo}) => {
               icon={icon}
               style={{
                 color: theme.palette.black.main,
-                backgroundColor: '#f5f5f5',
+                backgroundColor: theme.palette.background.paper,
               }}
             />
           </Box>
@@ -77,7 +77,7 @@ export const ImageSection = ({imageSectionInfo}) => {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             borderRadius: {xs: '500px'},
-            outline: '8px solid #f5f5f5',
+            outline: `8px solid ${theme.palette.background.default}`,
             outlineOffset: '-1',
             transform: 'translate(50%, -60%)',
             transition: '.5s',

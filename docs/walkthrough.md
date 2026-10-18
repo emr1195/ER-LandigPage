@@ -104,13 +104,12 @@ Los informes de esta entrega se conservan en
 
 ## Aprobación y publicación
 
-La entrega actual espera revisión local del README y el video por el propietario.
-No se ejecutará push ni despliegue hasta esa aprobación. El propietario indicó
-que el push activa el despliegue existente del cliente; esta tarea no añade otro
-procedimiento manual de publicación en su instalación.
+El propietario aprobó el README y el video y autorizó el push a `develop`.
+Indicó que ese push activa el despliegue existente del cliente; esta tarea no
+añade otro procedimiento manual de publicación en su instalación.
 
-Antes de ese push se debe confirmar la integración y rama efectivas. El workflow
-Pages incluido en el repositorio es manual (`workflow_dispatch`), así que por sí
-solo no demuestra cuál es la automatización activa del cliente. Después de
-publicar, hay que comprobar ambas rutas en la URL efectiva, reproducción,
-descarga y SHA-256. Las pruebas locales no son evidencia de publicación remota.
+La rama `develop` fue confirmada por el propietario. El workflow Pages incluido
+es manual (`workflow_dispatch`), así que por sí solo no demuestra cuál es la
+automatización activa del cliente. Falta la URL efectiva para comprobar ambas
+rutas, reproducción, descarga y SHA-256 en remoto. Las pruebas locales no son
+evidencia de publicación remota. Véase el [registro de integración](../.scratch/dashboard-walkthrough/push-validation.md).

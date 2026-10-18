@@ -41,26 +41,23 @@ export const EventButton = ({
           borderRadius: '100px',
           fontWeight: displayInfo.eventButton ? '400' : '700',
 
-          boxShadow:
-            !displayInfo.eventButton &&
-            `0px 4px 10px 0px rgba(0, 0, 0, 0.25), 
-            0px 18px 18px 0px rgba(0, 0, 0, 0.21), 
-            0px 40px 24px 0px rgba(0, 0, 0, 0.13), 
-            0px 71px 28px 0px rgba(0, 0, 0, 0.04), 
-            0px 111px 31px 0px rgba(0, 0, 0, 0.00)`,
+          boxShadow: '0 4px 12px rgba(15,23,42,0.12)',
+          border: '1px solid',
+          borderColor: displayInfo.primary || displayInfo.eventButton ? 'primary.main' : 'divider',
+          color: displayInfo.primary || displayInfo.eventButton ? 'primary.contrastText' : 'text.primary',
           backgroundColor:
             displayInfo.primary || displayInfo.eventButton
               ? theme.palette.primary.main
               : theme.palette.light.main,
           '&[disabled]': {
-            backgroundColor:
-              displayInfo.primary || displayInfo.eventButton
-                ? theme.palette.primary.main
-                : theme.palette.light.main,
+            backgroundColor: 'action.disabledBackground',
+            color: 'action.disabled',
+            boxShadow: 'none',
             pointerEvents: 'none',
           },
           ':hover': {
-            outline: 'none',
+            backgroundColor: displayInfo.primary || displayInfo.eventButton ? 'primary.dark' : 'action.hover',
+            boxShadow: '0 6px 16px rgba(15,23,42,0.16)',
           },
           ...sxButton,
         }}

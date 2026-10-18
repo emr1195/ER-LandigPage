@@ -22,7 +22,7 @@ export async function portadaScenes({page, c, scene, visit, pause, assets, origi
     await c.highlight(page.getByRole('link',{name:'Portada',exact:true}),1200)
     await c.nav('Portada')
     await expect(title()).toBeVisible()
-    await expect(page.frameLocator('iframe').getByRole('heading', {name: original.textSection.title, exact:true})).toBeAttached()
+    await expect(page.frameLocator('iframe').getByText(original.textSection.title, {exact:true})).toBeAttached()
   })
   await scene('texto','03 / Dale voz a tu portada',24,[
     'Edita el mensaje principal y su descripción.',
@@ -84,11 +84,11 @@ export async function portadaScenes({page, c, scene, visit, pause, assets, origi
     checks.portada={title:demoTitle,image:uploaded,draftWasPrivate:true}
   },{camera:{x:.60,y:.86}})
   await visit('/')
-  await expect(page.getByRole('heading',{name:demoTitle,exact:true})).toBeVisible()
+  await expect(page.getByText(demoTitle,{exact:true})).toBeVisible()
   await scene('sitio','08 / El resultado ya está en la página pública',12,[
     'El título y la imagen publicados aparecen en la página que ven tus visitantes.',
   ],async()=>{
-    await c.highlight(page.getByRole('heading',{name:demoTitle,exact:true}),1400)
+    await c.highlight(page.getByText(demoTitle,{exact:true}),1400)
     await expect.poll(()=>page.locator('*').evaluateAll((els,url)=>els.some(el=>el.getAttribute('src')===url||getComputedStyle(el).backgroundImage.includes(url)),uploaded)).toBe(true)
   })
 }

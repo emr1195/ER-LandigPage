@@ -32,6 +32,8 @@ Cobertura principal: historias 40 y 42; comprobación integrada del resto.
 
 ## Ejecución
 
-Verificación local completada. Los criterios de integración efectiva y despliegue
-remoto permanecen pendientes: el usuario revisará y aprobará primero README y
-video. No se ejecutó push. Véase [validación](../validation.md).
+Verificación local completada. El usuario aprobó README y video, autorizó el push
+y confirmó la rama `develop`. La automatización efectiva y la URL del cliente
+no se han podido identificar mediante la información disponible en GitHub.
+Se conserva el mecanismo existente sin iniciar un despliegue manual adicional.
+Véanse [validación](../validation.md) y [registro de integración](../push-validation.md).

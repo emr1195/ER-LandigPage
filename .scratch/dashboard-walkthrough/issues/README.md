@@ -54,3 +54,10 @@ y la ejecución se registra por separado en cada ticket y en
 El usuario respondió «acepto» al desglose de seis tickets, sus tamaños y sus
 bloqueos. Se publican seis archivos individuales con estado `ready-for-agent`.
 No se inició la implementación ni se ejecutó push.
+
+### Aprobación de entrega
+
+El propietario aprobó el video y el README terminados, autorizó el push y
+confirmó `develop`. Se conservan las validaciones aprobadas al integrar el
+rediseño público remoto. El [registro de integración](../push-validation.md)
+documenta las comprobaciones actuales y la URL efectiva pendiente.

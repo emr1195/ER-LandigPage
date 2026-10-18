@@ -83,8 +83,7 @@ test('el preview encaja un viewport explícito y se amplía sin perder el borrad
   const dialog = page.getByRole('dialog', {name: 'Vista previa ampliada'})
   await expect(dialog).toBeVisible()
   await expect(
-    dialog.frameLocator('iframe').getByRole('heading', {
-      name: 'Borrador conservado al ampliar',
+    dialog.frameLocator('iframe').getByText('Borrador conservado al ampliar', {
       exact: true,
     }),
   ).toBeAttached()

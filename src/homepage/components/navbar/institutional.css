@@ -1,0 +1,31 @@
+.site-header { grid-column: 1 / -1; width: 100%; min-width: 0; position: relative; z-index: 20; background: #fff; border-bottom: 1px solid #d9e2ec; color: #102a43; }
+.site-header *, .site-header *::before, .site-header *::after { box-sizing: border-box; }
+.site-header__inner { max-width: 1280px; min-height: 84px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; position: relative; }
+.site-header .institutional-logo { display: flex; align-items: center; gap: 12px; min-width: 0; flex-shrink: 0; text-decoration: none; color: #102a43; }
+.site-header .institutional-logo img { display: block; width: 72px; height: 72px; object-fit: contain; flex-shrink: 0; }
+.site-header .institutional-logo__name { max-width: 175px; font-size: 14px; font-weight: 750; line-height: 1.35; text-wrap: balance; }
+.site-header .institutional-logo__missing { max-width: 72px; font-size: 11px; color: #486581; }
+.site-header__nav { display: flex; align-items: center; justify-content: flex-end; gap: clamp(16px, 2vw, 28px); min-width: 0; }
+.site-header__link { color: #334e68; text-decoration: none; font-size: 14px; font-weight: 600; line-height: 1.5; padding: 12px 0; transition: color 220ms ease, background-color 220ms ease, box-shadow 220ms ease; white-space: nowrap; }
+.site-header__link:hover { color: #102a43; text-decoration: underline; text-decoration-color: #806015; text-underline-offset: 7px; }
+.site-header__contact { padding: 12px 20px; border: 1px solid #102a43; border-radius: 12px; background: #102a43; color: #fff; box-shadow: 0 4px 12px rgb(15 23 42 / 10%); text-transform: uppercase; letter-spacing: .025em; font-size: 12px; }
+.site-header__contact:hover { background: #334e68; color: #fff; border-color: #334e68; text-decoration: none; }
+.site-header__toggle { display: none; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid #8295ab; background: #fff; color: #102a43; border-radius: 10px; cursor: pointer; flex-shrink: 0; }
+.site-header__toggle svg { width: 24px; height: 24px; }
+.site-header :is(a, button):focus-visible { outline: 3px solid #102a43; outline-offset: 4px; box-shadow: 0 0 0 2px #fff; }
+.site-header [aria-disabled="true"] { opacity: .65; cursor: not-allowed; }
+@media (max-width: 1099px) {
+  .site-header__inner { min-height: 80px; }
+  .site-header__toggle { display: inline-flex; }
+  .site-header__nav { display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 4px; padding: 16px; border: 1px solid #d9e2ec; border-radius: 16px; background: #fff; box-shadow: 0 12px 32px rgb(15 23 42 / 13%); max-height: min(70vh, 480px); overflow-y: auto; }
+  .site-header__nav[data-open="true"] { display: flex; }
+  .site-header__link { padding: 12px; border-radius: 8px; white-space: normal; }
+  .site-header__link:not(.site-header__contact):hover { background: #eef2f7; }
+  .site-header__contact { text-align: center; margin-top: 8px; }
+}
+@media (max-width: 479px) {
+  .site-header__inner { gap: 12px; min-height: 76px; }
+  .site-header .institutional-logo img { width: 64px; height: 64px; }
+  .site-header .institutional-logo__name { max-width: clamp(110px, calc(100vw - 184px), 166px); font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) { .site-header__link { transition: none; } }

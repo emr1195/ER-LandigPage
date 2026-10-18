@@ -18,10 +18,10 @@ clics y acercamientos puntuales. Todo el contenido mostrado es ficticio.
 - [Abrir o descargar el MP4](public/walkthrough/exploradores-walkthrough.mp4).
 - [Leer la transcripción por capítulos](docs/walkthrough-transcripcion.md) o [descargar los textos VTT](public/walkthrough/exploradores-walkthrough.vtt).
 
-**Entrega en revisión local:** el video y este README esperan aprobación antes
-del push. Según la configuración indicada por el propietario, ese push activa
-el despliegue del cliente. La URL remota se verificará después; los enlaces
-locales de esta entrega no anuncian una publicación ya realizada.
+**Entrega aprobada:** el propietario revisó el video y este README y autorizó
+su entrega en `develop`, la rama que utiliza el cliente. Los enlaces locales
+requieren iniciar la aplicación; la disponibilidad remota depende del despliegue
+existente del cliente.
 
 ### El panel en uso
 
@@ -161,7 +161,7 @@ Express sirve `dist` y la API desde el mismo proceso. Ajusta `BETTER_AUTH_URL`
 y `CLIENT_ORIGIN` al dominio público. Para GitHub Pages y una API en VPS,
 consulta [la guía de despliegue](deploy/README.md); describe la alternativa de
 infraestructura incluida en el repositorio. El flujo efectivo del cliente se
-conserva y su publicación queda pendiente de la aprobación de esta entrega.
+conserva y la entrega aprobada se integra en `develop`.
 
 Antes de migrar o actualizar, respalda **PostgreSQL y `uploads/`**. Las imágenes
 subidas se guardan en esa carpeta y sus rutas en la base; Git no sustituye ese

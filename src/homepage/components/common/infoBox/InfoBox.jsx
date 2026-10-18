@@ -57,6 +57,8 @@ export const InfoBox = ({title, icon, style = {}}) => {
           height: '40px',
           borderRadius: '100px',
           backgroundColor: theme.palette.light.main,
+          border: '1px solid',
+          borderColor: 'divider',
           fontSize: theme.fonts.size.button,
           color: theme.palette.secondary.main,
           lineHeight: theme.fonts.lineHeight.body,

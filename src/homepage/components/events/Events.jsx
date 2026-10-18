@@ -47,6 +47,7 @@ export const Events = ({eventsInfo}) => {
         >
           <Button
             className="leftButton"
+            aria-label="Eventos anteriores"
             onClick={() => setSliderValue((prev) => prev - 1)}
             disabled={sliderValue == 0}
             sx={{
@@ -56,17 +57,16 @@ export const Events = ({eventsInfo}) => {
               height: '100px',
               borderRadius: '100px',
               border: `1px solid ${theme.palette.black10.main}`,
-              boxShadow: `0px 7px 16px 0px rgba(0, 0, 0, 0.15), 0px 29px 29px 0px rgba(0, 0, 0, 0.13), 0px 66px 40px 0px rgba(0, 0, 0, 0.08), 0px 117px 47px 0px rgba(0, 0, 0, 0.02), 0px 183px 51px 0px rgba(0, 0, 0, 0.00);`,
+              boxShadow: '0 4px 12px rgba(15,23,42,0.10)',
 
               '&:hover': {
-                border: 'none',
-                outline: 'none',
+                backgroundColor: 'action.hover',
               },
               '&.Mui-disabled': {
                 boxShadow: 'none',
               },
               '&.Mui-disabled .icon': {
-                color: theme.palette.black.main,
+                color: theme.palette.action.disabled,
               },
               '& .icon': {
                 color: theme.palette.black.main,
@@ -77,6 +77,7 @@ export const Events = ({eventsInfo}) => {
           </Button>
           <Button
             className="rightButton"
+            aria-label="Siguientes eventos"
             onClick={() => setSliderValue((prev) => prev + 1)}
             disabled={sliderValue + 2 > events.length}
             sx={{
@@ -84,17 +85,17 @@ export const Events = ({eventsInfo}) => {
               width: '100px',
               height: '100px',
               borderRadius: '100px',
-              boxShadow: `0px 7px 16px 0px rgba(0, 0, 0, 0.15), 0px 29px 29px 0px rgba(0, 0, 0, 0.13), 0px 66px 40px 0px rgba(0, 0, 0, 0.08), 0px 117px 47px 0px rgba(0, 0, 0, 0.02), 0px 183px 51px 0px rgba(0, 0, 0, 0.00);`,
+              boxShadow: '0 4px 12px rgba(15,23,42,0.12)',
 
               '&:hover': {
-                border: 'none',
-                outline: 'none',
+                backgroundColor: 'primary.dark',
               },
               '&.Mui-disabled': {
                 boxShadow: 'none',
+                backgroundColor: 'action.disabledBackground',
               },
               '&.Mui-disabled .icon': {
-                color: theme.palette.light.main,
+                color: theme.palette.action.disabled,
               },
               '& .icon': {
                 color: theme.palette.light.main,

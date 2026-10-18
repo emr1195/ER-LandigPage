@@ -30,7 +30,7 @@ export const Organization = ({organizationInfo = {}}) => {
   }, [members])
 
   return (
-    <section className="OrganizationSection" aria-labelledby={headingId} ref={sectionRef}>
+    <section className="OrganizationSection" id="organizacion" aria-labelledby={headingId} ref={sectionRef}>
       <div className="organization-content">
         <header className="organization-header">
           <p className="organization-eyebrow">Nuestro equipo</p>

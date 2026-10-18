@@ -74,14 +74,35 @@ test('el editor conserva el borrador y deja consultar la publicación que causó
       .click()
     await expect(page.getByRole('alert')).toContainText('Otro administrador')
     await expect(title).toHaveValue('Mi edición pendiente')
+    // Hold the comparison iframe so its eventual height cannot hide a layout
+    // shift behind a fast local load.
+    let releasePreview
+    const previewGate = new Promise((resolve) => {
+      releasePreview = resolve
+    })
+    await page.route('**/preview/heroSection', async (route) => {
+      await previewGate
+      await route.continue()
+    })
     await page.getByRole('button', {name: 'Consultar versión vigente'}).click()
     await expect(
       page.getByRole('heading', {name: 'Versión publicada actual'}),
     ).toBeVisible()
     await expect(title).toHaveValue('Mi edición pendiente')
-    await page
-      .getByRole('button', {name: 'Descartar y cargar versión vigente'})
-      .click()
+    const adopt = page.getByRole('button', {
+      name: 'Descartar y cargar versión vigente',
+    })
+    const beforePreview = await adopt.boundingBox()
+    releasePreview()
+    await expect(
+      page.locator('.admin-latest iframe').contentFrame().getByText(
+        'Versión del otro administrador',
+        {exact: true},
+      ),
+    ).toBeVisible()
+    const afterPreview = await adopt.boundingBox()
+    expect(Math.abs(afterPreview.y - beforePreview.y)).toBeLessThanOrEqual(1)
+    await adopt.click()
     await expect(title).toHaveValue('Versión del otro administrador')
   } finally {
     await other.dispose()

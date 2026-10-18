@@ -743,7 +743,7 @@
 .admin-latest .admin-preview {
   position: static;
   max-width: 600px;
-  margin-bottom: 20px;
+  margin: 16px 0 20px;
 }
 .admin-image-field {
   display: grid;

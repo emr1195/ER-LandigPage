@@ -5,9 +5,12 @@ export const ColorCircle = (props) => {
   return (
     <Box
       className="colorCirlce"
+      aria-hidden="true"
       display={isFirefox ? 'none' : 'flex'}
       sx={{
         backgroundColor: props.color,
+        opacity: 0.12,
+        pointerEvents: 'none',
         width: props.width ?? '500px',
         height: props.height ?? '500px',
         filter: props.filter ?? 'blur(200px)',

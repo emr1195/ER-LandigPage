@@ -106,16 +106,14 @@ for (const device of ['mobile', 'tablet']) {
       .poll(() => preview.evaluate((element) => element.clientHeight))
       .not.toBe(720)
     const frame = page.frameLocator('.admin-preview iframe')
-    await frame.getByRole('button', {name: 'account of current user'}).click()
-    const menu = frame.getByRole('menu')
+    await frame.getByRole('button', {name: 'Abrir menú de navegación'}).click()
+    const menu = frame.getByRole('navigation', {name: 'Navegación principal'})
     await expect(menu).toBeVisible()
     await expect
       .poll(() =>
-        menu.evaluate(
-          (element) => element.parentElement.getBoundingClientRect().height,
-        ),
+        preview.evaluate((element) => element.clientHeight),
       )
       .toBeGreaterThan(200)
-    await expect(menu.getByRole('menuitem').first()).toBeInViewport()
+    await expect(menu.getByRole('link').first()).toBeInViewport()
   })
 }

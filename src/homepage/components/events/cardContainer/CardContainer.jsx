@@ -69,8 +69,11 @@ export const CardContainer = ({events, sliderValue}) => {
                 margin: 'auto',
                 borderRadius: '24px',
                 backgroundColor: theme.palette.light.main,
-                transition: 'all 0.5s',
-                boxShadow: `0px 7px 16px 0px rgba(0, 0, 0, 0.15), 0px 29px 29px 0px rgba(0, 0, 0, 0.13), 0px 66px 40px 0px rgba(0, 0, 0, 0.08), 0px 117px 47px 0px rgba(0, 0, 0, 0.02), 0px 183px 51px 0px rgba(0, 0, 0, 0.00);`,
+                transition: 'transform 250ms ease, box-shadow 250ms ease',
+                boxShadow: '0 8px 24px rgba(15,23,42,0.08)',
+                border: '1px solid',
+                borderColor: 'divider',
+                '@media (hover: hover) and (prefers-reduced-motion: no-preference)': {'&:hover': {transform: 'translateY(-4px)', boxShadow: '0 14px 32px rgba(15,23,42,0.13)'}},
                 // boxShadow: `0px 4px 10px 0px rgba(0, 0, 0, 0.25),0px 18px 18px 0px rgba(0, 0, 0, 0.21),0px 40px 24px 0px rgba(0, 0, 0, 0.13),0px 71px 28px 0px rgba(0, 0, 0, 0.04),0px 111px 31px 0px rgba(0, 0, 0, 0.00)`,
               }}
             >
@@ -95,7 +98,7 @@ export const CardContainer = ({events, sliderValue}) => {
               >
                 <Box
                   className="image-Card"
-                  sx={{backgroundColor: '#499cd6', width: '100%'}}
+                  sx={{backgroundColor: 'background.default', borderBottom: 1, borderColor: 'divider', width: '100%'}}
                 >
                   <img src={item.image} alt={item.title} />
                 </Box>
@@ -142,13 +145,10 @@ export const CardContainer = ({events, sliderValue}) => {
                       {renderTypographyWithLineBreaks(
                         item.byWho,
                         'body',
-                        theme.palette.gradient.main,
+                        theme.palette.text.primary,
                         {
                           fontSize: '18px',
                           fontWeight: 'bold',
-                          background: `linear-gradient(to right, ${theme.palette.secondary.main} 0%, ${theme.palette.primary.main} 100%);`,
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent',
                         },
                       )}
                     </Box>
