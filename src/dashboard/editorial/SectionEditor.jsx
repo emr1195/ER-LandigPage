@@ -140,7 +140,11 @@ export const SectionEditor = ({
             </div>
             <PreviewFrame sectionKey={section.key} data={editor.draft} />
           </div>
-          <PublicationFeedback editor={editor} sectionKey={section.key} />
+          <PublicationFeedback
+            editor={editor}
+            sectionKey={section.key}
+            onDiscard={uploads.cancelAll}
+          />
           <footer className="admin-publish-bar">
             <p>
               Al publicar, los cambios estarán visibles
@@ -152,9 +156,7 @@ export const SectionEditor = ({
                 type="button"
                 className="admin-button admin-button-secondary"
                 disabled={!dirty || editor.saving || editor.discarding}
-                onClick={async () => {
-                  if (await editor.discard()) uploads.cancelAll()
-                }}
+                onClick={() => editor.discard(uploads.cancelAll)}
               >
                 {editor.discarding ? 'Cargando…' : 'Descartar'}
               </button>

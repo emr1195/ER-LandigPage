@@ -4,7 +4,12 @@ import {Fields} from './FormFields'
 import {CollectionEditor} from './CollectionEditor'
 const valueFields = [
   {key: 'title', label: 'Nombre del valor', required: true},
-  {key: 'description', label: 'Descripción del valor', type: 'textarea'},
+  {
+    key: 'description',
+    label: 'Descripción del valor',
+    type: 'textarea',
+    required: true,
+  },
   {key: 'image', label: 'Imagen del valor', type: 'image'},
   {key: 'display', label: 'Mostrar este valor', type: 'checkbox'},
   {key: 'active', label: 'Valor activo', type: 'checkbox'},

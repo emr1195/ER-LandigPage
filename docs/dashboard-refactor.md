@@ -21,6 +21,10 @@ y su tema.
 - `CollectionEditor.jsx`, `ImageField.jsx` y `MapsField.jsx` comparten operaciones
   de listas, confirmaciones y solicitudes cancelables. Una baja modifica el
   borrador; publicar confirma el conjunto.
+- `useFieldRequest.js` unifica cancelación y estado de solicitudes por campo;
+  `useImageUpload.js` y `useMapPreview.js` contienen las operaciones de red y el
+  debounce, separados de la presentación. Descartar cancela también resoluciones
+  cuyo valor de entrada no cambió.
 - `PreviewPage.jsx` utiliza los componentes públicos reales dentro de un iframe
   del mismo origen. Los mensajes verifican origen, emisor y sección. El tema
   administrativo no entra en el documento público.

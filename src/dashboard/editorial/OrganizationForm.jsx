@@ -10,7 +10,7 @@ const categories = {
 }
 const fields = [
   {key: 'name', label: 'Nombre del integrante', required: true},
-  {key: 'role', label: 'Cargo del integrante'},
+  {key: 'role', label: 'Cargo del integrante', required: true},
   {key: 'image', label: 'Fotografía del integrante', type: 'image'},
 ]
 export const OrganizationForm = ({value, onChange}) => (

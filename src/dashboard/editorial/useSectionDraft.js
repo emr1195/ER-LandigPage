@@ -49,12 +49,13 @@ export const useSectionDraft = (sectionKey, userId) => {
       snapshot &&
       contentIdentity(draft) !== contentIdentity(snapshot.data),
   )
-  const discard = async () => {
+  const discard = async (cancelPending) => {
     if (saving || discarding) return false
     setDiscarding(true)
     try {
       const current = await readContent(sectionKey)
       const data = normalizeDraft(sectionKey, current.data)
+      cancelPending?.()
       setSnapshot({...current, data})
       setDraft(structuredClone(data))
       setLatest(null)

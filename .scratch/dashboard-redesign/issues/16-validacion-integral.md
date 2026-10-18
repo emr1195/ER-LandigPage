@@ -6,20 +6,23 @@
 
 **Status:** ready-for-agent
 
+**Ejecución:** completada (2026-10-18).
+
+**Evidencia:** responsive y suite integral; lint, build, Jest; revisión Standards/Spec. Ver [validación](../validation.md) y [revisión](../review.md). La autorización posterior `$implement` supera la pausa histórica de los comentarios originales.
+
 **Spec:** [Dashboard y login: rediseño editorial y publicación confiable](../spec.md).
 
 **Historias de usuario:** 14, 15, 16, 17, 18, 19, 22, 29, 30, 31, 35, 36, 40, 43, 44, 45, 46, 52, 57, 58.
 
-- [ ] Ejecutar recorridos integrados con los nueve editores, inicio, login, Actividad y preferencias; ninguna sección evita guardas, revisión, auditoría o cargas pendientes.
-- [ ] Comprobar continuidad de sesión en editores migrados y conflictos entre administradores, sin duplicar todos los casos ya cubiertos en los niveles adecuados.
-- [ ] Revisar ambas paletas en dashboard, login y Actividad a 320/390/768/1440 píxeles, teclado y zoom 200 %, contraste, foco, etiquetas y anuncios, sin desbordamientos ni acciones inaccesibles.
-- [ ] Comparar la página pública con contenido equivalente y verificar que su tema y componentes no cambian por la apariencia administrativa.
-- [ ] Retirar únicamente código administrativo sustituido y adaptadores transitorios ya sin consumidores, manteniendo las lecturas públicas y sin añadir funciones fuera de alcance.
-- [ ] Pasar lint, build y pruebas relevantes de navegador/HTTP/editores; documentar evidencia, fallos preexistentes y limitaciones de Google configurado sin usar la base o cargas del usuario como entorno de pruebas.
-- [ ] Conservar la referencia de fuente/veredicto del prototipo y dejar claro que sus comprobaciones no sustituyen la aceptación del producto real.
+- [x] Ejecutar recorridos integrados con los nueve editores, inicio, login, Actividad y preferencias; ninguna sección evita guardas, revisión, auditoría o cargas pendientes.
+- [x] Comprobar continuidad de sesión en editores migrados y conflictos entre administradores, sin duplicar todos los casos ya cubiertos en los niveles adecuados.
+- [x] Revisar ambas paletas en dashboard, login y Actividad a 320/390/768/1440 píxeles, teclado y zoom 200 %, contraste, foco, etiquetas y anuncios, sin desbordamientos ni acciones inaccesibles.
+- [x] Comparar la página pública con contenido equivalente y verificar que su tema y componentes no cambian por la apariencia administrativa.
+- [x] Retirar únicamente código administrativo sustituido y adaptadores transitorios ya sin consumidores, manteniendo las lecturas públicas y sin añadir funciones fuera de alcance.
+- [x] Pasar lint, build y pruebas relevantes de navegador/HTTP/editores; documentar evidencia, fallos preexistentes y limitaciones de Google configurado sin usar la base o cargas del usuario como entorno de pruebas.
+- [x] Conservar la referencia de fuente/veredicto del prototipo y dejar claro que sus comprobaciones no sustituyen la aceptación del producto real.
 
 ## Comments
 
 - 2026-10-18: desglose y dependencias aprobados por el usuario mediante “acepto”. Publicado con `to-tickets` en el tracker Markdown local.
 - La publicación del ticket no autoriza iniciar implementación: el usuario mantiene esa fase en pausa. Su estado indica que está preparado para ejecución cuando se indique.
-

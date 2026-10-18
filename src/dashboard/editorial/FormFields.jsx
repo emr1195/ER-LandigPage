@@ -46,10 +46,17 @@ export const Field = ({
       <label className="admin-checkbox">
         <input
           type="checkbox"
+          {...props}
+          aria-invalid={Boolean(error)}
           checked={Boolean(value)}
           onChange={(event) => onChange(event.target.checked)}
         />
         {label}
+        {error && (
+          <small className="admin-field-error" role="alert">
+            {error}
+          </small>
+        )}
       </label>
     )
   const input = {

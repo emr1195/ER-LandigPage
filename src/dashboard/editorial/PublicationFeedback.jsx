@@ -1,6 +1,6 @@
 import React from 'react'
 import {PreviewFrame} from './PreviewFrame'
-export const PublicationFeedback = ({editor, sectionKey}) => (
+export const PublicationFeedback = ({editor, sectionKey, onDiscard}) => (
   <>
     {editor.error && editor.error.status !== 401 && (
       <p className="admin-alert" role="alert">
@@ -27,7 +27,10 @@ export const PublicationFeedback = ({editor, sectionKey}) => (
         <button
           className="admin-button admin-button-secondary"
           type="button"
-          onClick={editor.adoptLatest}
+          onClick={() => {
+            onDiscard()
+            editor.adoptLatest()
+          }}
         >
           Descartar y cargar versión vigente
         </button>

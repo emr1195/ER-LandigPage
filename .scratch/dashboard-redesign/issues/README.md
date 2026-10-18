@@ -6,7 +6,9 @@ autorizó la ejecución completa, incluidos refactor y cierre de lagunas. Las no
 de pausa de la publicación original son históricas y quedan superadas por esa
 autorización. La especificación padre se conserva como referencia aprobada.
 
-**Ejecución:** implementación y validación integral en curso.
+**Ejecución:** completada (16/16 tickets, 2026-10-18). Criterios marcados con
+evidencia en cada ticket. Ver [validación](../validation.md), [revisión de código](../review.md)
+y [estructura del refactor](../../../docs/dashboard-refactor.md).
 
 Referencia: [spec publicada](../spec.md). La nota de la spec sobre ausencia de
 tickets describe su fecha de publicación; este índice refleja el desglose posterior.
@@ -30,9 +32,10 @@ tickets describe su fecha de publicación; este índice refleja el desglose post
 | [15](15-destacamentos.md) | Publicar Destacamentos y sus eliminaciones de forma uniforme | 06 |
 | [16](16-validacion-integral.md) | Cerrar la transición y validar el dashboard completo | 07, 08, 09, 10, 11, 12, 13, 14, 15 |
 
-Al autorizar implementación, el primer ticket disponible es el **01**. Después
-de completarlo quedan disponibles 02, 03 y 08. Los tickets 09–15 dependen de 06
-y pueden avanzar de forma independiente. 16 cierra la validación del conjunto.
+La ejecución respetó el orden de dependencias: 01 abrió la estructura común;
+02/03/08 establecieron acceso, publicación y preferencias; 04–07 completaron
+concurrencia, auditoría, cargas y continuidad; 09–15 migraron los editores.
+16 cerró la validación y retiró el código administrativo sustituido.
 
 Cada ticket incorpora criterios verificables y pruebas en el nivel apropiado:
 navegador para el recorrido del administrador, HTTP con PostgreSQL aislado para

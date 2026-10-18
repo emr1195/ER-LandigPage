@@ -30,6 +30,10 @@ export const NavbarForm = ({value, onChange}) => (
       El logo y los enlaces que ayudan a encontrar cada historia.
     </p>
     <Fields fields={identity} value={value} onChange={onChange} />
+    <p className="admin-muted">
+      Puedes destacar un único enlace como botón de contacto. Desmarca el actual
+      para elegir otro.
+    </p>
     <CollectionEditor
       label="Enlaces"
       items={value.listMenu}
@@ -43,7 +47,20 @@ export const NavbarForm = ({value, onChange}) => (
       onChange={at(onChange, 'listMenu')}
     >
       {(item, change) => (
-        <Fields fields={links} value={item} onChange={change} />
+        <Fields
+          fields={links.map((field) =>
+            field.key === 'eventButton'
+              ? {
+                  ...field,
+                  disabled:
+                    !item.eventButton &&
+                    value.listMenu.some((other) => other.eventButton),
+                }
+              : field,
+          )}
+          value={item}
+          onChange={change}
+        />
       )}
     </CollectionEditor>
   </>

@@ -45,15 +45,27 @@ export const contentValidationErrors = (key, body) => {
       text('textSection.description', 'Escribe la descripción de la portada.')
       rows('textSection.buttons')
       break
-    case 'navbar':
-      rows('listMenu')
+    case 'navbar': {
+      const menu = rows('listMenu')
+      if (menu.filter((item) => item.eventButton).length > 1)
+        menu.forEach((item, index) => {
+          if (item.eventButton)
+            errors['listMenu.' + index + '.eventButton'] =
+              'Destaca un único botón de contacto.'
+        })
       break
+    }
     case 'history':
       text('description', 'Escribe nuestra historia.')
       rows('infoSection')
       break
     case 'programStructure':
-      rows('programValues')
+      rows('programValues').forEach((_, index) =>
+        text(
+          'programValues.' + index + '.description',
+          'Escribe la descripción del valor.',
+        ),
+      )
       break
     case 'expeditionGroup':
       if (!rows('expeditionGroups').length)
@@ -67,7 +79,12 @@ export const contentValidationErrors = (key, body) => {
       break
     case 'organization':
       for (const group of ['coorNac', 'comNac', 'teamNac', 'cmDist'])
-        rows('members.' + group, 'name')
+        rows('members.' + group, 'name').forEach((_, index) =>
+          text(
+            'members.' + group + '.' + index + '.role',
+            'Escribe el cargo del integrante.',
+          ),
+        )
       break
     case 'footer':
       rows('mainSection.moreInfo', 'name')

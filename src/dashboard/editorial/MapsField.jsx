@@ -1,74 +1,7 @@
-import React, {useEffect, useId, useRef, useState} from 'react'
-import {
-  parseGoogleMapsUrl,
-  googleMapsEmbedUrl,
-} from '../../../shared/googleMaps'
-import {apiRequest} from '../../api/client'
-import {useUploads} from './useUploads'
+import React from 'react'
+import {useMapPreview} from './useMapPreview'
 export const MapsField = ({value, onChange}) => {
-  const id = useId()
-  const {set, clear, onSessionExpired} = useUploads()
-  const change = useRef(onChange)
-  change.current = onChange
-  const [map, setMap] = useState({url: '', error: '', pending: false})
-  useEffect(() => {
-    let active = true
-    let timer
-    const controller = new AbortController()
-    const url = value.mapsUrl?.trim() || ''
-    if (!url) {
-      setMap({url: '', error: '', pending: false})
-      clear(id)
-      return
-    }
-    try {
-      const parsed = parseGoogleMapsUrl(url)
-      if (!parsed.short || value.embedUrl) {
-        setMap({
-          url: googleMapsEmbedUrl(value.embedUrl || url),
-          error: '',
-          pending: false,
-        })
-        clear(id)
-      } else {
-        setMap({url: '', error: '', pending: true})
-        set(id, 'pending', controller)
-        timer = setTimeout(async () => {
-          try {
-            const result = await apiRequest('/api/maps/preview', {
-              method: 'POST',
-              body: JSON.stringify({url}),
-              signal: controller.signal,
-            })
-            if (active) {
-              setMap({url: result.embedUrl, error: '', pending: false})
-              clear(id)
-              change.current((previous) => ({
-                ...previous,
-                embedUrl: result.embedUrl,
-              }))
-            }
-          } catch (reason) {
-            if (active && !controller.signal.aborted) {
-              setMap({url: '', error: reason.message, pending: false})
-              set(id, 'failed', controller)
-              if (reason.status === 401) onSessionExpired?.()
-            }
-          }
-        }, 400)
-      }
-    } catch (reason) {
-      setMap({url: '', error: reason.message, pending: false})
-      set(id, 'failed', controller)
-    }
-    return () => {
-      active = false
-      clearTimeout(timer)
-      controller.abort()
-      clear(id)
-    }
-    // Updating other fields must not restart a map resolution.
-  }, [value.mapsUrl, value.embedUrl, id, set, clear, onSessionExpired])
+  const map = useMapPreview(value, onChange)
   return (
     <div className="admin-field-group">
       <label className="admin-field">
@@ -90,7 +23,14 @@ export const MapsField = ({value, onChange}) => {
       </label>
       {map.error && (
         <p role="alert" className="admin-field-error">
-          {map.error}
+          {map.error}{' '}
+          <button
+            type="button"
+            className="admin-text-button"
+            onClick={map.retry}
+          >
+            Reintentar mapa
+          </button>
         </p>
       )}
       {map.pending && <p role="status">Preparando mapa…</p>}

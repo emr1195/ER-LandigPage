@@ -1,6 +1,5 @@
-import React, {useEffect, useId, useRef, useState} from 'react'
-import {apiResponse} from '../../api/client'
-import {useUploads} from './useUploads'
+import React from 'react'
+import {useImageUpload} from './useImageUpload'
 export const ImageField = ({
   label,
   value = '',
@@ -8,59 +7,10 @@ export const ImageField = ({
   help,
   validationError,
 }) => {
-  const id = useId()
-  const queue = useUploads()
-  const {set, clear, epoch} = queue
-  const change = useRef(onChange)
-  change.current = onChange
-  const request = useRef(null)
-  const file = useRef(null)
-  const [pending, setPending] = useState(false)
-  const [error, setError] = useState('')
-  useEffect(
-    () => () => {
-      request.current?.abort()
-      clear(id)
-    },
-    [id, clear],
+  const {pending, error, upload, retry, cancel} = useImageUpload(
+    label,
+    onChange,
   )
-  useEffect(() => {
-    request.current?.abort()
-    setPending(false)
-    setError('')
-  }, [epoch])
-  const upload = async (next) => {
-    if (!next) return
-    request.current?.abort()
-    const controller = new AbortController()
-    request.current = controller
-    file.current = next
-    setPending(true)
-    setError('')
-    set(id, 'pending', controller)
-    try {
-      const body = new FormData()
-      body.append('file', next)
-      body.append('sectionKey', queue.sectionKey)
-      body.append('field', label)
-      const response = await apiResponse('/api/uploads', {
-        method: 'POST',
-        body,
-        signal: controller.signal,
-      })
-      const data = await response.json()
-      if (controller.signal.aborted) return
-      change.current(data.url)
-      clear(id)
-    } catch (reason) {
-      if (controller.signal.aborted) return
-      setError(reason.message)
-      set(id, 'failed', controller)
-      if (reason.status === 401) queue.onSessionExpired?.()
-    } finally {
-      if (!controller.signal.aborted) setPending(false)
-    }
-  }
   return (
     <div className="admin-image-field">
       <p className="admin-image-label">{label}</p>
@@ -93,10 +43,8 @@ export const ImageField = ({
             type="text"
             value={value}
             onChange={(event) => {
-              request.current?.abort()
-              clear(id)
-              setPending(false)
-              setError('')
+              cancel()
+
               onChange(event.target.value)
             }}
           />
@@ -107,10 +55,8 @@ export const ImageField = ({
           type="button"
           className="admin-text-button"
           onClick={() => {
-            request.current?.abort()
-            clear(id)
-            setPending(false)
-            setError('')
+            cancel()
+
             onChange('')
           }}
         >
@@ -134,7 +80,7 @@ export const ImageField = ({
             <button
               type="button"
               className="admin-text-button"
-              onClick={() => upload(file.current)}
+              onClick={() => retry()}
             >
               Reintentar carga
             </button>
@@ -142,8 +88,7 @@ export const ImageField = ({
               type="button"
               className="admin-text-button"
               onClick={() => {
-                clear(id)
-                setError('')
+                cancel()
               }}
             >
               Conservar imagen actual

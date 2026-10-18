@@ -16,7 +16,12 @@ superada por esta instrucción; se conserva la spec aprobada sin reescribirla.
   47/50; tres fallos del arnés (dos por contenido compartido entre escenarios y
   uno por buscar un `img` en lugar del fondo CSS real de Historia). Se añadió
   preparación independiente por escenario y se corrige la comprobación visual.
-  La repetición integral ampliada está en curso.
+  La repetición integral ampliada pasó: **53/53**. Después de la revisión se
+  volvieron a comprobar 19 escenarios afectados y se añadieron 3 regresiones;
+  todos pasaron. El archivo nuevo es `tests/review-regressions.spec.mjs`.
+  Tras asegurar cancelación antes de restaurar el contenido o adoptar la versión
+  vigente, pasaron otros 13 recorridos dirigidos de publicación, conflicto,
+  descarte y cargas; lint y build se ejecutaron de nuevo con éxito.
 - Matriz responsive dirigida: ambas paletas, inicio, nueve editores y actividad,
   a 320/390/768/1440 px y espacio equivalente a zoom 200 %; pasó. Se comprobó
   teclado en navegación móvil, foco retenido/devuelto, login y tabs accesibles.
@@ -50,7 +55,9 @@ del JSON público. No se publicaron ediciones de prueba en esa base.
 Los tests usan exclusivamente `er_dashboard_test`/55439 y cargas temporales bajo
 `.tmp/dashboard-test.local/`. El arnés verifica el directorio del clúster antes
 de escribir. La aplicación del usuario responde en `http://localhost:3002` con
-API PostgreSQL saludable. Falta el último recorrido local de solo lectura.
+API PostgreSQL saludable. El recorrido local final abrió login y los nueve
+editores, sin errores del navegador; la comparación antes/después confirmó
+que no se modificó el contenido del usuario. Se cerró esa sesión de verificación.
 
 Google real no está configurado: no se atribuye una validación del proveedor
 externo que no se ejecutó. El zoom se revisa por espacio de diseño equivalente;
@@ -62,4 +69,16 @@ una actualización mayor indiscriminada.
 
 Fuente/veredicto: rama `prototype/dashboard-editorial-20261018023734`, commit
 `c26f7ae0e08c3df210ae11e7aecd787a9df73aa4`; excluido del producto. Revisión final
-de Standards y Spec mediante `code-review`: pendiente de registrar resultados.
+de Standards y Spec mediante `code-review`: completada, con seguimiento estático
+de las correcciones. [Informes separados y resolución](review.md).
+
+Los tres hallazgos iniciales se reprodujeron antes de corregirlos: cancelación
+del mapa con valores restaurados idénticos, exclusividad del botón de contacto y
+validaciones obligatorias heredadas. Se centralizó la cancelación en
+`useFieldRequest`, se separaron operaciones en `useImageUpload`/`useMapPreview` y
+se restauraron restricciones tanto en formulario como en servidor. Un fallo de
+sincronización en la nueva prueba UI se corrigió esperando la carga del formulario
+antes de contar registros; no se añadió una espera fija.
+
+Resultado: los 16 tickets quedan ejecutados y sus criterios verificados. Triage
+mantiene el vocabulario del repositorio; el campo Ejecución registra la finalización.
