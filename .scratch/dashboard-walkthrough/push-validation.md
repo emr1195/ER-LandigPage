@@ -51,7 +51,10 @@ HTTP 403: permiso denegado a `EPraz`. `gh repo view` confirmó
 `viewerPermission: READ`; es la única cuenta configurada tanto en GitHub CLI
 como en Git Credential Manager.
 
-El push no se completó y el remoto no recibió esta entrega. Hace falta una
-cuenta con escritura o conceder ese acceso a `EPraz`. No se alteraron credenciales
-ni se inició otro despliegue. La integración queda validada y lista para reintentar
-el mismo push, sin force push, cuando exista acceso.
+El push directo no se completó y el remoto no recibió esta entrega. No se
+alteraron credenciales ni se inició otro despliegue.
+
+El propietario indicó después que se envíe como Pull Request. Se creó el fork
+`EPraz/ER-LandigPage` para publicar la rama de entrega y proponer su integración
+en `emr1195/ER-LandigPage:develop`, conservando el merge y todo el historial.
+La apertura del PR no equivale a un merge ni a una verificación de despliegue.
