@@ -17,6 +17,11 @@ Acción de hacer que el contenido editado por un administrador esté disponible
 para los visitantes de la página pública.
 _Avoid_: Borrador publicado
 
+**Borrador**:
+Edición del contenido de una sección que todavía no se ha publicado y cuyos
+cambios aún no se muestran a los visitantes.
+_Avoid_: Contenido publicado
+
 **Vista previa**:
 Representación de cómo quedaría el contenido editado en la página pública
 antes de publicarlo.

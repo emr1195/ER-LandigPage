@@ -1,6 +1,6 @@
 // Dedicated PostgreSQL cluster and uploads: never connect this harness to .env's DB.
 import {spawn, spawnSync} from 'node:child_process'
-import {existsSync, mkdirSync} from 'node:fs'
+import {existsSync, mkdirSync, readFileSync} from 'node:fs'
 import path from 'node:path'
 import pg from 'pg'
 
@@ -8,6 +8,9 @@ const root = process.cwd()
 const scratch = path.join(root, '.tmp', 'dashboard-test.local')
 const data = path.join(scratch, 'postgres')
 mkdirSync(scratch, {recursive: true})
+const recordingLock = path.join(scratch, 'walkthrough.lock')
+if (existsSync(recordingLock) && JSON.parse(readFileSync(recordingLock, 'utf8')).token !== process.env.WALKTHROUGH_LEASE)
+  throw new Error('Hay una captura de walkthrough en curso; no se restableció la base de prueba.')
 const pgBin = [
   process.env.PG_BIN,
   'C:/Program Files/PostgreSQL/18/bin',

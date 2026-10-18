@@ -1,0 +1,148 @@
+{
+  "applicationCommit": "611f16f1ef9e3869d4f6d2dde0a1782a63e10034",
+  "origin": "http://127.0.0.1:3410",
+  "duration": 234.64,
+  "size": [
+    1920,
+    1080
+  ],
+  "fps": 25.0,
+  "bytes": 16730596,
+  "audio": "none; Spanish captions are embedded",
+  "checks": {
+    "portada": {
+      "title": "Una nueva aventura comienza aquí",
+      "image": "/api/uploads/files/5996d2b5-1074-496f-8058-e2ee5ba23f35.png",
+      "draftWasPrivate": true
+    },
+    "events": {
+      "created": "Jornada de exploradores",
+      "createdId": "c2aaa97f-c8ce-40e4-87c5-934b432a9a05",
+      "removed": "Encuentro de familias (demo)",
+      "removedId": "demo-evento-encuentro",
+      "count": 4,
+      "pendingUntilPublication": true
+    },
+    "audit": {
+      "publications": 2,
+      "actor": "admin@example.test",
+      "eventId": "4",
+      "beforeAfterVerified": true
+    },
+    "appearance": "petrol-apricot",
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "event": "Jornada de exploradores",
+      "realViewport": true
+    },
+    "userContentUnchanged": true,
+    "browserErrors": []
+  },
+  "chapters": [
+    {
+      "id": "acceso",
+      "title": "01 / Un espacio para tu comunidad",
+      "start": 0,
+      "duration": 16.04
+    },
+    {
+      "id": "inicio",
+      "title": "02 / Elige qué quieres actualizar",
+      "start": 16.04,
+      "duration": 10.04
+    },
+    {
+      "id": "texto",
+      "title": "03 / Dale voz a tu portada",
+      "start": 26.08,
+      "duration": 24.04
+    },
+    {
+      "id": "imagen",
+      "title": "04 / Actualiza también las imágenes",
+      "start": 50.12,
+      "duration": 14.04
+    },
+    {
+      "id": "preview",
+      "title": "05 / Mira el resultado antes de publicar",
+      "start": 64.16,
+      "duration": 20.04
+    },
+    {
+      "id": "proteccion",
+      "title": "06 / Continúa con confianza",
+      "start": 84.2,
+      "duration": 18.04
+    },
+    {
+      "id": "publicar",
+      "title": "07 / Comparte los cambios con tu comunidad",
+      "start": 102.24,
+      "duration": 10.04
+    },
+    {
+      "id": "sitio",
+      "title": "08 / El resultado ya está en la página pública",
+      "start": 112.28,
+      "duration": 12.04
+    },
+    {
+      "id": "crear-evento",
+      "title": "09 / Prepara la próxima actividad",
+      "start": 124.32,
+      "duration": 24.04
+    },
+    {
+      "id": "eliminar-evento",
+      "title": "10 / Una baja espera a la publicación",
+      "start": 148.36,
+      "duration": 14.04
+    },
+    {
+      "id": "auditoria",
+      "title": "11 / Consulta quién publicó y qué cambió",
+      "start": 162.4,
+      "duration": 22.04
+    },
+    {
+      "id": "apariencias",
+      "title": "12 / Tu apariencia, a tu manera",
+      "start": 184.44,
+      "duration": 12.04
+    },
+    {
+      "id": "preferencia",
+      "title": "13 / La elección se conserva",
+      "start": 196.48,
+      "duration": 6.04
+    },
+    {
+      "id": "movil-nav",
+      "title": "14 / Tu comunidad, en cada pantalla",
+      "start": 202.52,
+      "duration": 12.04
+    },
+    {
+      "id": "movil-edicion",
+      "title": "15 / Edita y revisa desde el móvil",
+      "start": 214.56,
+      "duration": 12.04
+    },
+    {
+      "id": "cierre",
+      "title": "Edita, revisa y publica",
+      "start": 226.6,
+      "duration": 8.04
+    }
+  ],
+  "fullDecode": "passed",
+  "files": [
+    "public/walkthrough/exploradores-walkthrough.mp4",
+    "public/walkthrough/exploradores-walkthrough.vtt",
+    "public/walkthrough/poster.jpg"
+  ],
+  "sha256": "d1620680bc5bb0698ae61f462329d821e8b98727acdf41dee51e750ed3bf1bff",
+  "provisional": false
+}

@@ -19,7 +19,10 @@
     "design:preview": "python -m http.server 5197 --bind 127.0.0.1 --directory .design/dashboard-redesign",
     "test": "set TZ=utc && jest --passWithNoTests --watchAll=false --maxWorkers=50%",
     "test:watch": "jest --watchAll",
-    "test:e2e": "playwright test",
+    "test:e2e": "npm run build && playwright test",
+    "walkthrough:rehearse": "node scripts/walkthrough/record.mjs --rehearsal",
+    "walkthrough:record": "node scripts/walkthrough/record.mjs",
+    "walkthrough:render": "python -X utf8 scripts/walkthrough/render.py",
     "test:ultra": "set TZ=utc && jest --passWithNoTests --watchAll=false --maxWorkers=100% "
   },
   "dependencies": {
