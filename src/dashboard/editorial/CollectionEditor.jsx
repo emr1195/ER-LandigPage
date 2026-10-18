@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {ConfirmDialog} from './ConfirmDialog'
-import {at} from './formChanges'
+import {at, ValidationContext} from './formChanges'
 
 export const CollectionEditor = ({
   label,
@@ -11,8 +11,27 @@ export const CollectionEditor = ({
   zeroBased = false,
   minItems = 0,
   sortable = true,
+  initiallyOpen = true,
+  summary,
 }) => {
   const [removing, setRemoving] = useState(null)
+  const [openIds, setOpenIds] = useState(
+    () => new Set(initiallyOpen && items[0] ? [items[0].id] : []),
+  )
+  const errors = useContext(ValidationContext)
+  const path = (onChange.path || []).join('.')
+  useEffect(() => {
+    const index = items.findIndex((_, index) =>
+      Object.keys(errors).some((key) =>
+        key.startsWith(path + '.' + index + '.'),
+      ),
+    )
+    const id = items[index]?.id
+    if (id)
+      setOpenIds((previous) =>
+        previous.has(id) ? previous : new Set([...previous, id]),
+      )
+  }, [errors, items, path])
   const normalize = (rows) =>
     rows.map((item, index) => ({
       ...item,
@@ -41,16 +60,17 @@ export const CollectionEditor = ({
         <button
           type="button"
           className="admin-button admin-button-secondary"
-          onClick={() =>
+          onClick={() => {
+            const next = {...create(), id: crypto.randomUUID()}
+            setOpenIds((previous) => new Set([...previous, next.id]))
             onChange((current) => [
               ...(current || []),
               {
-                ...create(),
-                id: crypto.randomUUID(),
+                ...next,
                 position: (current?.length || 0) + (zeroBased ? 0 : 1),
               },
             ])
-          }
+          }}
         >
           Agregar {label.toLowerCase()}
         </button>
@@ -64,11 +84,33 @@ export const CollectionEditor = ({
         <details
           className="admin-record"
           key={item.id || index}
-          open={index === 0}
+          open={openIds.has(item.id)}
+          onToggle={(event) => {
+            const open = event.currentTarget.open
+            setOpenIds((previous) => {
+              if (previous.has(item.id) === open) return previous
+              const next = new Set(previous)
+              if (open) next.add(item.id)
+              else next.delete(item.id)
+              return next
+            })
+          }}
+          onInvalidCapture={() =>
+            setOpenIds((previous) =>
+              previous.has(item.id)
+                ? previous
+                : new Set([...previous, item.id]),
+            )
+          }
         >
           <summary>
-            {name(item)}
-            <span>{String(index + 1).padStart(2, '0')}</span>
+            <span className="admin-record-name">
+              {name(item)}
+              {summary && <small>{summary(item)}</small>}
+            </span>
+            <span className="admin-record-index">
+              {String(index + 1).padStart(2, '0')}
+            </span>
           </summary>
           <div className="admin-record-body">
             {children(item, at(onChange, index), index)}

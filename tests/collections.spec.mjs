@@ -98,6 +98,10 @@ test('Eventos puede eliminar el último elemento sin publicar las bajas por sepa
     .fill('Próximas actividades por anunciar')
   for (const item of before.events) {
     await page
+      .locator('details.admin-record > summary')
+      .filter({hasText: item.title})
+      .click()
+    await page
       .getByRole('button', {name: 'Eliminar ' + item.title, exact: true})
       .click()
     await page.getByRole('button', {name: 'Confirmar eliminación'}).click()

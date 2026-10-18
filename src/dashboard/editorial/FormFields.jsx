@@ -21,6 +21,7 @@ export const Field = ({
   type = 'text',
   help,
   required = false,
+  wide = false,
   ...props
 }) => {
   const [localError, setError] = useState('')
@@ -79,7 +80,11 @@ export const Field = ({
     },
   }
   return (
-    <label className="admin-field">
+    <label
+      className={
+        'admin-field' + (wide || type === 'textarea' ? ' admin-field-wide' : '')
+      }
+    >
       <span>
         {label}
         {required && <span aria-hidden="true"> *</span>}
@@ -111,16 +116,37 @@ export const Field = ({
   )
 }
 
-export const Fields = ({fields, value = {}, onChange}) => (
-  <div className="admin-fields">
-    {fields.map(({key, ...field}) => (
-      <Field
-        key={key}
-        type={key === 'icon' ? 'icon' : 'text'}
-        {...field}
-        value={value[key]}
-        onChange={at(onChange, key)}
-      />
-    ))}
-  </div>
-)
+export const Fields = ({fields, value = {}, onChange}) => {
+  const secondary = fields.filter(
+    (field) =>
+      field.key === 'sectionTitle' || field.label === 'Título de referencia',
+  )
+  const primary = fields.filter((field) => !secondary.includes(field))
+  const render = ({key, ...field}) => (
+    <Field
+      key={key}
+      wide={['title', 'name', 'url', 'logoTitle'].includes(key)}
+      type={key === 'icon' ? 'icon' : 'text'}
+      {...field}
+      value={value[key]}
+      onChange={at(onChange, key)}
+    />
+  )
+  return (
+    <>
+      {primary.length > 0 && (
+        <div className="admin-fields admin-fields-columns">
+          {primary.map(render)}
+        </div>
+      )}
+      {secondary.length > 0 && (
+        <details className="admin-settings">
+          <summary>Ajustes de sección</summary>
+          <div className="admin-fields admin-fields-columns">
+            {secondary.map(render)}
+          </div>
+        </details>
+      )}
+    </>
+  )
+}

@@ -22,3 +22,10 @@ export const sectionLabels = {
   detachment: 'Destacamentos',
   footer: 'Pie de página',
 }
+
+export const openFirstRecord = async (page) => {
+  const record = page.locator('details.admin-record').first()
+  await expect(record).toBeVisible()
+  if (!(await record.evaluate((element) => element.open)))
+    await record.locator(':scope > summary').click()
+}

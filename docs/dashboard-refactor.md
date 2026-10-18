@@ -27,7 +27,9 @@ y su tema.
   cuyo valor de entrada no cambió.
 - `PreviewPage.jsx` utiliza los componentes públicos reales dentro de un iframe
   del mismo origen. Los mensajes verifican origen, emisor y sección. El tema
-  administrativo no entra en el documento público.
+  administrativo no entra en el documento público. `usePreviewSurface` ajusta
+  el contenido al ancho lógico elegido (escritorio, tablet o móvil) y a la columna
+  disponible; `PreviewDialog` ofrece la misma vista ampliada sin perder el borrador.
 - `server/services/siteSections.js` controla revisiones y la transacción de
   contenido/auditoría. Las rutas HTTP autentican y traducen errores; no contienen
   lógica de formularios. `activity.js` y `preferences.js` separan sus contratos.
@@ -76,3 +78,8 @@ capturas locales en `.tmp/dashboard-test.local/visuals/`.
 
 El detalle de comandos, resultados y observaciones finales se registra en
 [la validación de la entrega](../.scratch/dashboard-redesign/validation.md).
+
+El [ajuste posterior de densidad](../.scratch/dashboard-redesign/density-refinement.md)
+compacta navegación y formularios, resume Eventos y mantiene las acciones de
+publicación visibles durante la edición. Su informe contiene mediciones y
+regresiones propias, separadas del cierre original de los 16 tickets.

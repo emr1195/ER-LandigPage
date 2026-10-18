@@ -1,5 +1,5 @@
 import {test, expect} from './support/fixture.mjs'
-import {signIn} from './support/session.mjs'
+import {signIn, openFirstRecord} from './support/session.mjs'
 
 test('Navegación conserva sus enlaces al actualizar la identidad del sitio', async ({
   page,
@@ -156,6 +156,7 @@ test('Eventos se edita en móvil conservando la hora y los otros eventos', async
   ).json()
   await page.setViewportSize({width: 390, height: 844})
   await page.goto('/dashboard/events')
+  await openFirstRecord(page)
   const title = page.getByLabel('Nombre del evento', {exact: true}).first()
   await expect(title).toBeVisible()
   await title.fill('Encuentro de nuestra comunidad')

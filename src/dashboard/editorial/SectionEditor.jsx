@@ -4,7 +4,7 @@ import {editorViews} from './editorViews'
 import {PreviewFrame} from './PreviewFrame'
 import {ConfirmDialog} from './ConfirmDialog'
 import {useSectionDraft} from './useSectionDraft'
-import {Icon} from './Icon'
+import {PublishBar} from './PublishBar'
 import {PublicationFeedback} from './PublicationFeedback'
 import {useUploadQueue, UploadContext} from './useUploads'
 import {ValidationContext} from './formChanges'
@@ -101,7 +101,15 @@ export const SectionEditor = ({
     event.preventDefault()
     if (uploads.pending || uploads.failed) return
     if (event.currentTarget.checkValidity()) editor.publish()
-    else event.currentTarget.querySelector(':invalid')?.focus()
+    else {
+      const form = event.currentTarget
+      setView('edit')
+      requestAnimationFrame(() =>
+        form
+          .querySelector('input:invalid, select:invalid, textarea:invalid')
+          ?.focus(),
+      )
+    }
   }
   return (
     <ValidationContext.Provider value={editor.error?.fields || {}}>
@@ -145,39 +153,7 @@ export const SectionEditor = ({
             sectionKey={section.key}
             onDiscard={uploads.cancelAll}
           />
-          <footer className="admin-publish-bar">
-            <p>
-              Al publicar, los cambios estarán visibles
-              <br />
-              para todos los visitantes.
-            </p>
-            <div>
-              <button
-                type="button"
-                className="admin-button admin-button-secondary"
-                disabled={!dirty || editor.saving || editor.discarding}
-                onClick={() => editor.discard(uploads.cancelAll)}
-              >
-                {editor.discarding ? 'Cargando…' : 'Descartar'}
-              </button>
-              <button
-                className="admin-button"
-                type="submit"
-                disabled={
-                  !editor.dirty ||
-                  editor.saving ||
-                  editor.discarding ||
-                  uploads.pending ||
-                  uploads.failed
-                }
-              >
-                {editor.saving ? 'Publicando…' : 'Guardar y publicar'}
-              </button>
-            </div>
-          </footer>
-          <p className="admin-audit-note">
-            <Icon name="shield" /> Los cambios quedarán registrados.
-          </p>
+          <PublishBar editor={editor} uploads={uploads} dirty={dirty} />
         </form>
         {blocker.state === 'blocked' && (
           <ConfirmDialog

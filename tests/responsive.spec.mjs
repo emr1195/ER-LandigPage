@@ -28,7 +28,7 @@ for (const appearance of ['carbon-azure', 'petrol-apricot']) {
     await mkdir(directory, {recursive: true})
     const errors = []
     page.on('pageerror', (error) => errors.push(error.message))
-    for (const width of [320, 390, 768, 1440, 720]) {
+    for (const width of [320, 390, 768, 1024, 1440, 720]) {
       await page.setViewportSize({width, height: width === 720 ? 450 : 960})
       for (const section of ['', ...sections, 'activity']) {
         await page.goto('/dashboard' + (section ? '/' + section : ''))

@@ -1,5 +1,5 @@
 import {test, expect} from './support/fixture.mjs'
-import {signIn} from './support/session.mjs'
+import {signIn, openFirstRecord} from './support/session.mjs'
 
 const file = {
   name: 'editor.png',
@@ -34,6 +34,7 @@ for (const [section, label, path] of cases) {
     await signIn(page.request)
     await page.setViewportSize({width: 390, height: 844})
     await page.goto('/dashboard/' + section)
+    if (section === 'events') await openFirstRecord(page)
     await page
       .getByLabel('Subir ' + label, {exact: true})
       .first()

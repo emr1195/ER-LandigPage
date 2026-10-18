@@ -10,7 +10,6 @@ const fields = [
     help: 'Puedes separar el lugar y los detalles con punto y coma (;).',
   },
   {key: 'byWho', label: 'Organiza'},
-  {key: 'image', label: 'Imagen del evento', type: 'image'},
 ]
 const EventDate = ({value = '', onChange}) => {
   const [date = '', ...timeParts] = value.split(';')
@@ -18,7 +17,7 @@ const EventDate = ({value = '', onChange}) => {
   const combine = (nextDate, nextTime) =>
     nextTime || value.includes(';') ? nextDate + ';' + nextTime : nextDate
   return (
-    <div className="admin-fields admin-field-group">
+    <div className="admin-fields admin-fields-columns">
       <Field
         validationPath={onChange.path}
         label="Fecha del evento"
@@ -38,10 +37,6 @@ const EventDate = ({value = '', onChange}) => {
 }
 export const EventsForm = ({value, onChange}) => (
   <>
-    <h2>Lo próximo que viviremos juntos</h2>
-    <p className="admin-muted">
-      Comparte los encuentros y los detalles para participar.
-    </p>
     <Fields
       fields={[
         {key: 'title', label: 'Título de los eventos', required: true},
@@ -52,6 +47,12 @@ export const EventsForm = ({value, onChange}) => (
     />
     <CollectionEditor
       label="Eventos"
+      initiallyOpen={false}
+      summary={(event) =>
+        [event.date?.split(';')[0], event.ubication?.split(';')[0]]
+          .filter(Boolean)
+          .join(' · ')
+      }
       items={value.events}
       create={() => ({
         title: '',
@@ -63,10 +64,16 @@ export const EventsForm = ({value, onChange}) => (
       onChange={at(onChange, 'events')}
     >
       {(event, change) => (
-        <>
+        <div className="admin-event-editor">
           <Fields fields={fields} value={event} onChange={change} />
           <EventDate value={event.date} onChange={at(change, 'date')} />
-        </>
+          <Field
+            label="Imagen del evento"
+            type="image"
+            value={event.image}
+            onChange={at(change, 'image')}
+          />
+        </div>
       )}
     </CollectionEditor>
   </>

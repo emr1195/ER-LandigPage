@@ -30,6 +30,19 @@ export const ImageField = ({
           />
           {pending ? 'Subiendo imagen…' : 'Subir imagen'}
         </label>
+        {value && (
+          <button
+            type="button"
+            className="admin-text-button"
+            aria-label={'Quitar imagen: ' + label.toLowerCase()}
+            onClick={() => {
+              cancel()
+              onChange('')
+            }}
+          >
+            Quitar
+          </button>
+        )}
         <span className="admin-muted">
           PNG, JPG, WebP, GIF o AVIF · hasta 8 MB
         </span>
@@ -50,19 +63,6 @@ export const ImageField = ({
           />
         </label>
       </details>
-      {value && (
-        <button
-          type="button"
-          className="admin-text-button"
-          onClick={() => {
-            cancel()
-
-            onChange('')
-          }}
-        >
-          Quitar imagen: {label.toLowerCase()}
-        </button>
-      )}
       {pending && (
         <p role="status" className="admin-muted">
           Espera a que termine la carga antes de publicar.
