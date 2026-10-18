@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {SectionContainer} from '../common'
 import {Grid} from '@mui/material'
 import {ImageSection, TextSection} from './sections'
@@ -6,23 +6,24 @@ import {ImageSection, TextSection} from './sections'
 export const ExpeditionGroup = ({expeditionGroupInfo}) => {
   const {expeditionGroups, sectionTitle, title} = expeditionGroupInfo
 
-  const [selectedGroup, setSelectedGroup] = useState(
-    expeditionGroups[0].title || 'navegantes',
-  )
+  const [selectedGroupIndex, setSelectedGroupIndex] = useState(0)
 
-  const [secondaryColor, setSecondaryColor] = useState(
-    expeditionGroups[0].colors.secondary,
-  )
+  useEffect(() => {
+    if (selectedGroupIndex >= expeditionGroups.length) {
+      setSelectedGroupIndex(0)
+    }
+  }, [expeditionGroups.length, selectedGroupIndex])
+
+  if (expeditionGroups.length === 0) return null
+
+  const secondaryColor =
+    expeditionGroups[selectedGroupIndex]?.colors?.secondary || ''
   return (
     <SectionContainer className="ExpeditionGroup">
       {expeditionGroups.map((group, index) => (
         <Grid
           key={index}
-          display={
-            selectedGroup.toLowerCase() === group.title.toLowerCase()
-              ? 'flex'
-              : 'none'
-          }
+          display={selectedGroupIndex === index ? 'flex' : 'none'}
           container
           width="100%"
           gap="64px"
@@ -31,8 +32,8 @@ export const ExpeditionGroup = ({expeditionGroupInfo}) => {
         >
           <ImageSection
             group={group}
-            setSelectedGroup={setSelectedGroup}
-            setSecondaryColor={setSecondaryColor}
+            selectedGroupIndex={selectedGroupIndex}
+            setSelectedGroupIndex={setSelectedGroupIndex}
             expeditionGroups={expeditionGroups}
           />
 

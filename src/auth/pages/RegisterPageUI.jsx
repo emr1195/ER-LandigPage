@@ -95,7 +95,7 @@ export const RegisterPageUI = ({props}) => {
             <Grid
               item
               xs={12}
-              display={!!errorMessageFromAuthentication ? '' : 'none'}
+              display={errorMessageFromAuthentication ? '' : 'none'}
             >
               <Alert severity="error">{errorMessageFromAuthentication}</Alert>
             </Grid>
@@ -119,13 +119,7 @@ export const RegisterPageUI = ({props}) => {
             <Link
               component={RouterLink}
               color="inherit"
-              // to="/auth/login"
-              to={
-                displayInfo.outsideURL
-                  ? displayInfo.url
-                  : `#${displayInfo.url ?? ''}`
-              }
-              target={displayInfo.outsideURL ? '_blank' : ''}
+              to="/auth/login"
             >
               Ingresar
             </Link>

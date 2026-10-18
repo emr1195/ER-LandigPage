@@ -1,5 +1,3 @@
-import {doc, setDoc} from 'firebase/firestore/lite'
-import {FirebaseDB} from '../../../firebase/config'
 import {fileUpload} from '../../../helpers'
 import {
   handleError,
@@ -9,6 +7,7 @@ import {
   setSaving,
 } from '../../dashboard'
 import {resetSavingNavbar, setLogoImage, setSavingNavbar} from './navbarSlice'
+import {saveSiteSection} from '../../../repositories/siteSections'
 
 /**
  * Initiates the uploading of multiple files and updates the active note with the corresponding photo URLs.
@@ -55,7 +54,7 @@ export const savingNewNavbar = (newNavbarInfo) => {
       const copyNNI = structuredClone(newNavbarInfo)
 
       const date = new Date()
-      const {displayName, email, uid} = getState().auth
+      const {email} = getState().auth
 
       let day = date.getDate()
       let month = date.getMonth() + 1
@@ -73,9 +72,7 @@ export const savingNewNavbar = (newNavbarInfo) => {
 
       copyNNI.listMenu = newListMenu // updating copyNNI with the latest newListMenu
 
-      const docRef = doc(FirebaseDB, `er_landing_page/navbar`)
-
-      await setDoc(docRef, copyNNI, {merge: true})
+      await saveSiteSection('navbar', copyNNI, email)
 
       dispatch(resetInfo('navbar', false))
     } catch (error) {

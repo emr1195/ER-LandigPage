@@ -1,7 +1,6 @@
-import {doc, setDoc} from 'firebase/firestore/lite'
-import {FirebaseDB} from '../../../firebase/config'
 import {handleError, resetInfo, resetIsSaving, setSaving} from '../../dashboard'
 import {resetSavingEvents, setSavingEvents} from './eventsSlice'
+import {saveSiteSection} from '../../../repositories/siteSections'
 
 export const savingNewEventsInfo = (newEventsInfo) => {
   return async (dispatch, getState) => {
@@ -13,7 +12,7 @@ export const savingNewEventsInfo = (newEventsInfo) => {
       const copyNNI = structuredClone(newEventsInfo)
 
       const date = new Date()
-      const {displayName, email, uid} = getState().auth
+      const {email} = getState().auth
 
       let day = date.getDate()
       let month = date.getMonth() + 1
@@ -23,9 +22,7 @@ export const savingNewEventsInfo = (newEventsInfo) => {
       copyNNI.lastModified = currentDate
       copyNNI.updatedBy = email
 
-      const docRef = doc(FirebaseDB, `er_landing_page/events`)
-
-      await setDoc(docRef, copyNNI, {merge: true})
+      await saveSiteSection('events', copyNNI, email)
 
       dispatch(resetInfo('events', false))
     } catch (error) {

@@ -8,15 +8,14 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {TypographyPersonalized} from '../../../../homepage/components/common'
 import {Organization as OrganizationPreview} from '../../../../homepage/components'
-import {DeleteOutline, UploadOutlined} from '@mui/icons-material'
+import {DeleteOutline} from '@mui/icons-material'
 import {resetInfo} from '../../../../store/dashboard'
-import {fileUpload} from '../../../../helpers'
-import Swal from 'sweetalert2'
 import {savingNewOrganization} from '../../../../store/landingPage'
+import {ImageUploadField} from '../../ImageUploadField'
 
 export const Organization = ({info}) => {
   const qqq = structuredClone(info)
@@ -25,7 +24,6 @@ export const Organization = ({info}) => {
   const theme = useTheme()
   const [loading, setLoading] = useState(false)
   const {isSaving} = useSelector((state) => state.organization)
-  const fileInputRef = useRef()
 
   useEffect(() => {
     const qqq = structuredClone(info)
@@ -67,47 +65,13 @@ export const Organization = ({info}) => {
     dispatch(resetInfo('organization'))
   }
 
-  const onFileInputChange = async ({target}) => {
-    if (target.files.length === 0) return
-    if (target.files.length > 1) {
-      console.log('only one image can be uploaded')
-      return
-    }
-    const newImageURL = await fileUpload(target.files[0])
-    if (newImageURL) {
-      Swal.fire({
-        title: 'Copia el URL e insertalo donde deseas cambiar la imagen',
-        text: newImageURL,
-        icon: 'success',
-      })
-    }
-  }
-
   const handleAddMember = (insideSection) => {
     setLoading(true)
     const updatedInfoCopy = structuredClone(infoCopy)
 
     // Create a new item with default values or modify as needed
-    let newID
-    let newPosition
-
-    do {
-      newID = Math.floor(
-        Math.random() * updatedInfoCopy.members[insideSection].length + 2,
-      )
-    } while (
-      updatedInfoCopy.members[insideSection].some((item) => item.id === newID)
-    )
-
-    do {
-      newPosition = Math.floor(
-        Math.random() * updatedInfoCopy.members[insideSection].length + 2,
-      )
-    } while (
-      updatedInfoCopy.members[insideSection].some(
-        (item) => item.position === newPosition,
-      )
-    )
+    const newID = crypto.randomUUID()
+    const newPosition = Math.max(0, ...updatedInfoCopy.members[insideSection].map((item) => Number(item.position) || 0)) + 1
 
     const newItem = {
       id: newID,
@@ -344,9 +308,8 @@ export const Organization = ({info}) => {
                             variant="body"
                             title={'Imagen: '}
                           /> */}
-                          <Box display="flex" width="100%" gap={'8px'}>
-                            <TextField
-                              type="text"
+                          <Box width="100%">
+                            <ImageUploadField
                               fullWidth
                               name="image"
                               onChange={(e) =>
@@ -362,52 +325,7 @@ export const Organization = ({info}) => {
                               required
                               error={image === ''}
                               helperText={image === '' && '* Es obligatorio'}
-                              autoComplete="off"
-                              inputProps={{
-                                autoComplete: 'new-password',
-                                form: {
-                                  autoComplete: 'off',
-                                },
-                              }}
                             />
-                            <Grid
-                              item
-                              display="flex"
-                              alignItems="center"
-                              justifyContent="center"
-                              gap="4px"
-                              flex={1}
-                              key={index}
-                              sx={{
-                                cursor: 'pointer',
-                              }}
-                              onClick={(e) => {
-                                fileInputRef.current.click()
-                              }}
-                            >
-                              <input
-                                type="file"
-                                multiple
-                                onChange={() => {
-                                  onFileInputChange()
-                                }}
-                                style={{display: 'none'}}
-                                ref={fileInputRef}
-                                accept="image/*"
-                              />
-
-                              <IconButton
-                                color="primary"
-                                // disabled={isSaving}
-                                // onClick={() => fileInputRef.current.click()}
-                              >
-                                <UploadOutlined />
-                              </IconButton>
-                              <TypographyPersonalized
-                                title="Sube Imagen"
-                                sx={{minWidth: '90px', fontSize: '14px'}}
-                              />
-                            </Grid>
                           </Box>
                         </Box>
                         <Box

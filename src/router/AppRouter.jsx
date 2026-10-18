@@ -2,7 +2,7 @@ import React from 'react'
 import {Navigate, Route, Routes} from 'react-router-dom'
 import {AuthRoutes} from '../auth/routes/AuthRoutes'
 import {DashboardRoutes} from '../dashboard/routes/DashboardRoutes'
-import {HomepageRoutes} from '../homepage/routes/HomepageRoutes.jsx';
+import {HomepageRoutes} from '../homepage/routes/HomePageRoutes.jsx'
 import {CheckingAuth} from '../ui'
 import {useCheckAuth} from '../hooks'
 
@@ -27,7 +27,7 @@ export const AppRouter = () => {
   const unauthenticatedRoutes = (
     <>
       {/* Routes for unauthenticated users */}
-      <Route path="/dashboard*" element={<AuthRoutes />} />
+      <Route path="/dashboard/*" element={<AuthRoutes />} />
       <Route path="/auth/*" element={<AuthRoutes />} />
       {/* <Route path="/*" element={<HomepageRoutes />} /> */}
     </>
@@ -37,7 +37,7 @@ export const AppRouter = () => {
     <Routes>
       {/* Conditionally render routes based on authentication status */}
       {status === 'authenticated' ? authenticatedRoutes : unauthenticatedRoutes}
-      <Route path="/" element={<HomepageRoutes />} />
+      <Route path="/*" element={<HomepageRoutes />} />
     </Routes>
   )
 }

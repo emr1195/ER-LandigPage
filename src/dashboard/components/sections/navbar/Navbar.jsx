@@ -10,26 +10,23 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {TypographyPersonalized} from '../../../../homepage/components/common'
 import {Navbar as HomePageNavbar} from '../../../../homepage/components'
-import {DeleteOutline, UploadOutlined} from '@mui/icons-material'
+import {DeleteOutline} from '@mui/icons-material'
 import {useDispatch, useSelector} from 'react-redux'
-import {
-  savingNewNavbar,
-  startUploadingLogo,
-} from '../../../../store/landingPage/navbar/thunks'
+import {savingNewNavbar} from '../../../../store/landingPage/navbar/thunks'
 import {resetInfo} from '../../../../store/dashboard'
+import {ImageUploadField} from '../../ImageUploadField'
 
 export const Navbar = ({info}) => {
   const qqq = structuredClone(info)
   qqq.listMenu.forEach((item) => (item.disabled = true))
 
-  const {isSaving, message} = useSelector((state) => state.navbar)
+  const {isSaving} = useSelector((state) => state.navbar)
   const [infoCopy, setInfoCopy] = useState(qqq)
   const [loading, setLoading] = useState(false)
 
-  const fileInputRef = useRef()
   const theme = useTheme()
   const dispatch = useDispatch()
 
@@ -92,21 +89,8 @@ export const Navbar = ({info}) => {
     const updatedInfoCopy = structuredClone(infoCopy)
 
     // Create a new item with default values or modify as needed
-    let newID
-    let newPosition
-
-    do {
-      newID = Math.floor(Math.random() * updatedInfoCopy.listMenu.length + 2)
-    } while (updatedInfoCopy.listMenu.some((item) => item.id === newID))
-
-    do {
-      newPosition = Math.floor(
-        Math.random() * updatedInfoCopy.listMenu.length + 2,
-      )
-    } while (
-      updatedInfoCopy.listMenu.some((item) => item.position === newPosition)
-    )
-    console.log(newID, newPosition)
+    const newID = crypto.randomUUID()
+    const newPosition = Math.max(0, ...updatedInfoCopy.listMenu.map((item) => Number(item.position) || 0)) + 1
     const newItem = {
       active: false,
       eventButton: false,
@@ -121,16 +105,6 @@ export const Navbar = ({info}) => {
     updatedInfoCopy.listMenu.push(newItem)
     setInfoCopy(updatedInfoCopy)
     setLoading(false)
-  }
-
-  const onFileInputChange = ({target}) => {
-    if (target.files.length === 0) return
-    if (target.files.length > 1) {
-      console.log('only one image can be uploaded')
-      return
-    }
-
-    dispatch(startUploadingLogo(target.files[0]))
   }
 
   const onSubmit = async (event) => {
@@ -210,54 +184,16 @@ export const Navbar = ({info}) => {
                     title={'Logo: '}
                     sx={{minWidth: '150px', flex: 1}}
                   />
-                  <TextField
-                    type="text"
+                  <ImageUploadField
                     fullWidth
-                    name="infoCopy.logo"
+                    name="logo"
                     onChange={handleChange}
                     value={infoCopy.logo}
                     required
                     error={infoCopy.logo === ''}
                     helperText={infoCopy.logo === '' && '* Es obligatorio.'}
-                    autoComplete="off"
-                    inputProps={{
-                      flex: 3,
-                      autoComplete: 'new-password',
-                      form: {
-                        autoComplete: 'off',
-                      },
-                    }}
+                    sx={{flex: 3}}
                   />
-
-                  <Grid
-                    item
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    gap="16px"
-                    flex={1}
-                  >
-                    <input
-                      type="file"
-                      multiple
-                      onChange={onFileInputChange}
-                      style={{display: 'none'}}
-                      ref={fileInputRef}
-                      accept="image/*"
-                    />
-
-                    <IconButton
-                      color="primary"
-                      // disabled={isSaving}
-                      onClick={() => fileInputRef.current.click()}
-                    >
-                      <UploadOutlined />
-                    </IconButton>
-                    <TypographyPersonalized
-                      title="Sube Imagen"
-                      sx={{minWidth: '150px'}}
-                    />
-                  </Grid>
                 </Grid>
                 <Grid
                   className="LogoTitle-Form"

@@ -31,3 +31,5 @@ dist-ssr
 .vscode/settings.json
 .eslintcache
 .env
+/uploads/
+/backups/

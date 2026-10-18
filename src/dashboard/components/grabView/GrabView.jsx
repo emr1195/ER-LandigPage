@@ -1,4 +1,5 @@
 import React from 'react'
+import {DetachmentEditor} from '../sections/detachment/DetachmentEditor'
 import {
   Events,
   ExpeditionGroup,
@@ -12,27 +13,29 @@ import {
 
 export const GrabView = ({sectionActive}) => {
   // console.log('grabview:', sectionActive)
-  switch (sectionActive?.sectionTitle?.toLowerCase()) {
-    case 'inicio':
-      return <div>Inicio</div>
+  switch (sectionActive?.sectionKey) {
+    case 'home':
+      return <div>Selecciona una sección del menú para editar su contenido.</div>
     case 'navbar':
       return <Navbar info={sectionActive} />
-    case 'hero section':
+    case 'heroSection':
       return <HeroSection info={sectionActive} />
-    case 'historia':
+    case 'history':
       return <History info={sectionActive} />
-    case 'estructura del programa':
+    case 'programStructure':
       return <ProgramStructure info={sectionActive} />
-    case 'grupos':
+    case 'expeditionGroup':
       return <ExpeditionGroup info={sectionActive} />
-    case 'eventos':
+    case 'events':
       return <Events info={sectionActive} />
-    case 'organizacion':
+    case 'organization':
       return <Organization info={sectionActive} />
     case 'footer':
       return <Footer info={sectionActive} />
+    case 'detachment':
+      return <DetachmentEditor info={sectionActive} />
 
     default:
-      return <div>GrabView</div>
+      return <div>Selecciona una sección del menú para editar su contenido.</div>
   }
 }

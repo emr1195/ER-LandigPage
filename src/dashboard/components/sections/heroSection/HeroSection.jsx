@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {HeroSection as HeroSectionPreview} from '../../../../homepage/components/heroSection/HeroSection'
 import {resetInfo} from '../../../../store/dashboard'
 import {savingNewHeroSection} from '../../../../store/landingPage'
+import {ImageUploadField} from '../../ImageUploadField'
 
 export const HeroSection = ({info}) => {
   const qqq = structuredClone(info)
@@ -314,6 +315,7 @@ export const HeroSection = ({info}) => {
               {infoCopy.textSection.buttons.map((btn, index) => {
                 return (
                   <Grid
+                    key={index}
                     className={`button-${index}-title`}
                     item
                     xs={12}
@@ -385,7 +387,7 @@ export const HeroSection = ({info}) => {
                       fullWidth
                       name="title"
                       onChange={(e) =>
-                        handleChange(e, false, 'textSection', 'buttons')
+                        handleChange(e, false, 'textSection', 'buttons', btn.id)
                       }
                       // value={infoCopy.textSection.buttons[0].title}
                       value={btn.title}
@@ -413,9 +415,9 @@ export const HeroSection = ({info}) => {
                     <TextField
                       type="text"
                       fullWidth
-                      name="title"
+                      name="url"
                       onChange={(e) =>
-                        handleChange(e, false, 'textSection', 'buttons')
+                        handleChange(e, false, 'textSection', 'buttons', btn.id)
                       }
                       // value={infoCopy.textSection.buttons[0].url}
                       value={btn.url}
@@ -480,8 +482,7 @@ export const HeroSection = ({info}) => {
                 variant="body"
                 title={'Imagen Superior Izquierda: '}
               />
-              <TextField
-                type="text"
+              <ImageUploadField
                 fullWidth
                 name="imageURL"
                 onChange={(e) =>
@@ -494,13 +495,6 @@ export const HeroSection = ({info}) => {
                   infoCopy.imageSection.imageTopLeft.imageURL === '' &&
                   '* Es obligatorio'
                 }
-                autoComplete="off"
-                inputProps={{
-                  autoComplete: 'new-password',
-                  form: {
-                    autoComplete: 'off',
-                  },
-                }}
               />
               <TypographyPersonalized variant="body" title={'Icon: '} />
               <TextField
@@ -556,8 +550,7 @@ export const HeroSection = ({info}) => {
                 variant="body"
                 title={'Imagen Inferior Izquierda: '}
               />
-              <TextField
-                type="text"
+              <ImageUploadField
                 fullWidth
                 name="imageURL"
                 onChange={(e) =>
@@ -570,13 +563,6 @@ export const HeroSection = ({info}) => {
                   infoCopy.imageSection.imageBottomLeft.imageURL === '' &&
                   '* Es obligatorio'
                 }
-                autoComplete="off"
-                inputProps={{
-                  autoComplete: 'new-password',
-                  form: {
-                    autoComplete: 'off',
-                  },
-                }}
               />
               <TypographyPersonalized variant="body" title={'Icon: '} />
               <TextField
@@ -632,8 +618,7 @@ export const HeroSection = ({info}) => {
                 variant="body"
                 title={'Imagen Central Derecha: '}
               />
-              <TextField
-                type="text"
+              <ImageUploadField
                 fullWidth
                 name="imageURL"
                 onChange={(e) =>
@@ -646,13 +631,6 @@ export const HeroSection = ({info}) => {
                   infoCopy.imageSection.imageRightCenter.imageURL === '' &&
                   '* Es obligatorio'
                 }
-                autoComplete="off"
-                inputProps={{
-                  autoComplete: 'new-password',
-                  form: {
-                    autoComplete: 'off',
-                  },
-                }}
               />
               <TypographyPersonalized variant="body" title={'Icon: '} />
               <TextField

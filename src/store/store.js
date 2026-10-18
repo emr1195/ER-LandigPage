@@ -9,6 +9,7 @@ import {expeditionGroupSlice} from './landingPage/expeditionGroup/expeditionGrou
 import {eventsSlice} from './landingPage/events/eventsSlice'
 import {organizationSlice} from './landingPage/organization/organizationSlice'
 import {footerSlice} from './landingPage/footer/footerSlice'
+import {detachmentSlice} from './landingPage/detachment/detachmentSlice'
 
 /**
  * Redux store configuration using the @reduxjs/toolkit library.
@@ -40,6 +41,7 @@ export const store = configureStore({
     events: eventsSlice.reducer,
     organization: organizationSlice.reducer,
     footer: footerSlice.reducer,
+    detachment: detachmentSlice.reducer,
 
     // dashboardNavbar: navbarDashboardSlice.reducer,
   },

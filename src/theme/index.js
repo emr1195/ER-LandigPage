@@ -1,3 +1,3 @@
 
-export * from lightTheme
-export * from AppTheme
+export * from './lightTheme'
+export * from './AppTheme'

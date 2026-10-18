@@ -45,7 +45,7 @@ export const DashboardPage = () => {
       })
       dispatch(resetError())
     }
-  }, [messageSaved, errorDB])
+  }, [dispatch, messageSaved, errorDB])
 
   return (
     <DashboardLayout>

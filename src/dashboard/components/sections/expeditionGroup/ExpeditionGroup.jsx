@@ -1,10 +1,26 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {resetInfo} from '../../../../store/dashboard'
-import {Box, Button, Grid, TextField, Typography} from '@mui/material'
+import {Box, Button, Grid, IconButton, TextField, Typography} from '@mui/material'
+import {DeleteOutline} from '@mui/icons-material'
 import {TypographyPersonalized} from '../../../../homepage/components/common'
 import {ExpeditionGroup as ExpeditionGroupPreview} from '../../../../homepage/components'
 import {savingNewExpeditionGroupInfo} from '../../../../store/landingPage'
+import {ImageUploadField} from '../../ImageUploadField'
+
+const createEmptyGroup = (position) => ({
+  id: crypto.randomUUID(),
+  position,
+  title: '',
+  description: '',
+  age: '',
+  emblema: '',
+  image: '',
+  colors: {
+    primary: '',
+    secondary: '',
+  },
+})
 
 export const ExpeditionGroup = ({info}) => {
   const qqq = structuredClone(info)
@@ -22,15 +38,15 @@ export const ExpeditionGroup = ({info}) => {
     checkBox = false,
     section = null,
     insideSection = null,
-    id = null,
+    groupIndex = null,
   ) => {
     const {name, value, checked} = target
 
-    if (section && id) {
+    if (section && Number.isInteger(groupIndex)) {
       const updatedInfoCopy = structuredClone(infoCopy)
 
-      const newQ = updatedInfoCopy.expeditionGroups.map((item) => {
-        if (item.id === id && insideSection) {
+      const newQ = updatedInfoCopy.expeditionGroups.map((item, index) => {
+        if (index === groupIndex && insideSection) {
           return {
             ...item,
             [insideSection]: {
@@ -38,7 +54,7 @@ export const ExpeditionGroup = ({info}) => {
               [name]: value,
             },
           }
-        } else if (item.id === id && !insideSection) {
+        } else if (index === groupIndex && !insideSection) {
           return {
             ...item,
             [name]: checkBox ? checked : value,
@@ -46,7 +62,6 @@ export const ExpeditionGroup = ({info}) => {
         }
         return item
       })
-      console.log(newQ)
       updatedInfoCopy.expeditionGroups = newQ
       setInfoCopy(updatedInfoCopy)
     } else {
@@ -59,6 +74,25 @@ export const ExpeditionGroup = ({info}) => {
 
   const handleReset = () => {
     dispatch(resetInfo('expeditionGroup'))
+  }
+
+  const handleAddGroup = () => {
+    setInfoCopy((currentInfo) => ({
+      ...currentInfo,
+      expeditionGroups: [
+        ...currentInfo.expeditionGroups,
+        createEmptyGroup(currentInfo.expeditionGroups.length),
+      ],
+    }))
+  }
+
+  const handleDeleteGroup = (groupIndex) => {
+    setInfoCopy((currentInfo) => ({
+      ...currentInfo,
+      expeditionGroups: currentInfo.expeditionGroups
+        .filter((_group, index) => index !== groupIndex)
+        .map((group, index) => ({...group, position: index})),
+    }))
   }
 
   const onSubmit = async (event) => {
@@ -130,7 +164,7 @@ export const ExpeditionGroup = ({info}) => {
 
             {infoCopy.expeditionGroups.map(
               (
-                {age, colors, description, emblema, id, image, position, title},
+                {age, colors, description, emblema, image, title},
                 index,
               ) => {
                 return (
@@ -157,6 +191,27 @@ export const ExpeditionGroup = ({info}) => {
                       sx={{
                         display: 'flex',
                         flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'flex-start',
+                        minWidth: '90px',
+                        gap: 1,
+                      }}
+                    >
+                      <Typography fontWeight="bold">Grupo {index + 1}</Typography>
+                      <IconButton
+                        type="button"
+                        aria-label={`Eliminar grupo ${index + 1}`}
+                        disabled={infoCopy.expeditionGroups.length === 1}
+                        onClick={() => handleDeleteGroup(index)}
+                        color="error"
+                      >
+                        <DeleteOutline />
+                      </IconButton>
+                    </Box>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
                         justifyContent: 'flex-start',
                         rowGap: 2,
                         alignItems: 'center',
@@ -173,7 +228,7 @@ export const ExpeditionGroup = ({info}) => {
                         fullWidth
                         name="title"
                         onChange={(e) =>
-                          handleChange(e, false, 'expeditionGroups', null, id)
+                          handleChange(e, false, 'expeditionGroups', null, index)
                         }
                         value={title}
                         required
@@ -199,7 +254,7 @@ export const ExpeditionGroup = ({info}) => {
                         fullWidth
                         name="description"
                         onChange={(e) =>
-                          handleChange(e, false, 'expeditionGroups', null, id)
+                          handleChange(e, false, 'expeditionGroups', null, index)
                         }
                         value={description}
                         required
@@ -227,25 +282,17 @@ export const ExpeditionGroup = ({info}) => {
                       <TypographyPersonalized
                         // sx={{minWidth: '150px'}}
                         variant="body"
-                        title={'Emblema: '}
+                        title={'Emblema (selector): '}
                       />
-                      <TextField
-                        type="text"
+                      <ImageUploadField
                         name="emblema"
                         onChange={(e) =>
-                          handleChange(e, false, 'expeditionGroups', null, id)
+                          handleChange(e, false, 'expeditionGroups', null, index)
                         }
                         value={emblema}
                         required
                         error={emblema === ''}
                         helperText={emblema === '' && '* Es obligatorio'}
-                        autoComplete="off"
-                        inputProps={{
-                          autoComplete: 'new-password',
-                          form: {
-                            autoComplete: 'off',
-                          },
-                        }}
                         sx={{
                           width: '350px',
                         }}
@@ -255,23 +302,15 @@ export const ExpeditionGroup = ({info}) => {
                         variant="body"
                         title={'Imagen: '}
                       />
-                      <TextField
-                        type="text"
+                      <ImageUploadField
                         name="image"
                         onChange={(e) =>
-                          handleChange(e, false, 'expeditionGroups', null, id)
+                          handleChange(e, false, 'expeditionGroups', null, index)
                         }
                         value={image}
                         // required
                         // error={image === ''}
                         // helperText={image === '' && '* Es obligatorio'}
-                        autoComplete="off"
-                        inputProps={{
-                          autoComplete: 'new-password',
-                          form: {
-                            autoComplete: 'off',
-                          },
-                        }}
                         sx={{
                           width: '350px',
                         }}
@@ -297,7 +336,7 @@ export const ExpeditionGroup = ({info}) => {
                         type="text"
                         name="age"
                         onChange={(e) =>
-                          handleChange(e, false, 'expeditionGroups', null, id)
+                          handleChange(e, false, 'expeditionGroups', null, index)
                         }
                         value={age}
                         // required
@@ -329,7 +368,7 @@ export const ExpeditionGroup = ({info}) => {
                             false,
                             'expeditionGroups',
                             'colors',
-                            id,
+                            index,
                           )
                         }
                         value={colors.primary}
@@ -357,7 +396,7 @@ export const ExpeditionGroup = ({info}) => {
                             false,
                             'expeditionGroups',
                             'colors',
-                            id,
+                            index,
                           )
                         }
                         value={colors.secondary}
@@ -380,6 +419,11 @@ export const ExpeditionGroup = ({info}) => {
                 )
               },
             )}
+            <Box display="flex" justifyContent="flex-end" mt={3}>
+              <Button type="button" variant="outlined" onClick={handleAddGroup}>
+                Agregar grupo
+              </Button>
+            </Box>
           </Box>
 
           <Box textAlign={'center'} width="100%" mb={5}>

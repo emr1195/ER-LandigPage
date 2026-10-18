@@ -1,7 +1,6 @@
-import {doc, setDoc} from 'firebase/firestore/lite'
-import {FirebaseDB} from '../../../firebase/config'
 import {handleError, resetInfo, resetIsSaving, setSaving} from '../../dashboard'
 import {resetSavingFooter, setSavingFooter} from './footerSlice'
+import {saveSiteSection} from '../../../repositories/siteSections'
 
 export const savingNewFooter = (newFooterInfo) => {
   return async (dispatch, getState) => {
@@ -9,7 +8,7 @@ export const savingNewFooter = (newFooterInfo) => {
       dispatch(setSavingFooter())
       dispatch(setSaving())
 
-      const {displayName, email, uid} = getState().auth
+      const {email} = getState().auth
       const date = new Date()
 
       let day = date.getDate()
@@ -23,9 +22,7 @@ export const savingNewFooter = (newFooterInfo) => {
       copyNNI.lastModified = currentDate
       copyNNI.updatedBy = email
 
-      const docRef = doc(FirebaseDB, `er_landing_page/footer`)
-
-      await setDoc(docRef, copyNNI, {merge: true})
+      await saveSiteSection('footer', copyNNI, email)
 
       dispatch(resetInfo('footer', false))
     } catch (error) {

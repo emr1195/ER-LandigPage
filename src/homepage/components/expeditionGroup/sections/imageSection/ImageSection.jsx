@@ -4,8 +4,8 @@ import React from 'react'
 export const ImageSection = ({
   group,
   expeditionGroups,
-  setSelectedGroup,
-  setSecondaryColor,
+  selectedGroupIndex,
+  setSelectedGroupIndex,
 }) => {
   const theme = useTheme()
 
@@ -149,24 +149,52 @@ export const ImageSection = ({
         gap="32px"
       >
         {expeditionGroups.map((item, index) => (
-          <img
+          <Box
             key={`_${index}`}
-            src={item.emblema}
-            alt={item.title}
-            width={75}
-            height={75}
+            component="button"
+            type="button"
+            aria-label={`Ver grupo ${item.title || index + 1}`}
+            aria-pressed={selectedGroupIndex === index}
             onClick={() => {
-              setSelectedGroup(item.title)
-              setSecondaryColor(item.colors.secondary)
+              setSelectedGroupIndex(index)
             }}
-            style={{
+            sx={{
               cursor: 'pointer',
-              filter: `drop-shadow(rgba(0, 0, 0, .5) 3px 4px 0.25rem)`,
-              objectFit:
-                item.title.toLowerCase() === 'lideres' ? 'cover' : 'contain',
+              width: 88,
+              height: 88,
+              p: 0.75,
+              borderRadius: 2,
+              border: selectedGroupIndex === index ? '3px solid' : '2px solid transparent',
+              borderColor:
+                selectedGroupIndex === index
+                  ? item.colors.primary || 'primary.main'
+                  : 'transparent',
+              backgroundColor: 'transparent',
               transition: '1.5s',
+              opacity: selectedGroupIndex === index ? 1 : 0.72,
+              '&:hover, &:focus-visible': {
+                opacity: 1,
+                borderColor: item.colors.primary || 'primary.main',
+              },
             }}
-          />
+          >
+            {item.emblema ? (
+              <img
+                src={item.emblema}
+                alt={item.title || `Grupo ${index + 1}`}
+                width={75}
+                height={75}
+                style={{
+                  filter: `drop-shadow(rgba(0, 0, 0, .5) 3px 4px 0.25rem)`,
+                  objectFit:
+                    item.title.toLowerCase() === 'lideres' ? 'cover' : 'contain',
+                  transition: '1.5s',
+                }}
+              />
+            ) : (
+              <Box fontWeight="bold">{index + 1}</Box>
+            )}
+          </Box>
         ))}
       </Box>
     </Box>

@@ -11,16 +11,15 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {TypographyPersonalized} from '../../../../homepage/components/common'
-import {DeleteOutline, UploadOutlined} from '@mui/icons-material'
+import {DeleteOutline} from '@mui/icons-material'
 import {useDispatch, useSelector} from 'react-redux'
 import {Footer as FooterPreview} from '../../../../homepage/components'
-import Swal from 'sweetalert2'
-import {fileUpload} from '../../../../helpers'
 import {resetInfo} from '../../../../store/dashboard'
 import {Link as RouterLink} from 'react-router-dom'
 import {savingNewFooter} from '../../../../store/landingPage/footer'
+import {ImageUploadField} from '../../ImageUploadField'
 
 export const Footer = ({info}) => {
   console.log(info)
@@ -30,7 +29,6 @@ export const Footer = ({info}) => {
   const theme = useTheme()
   const [loading, setLoading] = useState(false)
   const {isSaving} = useSelector((state) => state.footer)
-  const fileInputRef = useRef()
 
   useEffect(() => {
     const qqq = structuredClone(info)
@@ -45,22 +43,6 @@ export const Footer = ({info}) => {
 
   const handleReset = () => {
     dispatch(resetInfo('footer'))
-  }
-
-  const onFileInputChange = async ({target}) => {
-    if (target.files.length === 0) return
-    if (target.files.length > 1) {
-      console.log('only one image can be uploaded')
-      return
-    }
-    const newImageURL = await fileUpload(target.files[0])
-    if (newImageURL) {
-      Swal.fire({
-        title: 'Copia el URL e insertalo donde deseas cambiar la imagen',
-        text: newImageURL,
-        icon: 'success',
-      })
-    }
   }
 
   // Handle Changes
@@ -424,8 +406,7 @@ export const Footer = ({info}) => {
                 variant="body"
                 title={'Logo: '}
               />
-              <TextField
-                type="text"
+              <ImageUploadField
                 fullWidth
                 name="logo"
                 onChange={(e) => handleChange(e, false, 'mainSection')}
@@ -435,49 +416,7 @@ export const Footer = ({info}) => {
                 helperText={
                   infoCopy.mainSection.logo === '' && '* Es obligatorio'
                 }
-                autoComplete="off"
-                inputProps={{
-                  autoComplete: 'new-password',
-                  form: {
-                    autoComplete: 'off',
-                  },
-                }}
               />
-              <Grid
-                item
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                gap="4px"
-                flex={1}
-                sx={{
-                  cursor: 'pointer',
-                }}
-                onClick={(e) => {
-                  fileInputRef.current.click()
-                }}
-              >
-                <input
-                  type="file"
-                  multiple
-                  onChange={onFileInputChange}
-                  style={{display: 'none'}}
-                  ref={fileInputRef}
-                  accept="image/*"
-                />
-
-                <IconButton
-                  color="primary"
-                  // disabled={isSaving}
-                  // onClick={() => fileInputRef.current.click()}
-                >
-                  <UploadOutlined />
-                </IconButton>
-                <TypographyPersonalized
-                  title="Sube Imagen"
-                  sx={{minWidth: '90px', fontSize: '14px'}}
-                />
-              </Grid>
             </Grid>
             <Grid
               className="TextSection-Form"

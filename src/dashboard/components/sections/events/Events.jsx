@@ -15,6 +15,7 @@ import {Events as EventsPreview} from '../../../../homepage/components'
 import {resetInfo} from '../../../../store/dashboard'
 import {DeleteOutline} from '@mui/icons-material'
 import {savingNewEventsInfo} from '../../../../store/landingPage'
+import {ImageUploadField} from '../../ImageUploadField'
 
 export const Events = ({info}) => {
   const qqq = structuredClone(info)
@@ -22,7 +23,7 @@ export const Events = ({info}) => {
   const dispatch = useDispatch()
   const theme = useTheme()
   const [loading, setLoading] = useState(false)
-  const {isSaving} = useSelector((state) => state.expeditionGroup)
+  const {isSaving} = useSelector((state) => state.events)
 
   useEffect(() => {
     const qqq = structuredClone(info)
@@ -77,20 +78,7 @@ export const Events = ({info}) => {
     const updatedInfoCopy = structuredClone(infoCopy)
 
     // Create a new item with default values or modify as needed
-    let newID
-    let newPosition
-
-    do {
-      newID = Math.floor(Math.random() * updatedInfoCopy.events.length + 2)
-    } while (updatedInfoCopy.events.some((item) => item.id === newID))
-
-    do {
-      newPosition = Math.floor(
-        Math.random() * updatedInfoCopy.events.length + 2,
-      )
-    } while (
-      updatedInfoCopy.events.some((item) => item.position === newPosition)
-    )
+    const newID = crypto.randomUUID()
 
     const newItem = {
       byWho: '',
@@ -309,8 +297,7 @@ export const Events = ({info}) => {
                         variant="body"
                         title={'Imagen: '}
                       />
-                      <TextField
-                        type="text"
+                      <ImageUploadField
                         name="image"
                         onChange={(e) =>
                           handleChange(e, false, 'events', null, id)
@@ -319,13 +306,6 @@ export const Events = ({info}) => {
                         // required
                         // error={image === ''}
                         // helperText={image === '' && '* Es obligatorio'}
-                        autoComplete="off"
-                        inputProps={{
-                          autoComplete: 'new-password',
-                          form: {
-                            autoComplete: 'off',
-                          },
-                        }}
                         sx={{
                           width: '350px',
                         }}

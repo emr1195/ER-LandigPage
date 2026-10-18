@@ -13,6 +13,7 @@ import {
   ProgramStructure,
 } from '../components'
 import {CircularProgress} from '@mui/material'
+import {Detachment} from '../components/detachment/Detachment'
 export const HomePage = () => {
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(true)
@@ -29,10 +30,11 @@ export const HomePage = () => {
   const {info: eventsInfo} = useSelector((state) => state.events)
   const {info: organizationInfo} = useSelector((state) => state.organization)
   const {info: footerInfo} = useSelector((state) => state.footer)
+  const {info: detachmentInfo} = useSelector((state) => state.detachment)
 
   useEffect(() => {
     dispatch(startLoadingLandingPage())
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     // Check if all data is available and set loading to false
@@ -72,6 +74,7 @@ export const HomePage = () => {
       <ExpeditionGroup expeditionGroupInfo={expeditionGroupInfo} />
       <Events eventsInfo={eventsInfo} />
       <Organization organizationInfo={organizationInfo} />
+      <Detachment info={detachmentInfo} />
       <Footer footerInfo={footerInfo} />
       {/* {info.listMenu.map((item, index) => (
         <div key={index}>{item.title}</div>

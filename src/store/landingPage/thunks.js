@@ -1,5 +1,3 @@
-import {collection, doc, getDocs, setDoc} from 'firebase/firestore/lite'
-import {FirebaseDB} from '../../firebase/config'
 import {setNavbarInfo} from './navbar'
 import {setHeroSectionInfo, startLoadingHeroSection} from './heroSection'
 import {setHistoryInfo} from './history'
@@ -12,19 +10,14 @@ import {setExpeditionGroupInfo} from './expeditionGroup'
 import {setEventsInfo} from './events'
 import {setOrganizationInfo} from './organization'
 import {setFooterInfo} from './footer'
+import {setDetachmentInfo} from './detachment/detachmentSlice'
 import {handleError, resetInfo, resetIsSaving, setSaving} from '../dashboard'
+import {getSiteSections, saveSiteSection} from '../../repositories/siteSections'
 
 export const startLoadingLandingPage = () => {
   return async (dispatch, getState) => {
     try {
-      const collectionRef = collection(FirebaseDB, `er_landing_page`)
-
-      const querySnapshot = await getDocs(collectionRef)
-
-      const allInfo = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
+      const allInfo = await getSiteSections()
 
       // console.log(allInfo)
 
@@ -45,6 +38,7 @@ export const startLoadingLandingPage = () => {
         organization: setOrganizationInfo,
         /* Corresponding dispatch action for 'footer' */
         footer: setFooterInfo,
+        detachment: setDetachmentInfo,
       }
 
       allInfo.forEach((element) => {
@@ -58,8 +52,7 @@ export const startLoadingLandingPage = () => {
         // }
       })
     } catch (error) {
-      // Handle errors related to loading notes from the database
-      throw new Error('Error cargando Toda la Info de la DB!', error)
+      dispatch(handleError(error.message))
     }
   }
 }
@@ -70,7 +63,7 @@ export const savingNewProgramStructure = (newProgramStructureInfo) => {
       dispatch(setSavingProgramStructure())
       dispatch(setSaving())
 
-      const {displayName, email, uid} = getState().auth
+      const {email} = getState().auth
       const date = new Date()
 
       let day = date.getDate()
@@ -83,9 +76,7 @@ export const savingNewProgramStructure = (newProgramStructureInfo) => {
       copyNNI.lastModified = currentDate
       copyNNI.updatedBy = email
 
-      const docRef = doc(FirebaseDB, `er_landing_page/programStructure`)
-
-      await setDoc(docRef, copyNNI, {merge: true})
+      await saveSiteSection('programStructure', copyNNI, email)
 
       dispatch(resetInfo('programStructure', false))
     } catch (error) {

@@ -5,6 +5,7 @@ export const dashboardSlice = createSlice({
   initialState: {
     isSaving: false,
     messageSaved: '',
+    notes: [],
     section: [],
     active: null,
     errorDB: '',
@@ -27,20 +28,21 @@ export const dashboardSlice = createSlice({
       state.messageSaved = 'Nueva entrada guardada exitosamente!'
     },
     setActiveSection: (state, action) => {
-      console.log('active:', state.section, action.payload)
-
       state.section = action.payload
+    },
+    setActiveNote: (state, action) => {
+      state.active = action.payload
     },
     setNotes: (state, action) => {
       state.notes = action.payload
     },
     setSaving: (state) => {
-      state.messageSaved = 'Guardando...'
+      state.messageSaved = ''
       state.isSaving = true
       //TODO: mensaje de error...
     },
     setCanceling: (state) => {
-      state.messageSaved = 'Cancelando...'
+      state.messageSaved = ''
       state.isCanceling = true
       //TODO: mensaje de error...
     },
@@ -84,6 +86,9 @@ export const dashboardSlice = createSlice({
     resetMessageSaved: (state) => {
       state.messageSaved = ''
     },
+    setMessageSaved: (state, action) => {
+      state.messageSaved = action.payload
+    },
     resetIsSaving: (state) => {
       state.isSaving = false
     },
@@ -102,6 +107,7 @@ export const {
   resetError,
   resetIsSaving,
   resetMessageSaved,
+  setMessageSaved,
   savingNewNote,
   setActiveNote,
   setNotes,

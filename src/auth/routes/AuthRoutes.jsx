@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react'
 import {Navigate, Route, Routes, useNavigate} from 'react-router-dom'
-import {LoginPage, RegisterPage} from '../pages'
-import {useCheckAuth} from '../../hooks'
+import {LoginPage} from '../pages'
+import {useSelector} from 'react-redux'
 
 export const AuthRoutes = () => {
   // Retrieve authentication status using the useCheckAuth hook
-  const {status} = useCheckAuth()
+  const {status} = useSelector((state) => state.auth)
   // Use the useNavigate hook to get the navigate function
   const navigate = useNavigate()
 
@@ -14,7 +14,6 @@ export const AuthRoutes = () => {
     <>
       {/* Routes for authenticated users */}
       <Route path="login" element={<LoginPage />} />
-      <Route path="register" element={<RegisterPage />} />
       <Route path="/*" element={<Navigate to="/auth/login" />} />
     </>
   )

@@ -5,6 +5,7 @@ import {Box, Button, Grid, TextField, Typography} from '@mui/material'
 import {TypographyPersonalized} from '../../../../homepage/components/common'
 import {History as HistoryPreview} from '../../../../homepage/components'
 import {savingNewHistory} from '../../../../store/landingPage'
+import {ImageUploadField} from '../../ImageUploadField'
 
 export const History = ({info}) => {
   const qqq = structuredClone(info)
@@ -131,12 +132,6 @@ export const History = ({info}) => {
                 error={infoCopy.title === ''}
                 helperText={infoCopy.title === '' && '* Es obligatorio'}
                 autoComplete="off"
-                inputProps={{
-                  autoComplete: 'new-password',
-                  form: {
-                    autoComplete: 'off',
-                  },
-                }}
               />
             </Grid>
             {/* <Grid
@@ -167,12 +162,6 @@ export const History = ({info}) => {
                 error={infoCopy.subTitle === ''}
                 helperText={infoCopy.subTitle === '' && '* Es obligatorio'}
                 autoComplete="off"
-                inputProps={{
-                  autoComplete: 'new-password',
-                  form: {
-                    autoComplete: 'off',
-                  },
-                }}
               />
             </Grid> */}
 
@@ -194,8 +183,7 @@ export const History = ({info}) => {
                 variant="body"
                 title={'Imagen Izquierda: '}
               />
-              <TextField
-                type="text"
+              <ImageUploadField
                 fullWidth
                 name="imageLeft"
                 onChange={(e) => handleChange(e, false, 'imageSection')}
@@ -205,13 +193,6 @@ export const History = ({info}) => {
                 helperText={
                   infoCopy.imageSection.imageLeft === '' && '* Es obligatorio'
                 }
-                autoComplete="off"
-                inputProps={{
-                  autoComplete: 'new-password',
-                  form: {
-                    autoComplete: 'off',
-                  },
-                }}
               />
             </Grid>
 
@@ -233,8 +214,7 @@ export const History = ({info}) => {
                 variant="body"
                 title={'Imagen Derecha: '}
               />
-              <TextField
-                type="text"
+              <ImageUploadField
                 fullWidth
                 name="imageRight"
                 onChange={(e) => handleChange(e, false, 'imageSection')}
@@ -244,13 +224,6 @@ export const History = ({info}) => {
                 helperText={
                   infoCopy.imageSection.imageRight === '' && '* Es obligatorio'
                 }
-                autoComplete="off"
-                inputProps={{
-                  autoComplete: 'new-password',
-                  form: {
-                    autoComplete: 'off',
-                  },
-                }}
               />
             </Grid>
 

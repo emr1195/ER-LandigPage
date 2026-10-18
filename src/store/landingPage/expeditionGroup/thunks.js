@@ -1,10 +1,9 @@
-import {doc, setDoc} from 'firebase/firestore/lite'
 import {handleError, resetInfo, resetIsSaving, setSaving} from '../../dashboard'
 import {
   resetSavingExpeditionGroup,
   setSavingExpeditionGroup,
 } from './expeditionGroupSlice'
-import {FirebaseDB} from '../../../firebase/config'
+import {saveSiteSection} from '../../../repositories/siteSections'
 
 export const savingNewExpeditionGroupInfo = (newExpeditionGroupInfo) => {
   return async (dispatch, getState) => {
@@ -12,7 +11,7 @@ export const savingNewExpeditionGroupInfo = (newExpeditionGroupInfo) => {
       dispatch(setSavingExpeditionGroup())
       dispatch(setSaving())
 
-      const {displayName, email, uid} = getState().auth
+      const {email} = getState().auth
       const date = new Date()
 
       let day = date.getDate()
@@ -25,9 +24,7 @@ export const savingNewExpeditionGroupInfo = (newExpeditionGroupInfo) => {
       copyNNI.lastModified = currentDate
       copyNNI.updatedBy = email
 
-      const docRef = doc(FirebaseDB, `er_landing_page/expeditionGroup`)
-
-      await setDoc(docRef, copyNNI, {merge: true})
+      await saveSiteSection('expeditionGroup', copyNNI, email)
 
       dispatch(resetInfo('expeditionGroup', false))
     } catch (error) {

@@ -1,9 +1,9 @@
 import {
   loginWithEmailPassword,
-  logoutFirebase,
+  logout as logoutSession,
   registerUserWithEmailPassword,
-  singInWithGoogle,
-} from '../../firebase/providers'
+  signInWithGoogle,
+} from '../../api'
 import {clearNotesLogout, handleError} from '../dashboard'
 import {checkingCredentials, login, logout} from './authSlice'
 
@@ -41,13 +41,12 @@ export const startGoogleSignIn = () => {
       dispatch(checkingCredentials())
 
       // Call the singInWithGoogle function to initiate Google sign-in
-      const result = await singInWithGoogle()
+      const result = await signInWithGoogle()
 
       // If Google sign-in is unsuccessful, dispatch logout action with error details
       if (!result.ok) return dispatch(logout(result.errorMessage))
 
-      // If Google sign-in is successful, dispatch login action with user details
-      dispatch(login(result))
+      if (!result.redirecting) dispatch(login(result))
     } catch (error) {
       throw new Error('NO login')
     }
@@ -84,20 +83,28 @@ export const startCreatingUserWithEmailPassword = ({
       dispatch(checkingCredentials())
 
       // Call the registerUserWithEmailPassword function to attempt registration
-      const {ok, uid, photoURL, errorMessage} =
+      const {ok, uid, photoURL, errorMessage, requiresEmailConfirmation} =
         await registerUserWithEmailPassword({
           displayName,
           password,
           email,
         })
 
-      // If registration is unsuccessful, dispatch logout action with error details
-      // if (!ok) return dispatch(logout({errorMessage}))
+      if (!ok) return dispatch(logout({errorMessage}))
+
+      if (requiresEmailConfirmation) {
+        return dispatch(
+          logout({
+            errorMessage:
+              'Cuenta creada. Revisa tu correo para confirmar el acceso.',
+          }),
+        )
+      }
 
       // If registration is successful, dispatch login action with user details
       dispatch(login({uid, displayName, email, photoURL}))
     } catch (error) {
-      logout({errorMessage})
+      dispatch(logout({errorMessage: error.message}))
       throw new Error('NO reg')
     }
   }
@@ -134,16 +141,15 @@ export const startLoginWithEmailPassword = ({email, password}) => {
 
       // If login is successful, dispatch login action with user details
       dispatch(login(resp))
-      window.location.replace('/dashboard')
     } catch (error) {
-      logout(resp)
+      dispatch(logout({errorMessage: error.message}))
       throw new Error('NO login')
     }
   }
 }
 
 /**
- * Initiates the logout process, including logging the user out from Firebase.
+ * Initiates the logout process and clears the server session.
  *
  * @function
  * @async
@@ -154,14 +160,14 @@ export const startLoginWithEmailPassword = ({email, password}) => {
 export const startLogout = () => {
   return async (dispatch) => {
     try {
-      // Call the Firebase logout function to sign the user out
-      await logoutFirebase()
+      // Clear the Better Auth session cookie
+      await logoutSession()
 
       // Dispatch the logout action to update the authentication state
       dispatch(logout({}))
 
       // Dispatch the logout action to clean up the dashboard state
-      dispatch(clearNotesLogout)
+      dispatch(clearNotesLogout())
     } catch (error) {
       // Handle any errors that occurred during the logout process
       dispatch(handleError(error.message))

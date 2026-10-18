@@ -13,6 +13,7 @@ import {TypographyPersonalized} from '../../../../homepage/components/common'
 import {ProgramStructure as ProgramStructurePreview} from '../../../../homepage/components'
 import {resetInfo} from '../../../../store/dashboard'
 import {savingNewProgramStructure} from '../../../../store/landingPage'
+import {ImageUploadField} from '../../ImageUploadField'
 
 export const ProgramStructure = ({info}) => {
   const qqq = structuredClone(info)
@@ -275,8 +276,7 @@ export const ProgramStructure = ({info}) => {
                         variant="body"
                         title={'Imagen: '}
                       />
-                      <TextField
-                        type="text"
+                      <ImageUploadField
                         name="image"
                         onChange={(e) =>
                           handleChange(e, false, 'programValues', null, id)
@@ -285,13 +285,6 @@ export const ProgramStructure = ({info}) => {
                         // required
                         // error={image === '' && display}
                         // helperText={image === '' && display && '* Es obligatorio'}
-                        autoComplete="off"
-                        inputProps={{
-                          autoComplete: 'new-password',
-                          form: {
-                            autoComplete: 'off',
-                          },
-                        }}
                         sx={{
                           width: '350px',
                         }}

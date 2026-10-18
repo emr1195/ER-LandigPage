@@ -1,8 +1,6 @@
 import React from 'react'
 import {AuthLayout} from '../layout'
 import {Alert, Button, Grid, TextField, Typography} from '@mui/material'
-import {Link} from 'react-router-dom'
-import {Link as RouterLink} from 'react-router-dom'
 import {Google} from '@mui/icons-material'
 
 export const LoginPageUI = ({props}) => {
@@ -16,6 +14,7 @@ export const LoginPageUI = ({props}) => {
     loginErrorMessage,
     isAuthenticating,
     onGoogleSignIn,
+    googleAuthEnabled,
   } = props
   return (
     <AuthLayout title="Login">
@@ -86,7 +85,7 @@ export const LoginPageUI = ({props}) => {
 
           {/* Login and Google Sign-In Buttons */}
           <Grid container spacing={2} sx={{mb: 2, mt: 1}}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={googleAuthEnabled ? 6 : 12}>
               <Button
                 type="submit"
                 disabled={isAuthenticating}
@@ -96,26 +95,22 @@ export const LoginPageUI = ({props}) => {
                 Login
               </Button>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <Button
-                type="button"
-                disabled={isAuthenticating}
-                onClick={() => onGoogleSignIn()}
-                variant="contained"
-                fullWidth
-              >
-                <Google />
-                <Typography sx={{ml: 1}}>Google</Typography>
-              </Button>
-            </Grid>
+            {googleAuthEnabled && (
+              <Grid item xs={12} sm={6}>
+                <Button
+                  type="button"
+                  disabled={isAuthenticating}
+                  onClick={() => onGoogleSignIn()}
+                  variant="contained"
+                  fullWidth
+                >
+                  <Google />
+                  <Typography sx={{ml: 1}}>Google</Typography>
+                </Button>
+              </Grid>
+            )}
           </Grid>
 
-          {/* Link to Register Page */}
-          <Grid container direction="row" justifyContent="end">
-            <Link component={RouterLink} color="inherit" to="/auth/register">
-              Crear una cuenta
-            </Link>
-          </Grid>
         </Grid>
       </form>
     </AuthLayout>

@@ -1,31 +1,19 @@
-import {collection, doc, getDocs, setDoc} from 'firebase/firestore/lite'
-import {FirebaseDB} from '../../../firebase/config'
 import {
   resetSavingHeroSection,
   setHeroSectionInfo,
   setSavingHeroSection,
 } from './heroSectionSlice'
 import {handleError, resetInfo, resetIsSaving, setSaving} from '../../dashboard'
+import {
+  getSiteSection,
+  saveSiteSection,
+} from '../../../repositories/siteSections'
 
 export const startLoadingHeroSection = () => {
   return async (dispatch, getState) => {
     try {
-      // Reference to the Firestore collection containing user's notes
-      const collectionRef = collection(
-        FirebaseDB,
-        `er_landing_page/heroSection/infoSection`,
-      )
-
-      // Retrieve documents (notes) from the collection
-      const querySnapshot = await getDocs(collectionRef)
-
-      // Extract notes from the query snapshot
-      const newHeroSection = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
-
-      dispatch(setHeroSectionInfo(newHeroSection))
+      const newHeroSection = await getSiteSection('heroSection')
+      if (newHeroSection) dispatch(setHeroSectionInfo(newHeroSection))
     } catch (error) {
       // Handle errors related to loading notes from the database
       throw new Error('Error cargando HeroSection de la DB!', error)
@@ -51,7 +39,7 @@ export const savingNewHeroSection = (newHeroSectionInfo) => {
       dispatch(setSavingHeroSection())
       dispatch(setSaving())
 
-      const {displayName, email, uid} = getState().auth
+      const {email} = getState().auth
       const date = new Date()
 
       let day = date.getDate()
@@ -65,9 +53,7 @@ export const savingNewHeroSection = (newHeroSectionInfo) => {
       copyNNI.lastModified = currentDate
       copyNNI.updatedBy = email
 
-      const docRef = doc(FirebaseDB, `er_landing_page/heroSection`)
-
-      await setDoc(docRef, copyNNI, {merge: true})
+      await saveSiteSection('heroSection', copyNNI, email)
 
       dispatch(resetInfo('heroSection', false))
     } catch (error) {

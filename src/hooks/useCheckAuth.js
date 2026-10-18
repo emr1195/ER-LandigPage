@@ -1,13 +1,12 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {login, logout} from '../store/auth'
-import {FirebaseAuth} from '../firebase/config'
-import {onAuthStateChanged} from 'firebase/auth'
 import {startLoadingNotes} from '../store/dashboard'
+import {getAuthorizedUser} from '../api'
 
 /**
  * Custom hook responsible for checking the user's authentication status.
- * Utilizes Firebase Authentication's onAuthStateChanged to listen for changes in the authentication state.
+ * Consulta la sesion segura expuesta por la API del proyecto.
  * Dispatches login or logout actions accordingly based on the user's presence.
  *
  * @returns {Object} - An object containing the current authentication status.
@@ -21,26 +20,24 @@ export const useCheckAuth = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    // Subscribe to changes in the authentication state using onAuthStateChanged
-    onAuthStateChanged(FirebaseAuth, async (user) => {
-      try {
-        // If no user is present, dispatch a logout action
-        if (!user) return dispatch(logout())
+    let active = true
 
-        // If a user is present, extract relevant information and dispatch a login action
-        const {uid, email, displayName, photoURL} = user
-
-        // Dispatch a login action with the extracted user information to update the authentication state.
-        dispatch(login({uid, email, displayName, photoURL}))
-
-        // Dispatch an action to start loading user notes, assuming that user-related notes need to be loaded upon authentication.
+    getAuthorizedUser()
+      .then((authorizedUser) => {
+        if (!active) return
+        dispatch(login(authorizedUser))
         dispatch(startLoadingNotes())
-      } catch (error) {
-        // Handle any errors that might occur during the authentication state change
-        throw new Error('Error during onAuthStateChanged:', error)
-      }
-    })
-  }, []) // The effect runs once on component mount
+      })
+      .catch((error) => {
+        if (!active) return
+        const unauthenticated = error.message === 'Debes iniciar sesion.'
+        dispatch(logout(unauthenticated ? {} : {errorMessage: error.message}))
+      })
+
+    return () => {
+      active = false
+    }
+  }, [dispatch])
 
   // Return an object containing the current authentication status
   return {

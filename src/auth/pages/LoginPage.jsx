@@ -1,5 +1,5 @@
 // React and React-related imports
-import React, {useMemo} from 'react'
+import React, {useEffect, useMemo, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 
 // Material-UI imports
@@ -13,8 +13,10 @@ import {startGoogleSignIn, startLoginWithEmailPassword} from '../../store/auth'
 import {loginFormData} from '../../constants'
 import {loginSchema} from '../../validation'
 import {LoginPageUI} from './LoginPageUI'
+import {apiRequest} from '../../api'
 
 export const LoginPage = () => {
+  const [googleAuthEnabled, setGoogleAuthEnabled] = useState(false)
   // Redux dispatch function
   const dispatch = useDispatch()
 
@@ -84,6 +86,12 @@ export const LoginPage = () => {
     [authStatus],
   )
 
+  useEffect(() => {
+    apiRequest('/api/config')
+      .then((config) => setGoogleAuthEnabled(config.googleAuthEnabled))
+      .catch(() => setGoogleAuthEnabled(false))
+  }, [])
+
   return (
     <LoginPageUI
       props={{
@@ -96,6 +104,7 @@ export const LoginPage = () => {
         loginErrorMessage,
         isAuthenticating,
         onGoogleSignIn,
+        googleAuthEnabled,
       }}
     />
   )

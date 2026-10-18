@@ -35,7 +35,7 @@ export const NoteView = () => {
 
   useEffect(() => {
     dispatch(setActiveNote(formState))
-  }, [formState])
+  }, [dispatch, formState])
 
   useEffect(() => {
     if (messageSaved.length > 0) {
@@ -56,7 +56,7 @@ export const NoteView = () => {
       })
       dispatch(resetError())
     }
-  }, [messageSaved, errorDB])
+  }, [dispatch, messageSaved, errorDB])
 
   const onSaveNote = () => {
     dispatch(startSaveNotes())

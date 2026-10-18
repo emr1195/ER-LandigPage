@@ -1,7 +1,6 @@
-import {doc, setDoc} from 'firebase/firestore/lite'
-import {FirebaseDB} from '../../../firebase/config'
 import {handleError, resetInfo, resetIsSaving, setSaving} from '../../dashboard'
 import {resetSavingHistory, setSavingHistory} from './historySlice'
+import {saveSiteSection} from '../../../repositories/siteSections'
 
 export const savingNewHistory = (newHistoryInfo) => {
   return async (dispatch, getState) => {
@@ -9,7 +8,7 @@ export const savingNewHistory = (newHistoryInfo) => {
       dispatch(setSavingHistory())
       dispatch(setSaving())
 
-      const {displayName, email, uid} = getState().auth
+      const {email} = getState().auth
       const date = new Date()
 
       let day = date.getDate()
@@ -23,9 +22,7 @@ export const savingNewHistory = (newHistoryInfo) => {
       copyNNI.lastModified = currentDate
       copyNNI.updatedBy = email
 
-      const docRef = doc(FirebaseDB, `er_landing_page/history`)
-
-      await setDoc(docRef, copyNNI, {merge: true})
+      await saveSiteSection('history', copyNNI, email)
 
       dispatch(resetInfo('history', false))
     } catch (error) {

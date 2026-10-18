@@ -18,7 +18,7 @@ export const DashboardLayout = ({children}) => {
 
   useEffect(() => {
     dispatch(startLoadingLandingPage())
-  }, [])
+  }, [dispatch])
 
   return (
     <Box
