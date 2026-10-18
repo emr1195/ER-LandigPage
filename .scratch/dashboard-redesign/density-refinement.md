@@ -96,3 +96,18 @@ de validación. Lint y build volvieron a pasar con el código final. No se atrib
 una tercera ejecución integral de 69 casos: los dos casos nuevos se comprobaron
 en ese conjunto dirigido. Las pruebas de escritura usan únicamente PostgreSQL
 de prueba aislado en 55439; no la base del usuario.
+
+## Pulido posterior del sidebar
+
+El usuario pidió separar mejor marca y navegación, retirar «TU SITIO» y contemplar
+monitores grandes. Se retiró la etiqueta; nombre y leyenda tienen separación
+explícita, el monograma pasa a 36 × 36 px y una línea discreta separa la marca
+del menú. La navegación comienza 16 px después; con al menos 900 px de altura
+de escritorio usa 20 px y filas de 40 px, sin escalar la tipografía.
+
+Lint y build pasaron, junto con tres recorridos existentes de navegación y foco.
+Revisión visual a densidad de píxel 2 en 1280 × 720, 1440 × 900, 1920 × 1080,
+2560 × 1440, 768 × 1024 y 320 × 812: sin scroll del sidebar en esos tamaños,
+sin errores de JavaScript y contenido local idéntico antes/después. Capturas
+locales `sidebar-polish-*.png` y `sidebar-polish-metrics.json` en la carpeta de
+evidencia ignorada. Se conservaron las dos paletas y el comportamiento del drawer.

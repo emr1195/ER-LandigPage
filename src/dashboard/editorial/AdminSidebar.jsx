@@ -23,10 +23,13 @@ export const AdminSidebar = ({navigation, user, preferences, activeKey}) => {
           onClick={() => setOpen(false)}
         >
           <span className="admin-monogram">ER</span>
-          <span>
-            Exploradores
-            <br />
-            del Rey<small>ADMINISTRACIÓN</small>
+          <span className="admin-brand-copy">
+            <span className="admin-brand-name">
+              Exploradores
+              <br />
+              del Rey
+            </span>
+            <small>ADMINISTRACIÓN</small>
           </span>
         </Link>
         <button
@@ -37,7 +40,6 @@ export const AdminSidebar = ({navigation, user, preferences, activeKey}) => {
           <Icon name="close" />
         </button>
       </div>
-      <p className="admin-nav-label">TU SITIO</p>
       <nav aria-label="Administración del sitio">
         {[
           {key: '', label: 'Inicio', icon: 'home'},

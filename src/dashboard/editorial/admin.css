@@ -172,15 +172,41 @@
   flex-shrink: 0;
   font-size: 13px;
 }
-.admin-nav-label {
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  margin: 16px 8px 8px;
+.admin-sidebar .admin-brand-row {
+  padding: 4px 8px 16px;
+  border-bottom: 1px solid #ffffff26;
+}
+.admin-sidebar .admin-brand {
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+}
+.admin-brand-copy {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.admin-brand-name {
+  line-height: 1.35;
+}
+.admin-sidebar .admin-brand small {
+  margin: 0;
+  line-height: 1.5;
   color: #c7d3db;
+}
+.admin-sidebar .admin-monogram {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
 }
 .admin-sidebar nav {
   display: grid;
   gap: 2px;
+  margin-top: 16px;
+  padding-bottom: 12px;
+}
+.admin-sidebar nav svg {
+  flex-shrink: 0;
 }
 .admin-sidebar nav a {
   display: flex;
@@ -203,7 +229,7 @@
 .admin-account {
   margin-top: auto;
   border-top: 1px solid #ffffff40;
-  padding: 12px 4px 0;
+  padding: 16px 4px 0;
   display: grid;
   font-size: 11px;
   overflow-wrap: anywhere;
@@ -221,7 +247,7 @@
 }
 .admin-appearance label {
   display: grid;
-  gap: 4px;
+  gap: 6px;
 }
 .admin-appearance select {
   width: 100%;
@@ -1012,6 +1038,22 @@ body:has(.admin-app) {
   .admin-view-edit .admin-preview,
   .admin-view-preview .admin-edit-panel {
     display: none;
+  }
+}
+@media (min-width: 1025px) and (min-height: 900px) {
+  .admin-sidebar {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+  .admin-sidebar .admin-brand-row {
+    padding-bottom: 20px;
+  }
+  .admin-sidebar nav {
+    margin-top: 20px;
+    gap: 4px;
+  }
+  .admin-sidebar nav a {
+    min-height: 40px;
   }
 }
 @media (max-width: 1024px) {
