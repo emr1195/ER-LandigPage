@@ -6,6 +6,7 @@ import {Navbar} from '../navbar/Navbar'
 import {SectionContainer} from '../common/sectionContainer/SectionContainer'
 
 jest.mock('./institutional.css', () => ({}))
+jest.mock('../common/crossfadeImage.css', () => ({}))
 jest.mock('../navbar/institutional.css', () => ({}))
 afterEach(cleanup)
 

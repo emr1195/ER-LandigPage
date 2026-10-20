@@ -3,6 +3,7 @@ import {loginWithEmailPassword, signInWithGoogle} from '../../api/auth'
 import {apiRequest} from '../../api/client'
 import {useLocation} from 'react-router-dom'
 import {loginDestination} from './loginDestination'
+import {loginErrorMessage} from './loginErrors'
 export const useLogin = ({onSuccess, initialError = '', onBeforeGoogle}) => {
   const location = useLocation()
   const [email, setEmail] = useState('')
@@ -43,12 +44,7 @@ export const useLogin = ({onSuccess, initialError = '', onBeforeGoogle}) => {
         email: email.trim(),
         password,
       })
-      if (!result.ok)
-        throw new Error(
-          /invalid|password|credential|contrase/i.test(result.errorMessage)
-            ? 'El correo o la contraseña no son correctos. Revisa tus datos.'
-            : result.errorMessage,
-        )
+      if (!result.ok) throw new Error(loginErrorMessage(result))
       if (alive.current) onSuccess(result)
     } catch (reason) {
       if (alive.current)

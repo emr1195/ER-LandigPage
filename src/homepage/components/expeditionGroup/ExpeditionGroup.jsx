@@ -2,11 +2,29 @@ import React, {useEffect, useState} from 'react'
 import {SectionContainer} from '../common'
 import {Grid} from '@mui/material'
 import {ImageSection, TextSection} from './sections'
+import './groupTransitions.css'
 
 export const ExpeditionGroup = ({expeditionGroupInfo}) => {
   const {expeditionGroups, sectionTitle, title} = expeditionGroupInfo
 
   const [selectedGroupIndex, setSelectedGroupIndex] = useState(0)
+  const [displayedGroupIndex, setDisplayedGroupIndex] = useState(0)
+  const [leaving, setLeaving] = useState(false)
+
+  useEffect(() => {
+    if (selectedGroupIndex === displayedGroupIndex) { setLeaving(false); return }
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      setDisplayedGroupIndex(selectedGroupIndex)
+      setLeaving(false)
+      return
+    }
+    setLeaving(true)
+    const timer = window.setTimeout(() => {
+      setDisplayedGroupIndex(selectedGroupIndex)
+      setLeaving(false)
+    }, 450)
+    return () => window.clearTimeout(timer)
+  }, [selectedGroupIndex, displayedGroupIndex])
 
   useEffect(() => {
     if (selectedGroupIndex >= expeditionGroups.length) {
@@ -16,18 +34,17 @@ export const ExpeditionGroup = ({expeditionGroupInfo}) => {
 
   if (expeditionGroups.length === 0) return null
 
-  const secondaryColor =
-    expeditionGroups[selectedGroupIndex]?.colors?.secondary || ''
+  const group = expeditionGroups[Math.min(displayedGroupIndex, expeditionGroups.length - 1)]
+  const secondaryColor = group?.colors?.secondary || ''
   return (
     <SectionContainer className="ExpeditionGroup">
-      {expeditionGroups.map((group, index) => (
         <Grid
-          key={index}
-          display={selectedGroupIndex === index ? 'flex' : 'none'}
+          display="flex"
           container
           width="100%"
           gap="64px"
           className="ExpeditionGroup-Container"
+          data-transition={leaving ? 'leaving' : 'visible'}
           flexDirection={{xs: 'column', laptop: 'row'}}
         >
           <ImageSection
@@ -43,7 +60,6 @@ export const ExpeditionGroup = ({expeditionGroupInfo}) => {
             sectionTitle={sectionTitle}
           />
         </Grid>
-      ))}
     </SectionContainer>
   )
 }

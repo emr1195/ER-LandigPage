@@ -27,14 +27,14 @@ export const registerUserWithEmailPassword = async () => ({
 export const loginWithEmailPassword = async ({email, password}) => {
   const {error} = await authClient.signIn.email({email, password})
 
-  if (error) return {ok: false, errorMessage: error.message}
+  if (error) return {ok: false, errorMessage: error.message, errorCode: error.code}
 
   try {
     const user = await getAuthorizedUser()
     return {ok: true, ...user}
   } catch (authorizationError) {
     await authClient.signOut()
-    return {ok: false, errorMessage: authorizationError.message}
+    return {ok: false, errorMessage: authorizationError.message, errorCode: authorizationError.code}
   }
 }
 

@@ -1,0 +1,10 @@
+.editorial-section { grid-column: 1 / -1; min-width: 0; padding-block: clamp(56px, 7vw, 96px); color: #102a43; font-family: 'Poppins', sans-serif; }
+.editorial-section *, .event-details, .event-details * { box-sizing: border-box; }
+.editorial-heading { margin: 0 0 32px; }
+.editorial-eyebrow { margin: 0 0 10px; color: #806015; font-size: 12px; line-height: 1.6; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+.editorial-heading h2 { margin: 0; max-width: 24ch; font-size: clamp(28px, 3vw, 42px); line-height: 1.18; font-weight: 700; letter-spacing: -.035em; color: #102a43; text-wrap: balance; }
+.editorial-heading__accent { display: block; width: 46px; height: 3px; margin-top: 20px; border-radius: 3px; background: #d4a017; }
+.editorial-heading__description { max-width: 64ch; margin: 18px 0 0; color: #486581; font-size: 15px; line-height: 1.8; }
+.editorial-section :is(button, a, summary):focus-visible, .event-details button:focus-visible { outline: 3px solid #102a43; outline-offset: 4px; }
+.editorial-section button, .event-details button { font-family: inherit; }
+@media (max-width: 599px) { .editorial-eyebrow { font-size: 11px; letter-spacing: .16em; } }

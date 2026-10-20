@@ -30,6 +30,22 @@
 .hero-photo--main figcaption { position: absolute; top: 12px; left: 12px; max-width: calc(100% - 24px); border: 1px solid #d9e2ec; border-radius: 10px; background: rgb(255 255 255 / 95%); padding: 7px 10px; }
 .hero-gallery__secondary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 16px; margin-top: 16px; }
 .hero-gallery__secondary .hero-photo:last-child { margin-top: 18px; }
+.hero-gallery__secondary .hero-photo { position: relative; height: 160px; }
+.hero-gallery__secondary .hero-photo img { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; object-position: center; }
+.hero-gallery__secondary .hero-photo figcaption { position: absolute; bottom: 0; left: 0; right: 0; max-height: 50%; overflow-y: auto; padding: 7px 10px; background: rgb(255 255 255 / 94%); }
+.hero-gallery__secondary .hero-photo__notice { height: 100%; min-height: 0; padding: 12px; gap: 4px; }
+.hero-gallery__secondary .hero-photo__notice svg { width: 24px; height: 24px; flex-shrink: 0; }
+.hero-gallery__secondary .hero-photo__notice strong { font-size: 11px; }
+.hero-gallery__secondary .hero-photo__notice span { font-size: 10px; }
+.hero-photo__controls { position: absolute; z-index: 2; bottom: 10px; right: 10px; display: flex; align-items: center; gap: 4px; padding: 3px; border: 1px solid #d9e2ec; border-radius: 10px; background: rgb(255 255 255 / 96%); color: #102a43; box-shadow: 0 2px 8px rgb(15 23 42 / 12%); }
+.hero-photo__controls button { width: 28px; height: 30px; padding: 0; border: 0; border-radius: 6px; background: transparent; color: inherit; font-size: 19px; cursor: pointer; }
+.hero-photo__controls button:hover { background: #e8eef5; }
+.hero-photo__controls button:focus-visible { outline: 2px solid #2563eb; outline-offset: 1px; }
+.hero-photo__controls span { font-size: 10px; font-weight: 600; min-width: 28px; text-align: center; }
+.hero-photo__controls--shared { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); border: 0; }
+.hero-photo__controls--shared:focus-within { position: absolute; bottom: 10px; right: 10px; width: auto; height: auto; padding: 3px; margin: 0; overflow: visible; clip-path: none; border: 1px solid #d9e2ec; }
+.hero-photo__controls--shared button { width: auto; padding: 0 10px; font-size: 12px; }
+.hero-gallery__carousel { position: relative; }
 .hero-photo--pending { background: #f8fafc; box-shadow: none; border-style: dashed; border-color: #8295ab; }
 .hero-photo__notice { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-height: 138px; padding: 18px; color: #486581; gap: 6px; }
 .hero-photo--main .hero-photo__notice { aspect-ratio: 4 / 3; min-height: 0; }

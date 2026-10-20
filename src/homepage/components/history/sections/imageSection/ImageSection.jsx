@@ -1,92 +1,24 @@
-import {Box, useTheme} from '@mui/material'
 import React from 'react'
-import {InfoBox} from '../../../common'
+import {GrabIcon} from '../../../common/grabIcon/GrabIcon'
+import {heroCarouselPhotos} from '../../../heroSection/heroPhotos'
+import {usePhotoRotation} from '../../../heroSection/usePhotoRotation'
+import {CrossfadeImage} from '../../../common/CrossfadeImage'
 
-export const ImageSection = ({imageSectionInfo}) => {
-  const theme = useTheme()
-  const {imageLeft, imageRight, icon, iconText} = imageSectionInfo
-  return (
-    <Box
-      className="imageSection-History"
-      sx={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        position: 'relative',
-        flexDirection: 'column',
-        // marginLeft: {xs: '-85px', md: '0'},
-        // marginBottom: {xs: '-150px', md: '0'},
-        minHeight: {lgMobile: '', laptop: '1000px'},
-      }}
-    >
-      <Box
-        className="imageSection-History-Container"
-        mx="auto"
-        width="fit-content"
-        // width="100%"
-      >
-        <Box
-          display="flex"
-          flexDirection="column-reverse"
-          alignItems="center"
-          justifyContent="center"
-          width="fit-content"
-          className="imagesHistory-Container"
-        >
-          <Box
-            className="imageSectionInfo-imageLeft "
-            sx={{
-              backgroundImage: `url(${imageLeft})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              borderRadius: {xs: '500px'},
-              transition: '.5s',
-              width: {xs: 208, lgMobile: 288, laptop: 475},
-              height: {xs: 405, lgMobile: 465, laptop: 665},
-            }}
-          />
-          <Box
-            sx={{
-              transform: {
-                xs: 'translate(80%, 380%) scale(.85)',
-                lgMobile: 'translate(100%, 400%)',
-                laptop: 'translate(125%, 500%)',
-              },
-
-              // display: {xs: 'none', lgMobile: 'flex'},
-            }}
-          >
-            <InfoBox
-              title={iconText}
-              icon={icon}
-              style={{
-                color: theme.palette.black.main,
-                backgroundColor: theme.palette.background.paper,
-              }}
-            />
-          </Box>
-        </Box>
-        <Box
-          className="imageSectionInfo-imageRight "
-          sx={{
-            zIndex: 10,
-            backgroundImage: `url(${imageRight})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            borderRadius: {xs: '500px'},
-            outline: `8px solid ${theme.palette.background.default}`,
-            outlineOffset: '-1',
-            transform: 'translate(50%, -60%)',
-            transition: '.5s',
-            // marginBottom: {md: '-85px'},
-            width: {xs: 186, lgMobile: 226, laptop: 373},
-            height: {xs: 310, lgMobile: 350, laptop: 500},
-          }}
-        />
-      </Box>
-    </Box>
-  )
+export const ImageSection = ({imageSectionInfo = {}, galleryInfo}) => {
+  const {imageLeft, imageRight, iconText, icon} = imageSectionInfo
+  const shared = heroCarouselPhotos(galleryInfo)
+  const images = shared.length ? shared : imageRight ? [{imageURL: imageRight, title: 'Encuentro de Exploradores del Rey Panamá'}] : []
+  const {current, paused, setPaused, setInteracting, reducedMotion} = usePhotoRotation(images, {offset: 2})
+  const photo = images[current]
+  if (!imageLeft && !photo) return null
+  return <aside className="imageSection-History history-visual" aria-label="Imágenes de nuestra historia">
+    {imageLeft && <figure className="history-visual__portrait">
+      <img src={imageLeft} alt={iconText || 'Imagen histórica de Exploradores del Rey'} loading="lazy" decoding="async" />
+      {iconText && <figcaption>{icon && <GrabIcon icon={icon} width="16px" color="#102a43" />}{iconText}</figcaption>}
+    </figure>}
+    {photo && <figure className={`history-visual__gathering${!imageLeft ? ' history-visual__gathering--only' : ''}`} aria-label="Galería de encuentros" onFocus={() => setInteracting(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setInteracting(false) }}>
+      <CrossfadeImage src={photo.imageURL} alt={photo.title || 'Encuentro de Exploradores del Rey Panamá'} loading="lazy" decoding="async" />
+      {images.length > 1 && !reducedMotion && <button type="button" className="history-gallery-pause" aria-pressed={paused} onClick={() => setPaused(previous => !previous)}>{paused ? 'Reanudar fotografías de Historia' : 'Pausar fotografías de Historia'}</button>}
+    </figure>}
+  </aside>
 }

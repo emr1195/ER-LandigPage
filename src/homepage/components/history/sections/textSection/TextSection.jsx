@@ -1,110 +1,18 @@
-import {Box, useTheme} from '@mui/material'
-import React from 'react'
-import {GrabIcon, TypographyPersonalized} from '../../../common'
+import React, {useId} from 'react'
+import {EditorialHeading} from '../../../common/editorial/EditorialHeading'
+import {HistoryEmphasis, splitHistoryDescription} from '../../historyText'
 
-export const TextSection = ({textSectionInfo}) => {
-  const theme = useTheme()
-  const {
-    infoSection,
-    subTitle,
-    subTitleText,
-    sectionTitle,
-    title,
-    description,
-  } = textSectionInfo
-  const newDescription = description
-    .split(';')
-    .filter((part) => part.trim() !== '')
-
-  return (
-    <Box
-      className="TextSection-History"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: {xs: '32px', tablet: '64px'},
-        flex: 1,
-        textAlign: {xs: 'center', md: 'left'},
-      }}
-    >
-      <Box className="TopContainer">
-        <TypographyPersonalized title={sectionTitle} variant="h6" />
-
-        <TypographyPersonalized
-          title={title}
-          variant="h2"
-          sx={{
-            mx: {xs: 'auto'},
-            marginBottom: '32px',
-            fontWeight: 'bold',
-            maxWidth: {xs: '290px', lgMobile: 'none'},
-          }}
-        />
-
-        {newDescription.map((text, index) => (
-          <p key={index}>
-            <TypographyPersonalized title={`${text}`} variant={'body'} />
-          </p>
-        ))}
-        <br />
-        {/* <TypographyPersonalized
-          title={subTitle}
-          variant="h4"
-          sx={{
-            mx: {xs: 'auto'},
-            marginTop: '64px',
-            marginBottom: '8px',
-            fontWeight: 'bold',
-            maxWidth: {xs: '290px', lgMobile: 'none'},
-          }}
-        /> */}
-        <br />
-        {/* <TypographyPersonalized
-          sx={{mt: 4}}
-          title={subTitleText}
-          variant={'body'}
-        /> */}
-      </Box>
-      {/* <Box className="ExtraInfoContainer">
-        {infoSection
-          .map((section, index) => (
-            <Box
-              key={index}
-              sx={{
-                display: 'flex',
-                flexDirection: {xs: 'column', lgMobile: 'row'},
-                p: '32px',
-                gap: '32px',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                borderRadius: '32px',
-              }}
-              border={index === 1 && `1px solid ${theme.palette.black5.main}`}
-            >
-              <Box
-                sx={{
-                  backgroundColor: section.backgroundColor,
-                  width: '100px',
-                  height: '100px',
-                  borderRadius: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <GrabIcon icon={section.icon.trim()} width="40px" />
-              </Box>
-              <Box gap="8px">
-                <TypographyPersonalized title={section.title} variant="h5" />
-                <TypographyPersonalized
-                  title={section.description}
-                  color={theme.palette.black50.main}
-                />
-              </Box>
-            </Box>
-          ))
-          .sort((a, b) => a.position - b.position)}
-      </Box> */}
-    </Box>
-  )
+export const TextSection = ({textSectionInfo = {}}) => {
+  const {sectionTitle, title, description} = textSectionInfo
+  const id = useId()
+  const paragraphs = splitHistoryDescription(description)
+  const paragraph = (text, index) => <p key={index}><HistoryEmphasis text={text} /></p>
+  return <div className="TextSection-History history-copy">
+    <EditorialHeading id={id} eyebrow={sectionTitle} title={title} />
+    <div className="history-prose">{paragraphs.slice(0, 2).map(paragraph)}</div>
+    {paragraphs.length > 2 && <details className="history-more">
+      <summary><span className="history-more__read">Leer historia completa</span><span className="history-more__less">Mostrar menos</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></summary>
+      <div className="history-prose">{paragraphs.slice(2).map(paragraph)}</div>
+    </details>}
+  </div>
 }

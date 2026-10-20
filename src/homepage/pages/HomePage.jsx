@@ -50,7 +50,7 @@ export const HomePage = () => {
     <main>
       <Navbar navbarInfo={navbarInfo} />
       <HeroSection heroSectionInfo={heroSectionInfo} fallbackImage={{imageURL: historyInfo.imageSection?.imageRight, title: 'Encuentro institucional de Exploradores del Rey Panamá'}} />
-      <History historyInfo={historyInfo} />
+      <History historyInfo={historyInfo} galleryInfo={heroSectionInfo.imageSection} />
       <ProgramStructure programStructureInfo={programStructureInfo} />
       <ExpeditionGroup expeditionGroupInfo={expeditionGroupInfo} />
       <Events eventsInfo={eventsInfo} />

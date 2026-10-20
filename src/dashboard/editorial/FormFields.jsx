@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useId, useState} from 'react'
 import {ImageField} from './ImageField'
+import {DatePicker} from './DatePicker'
 import {at, ValidationContext} from './formChanges'
 const icons = {
   PersonIcon: 'Persona',
@@ -89,7 +90,7 @@ export const Field = ({
         {label}
         {required && <span aria-hidden="true"> *</span>}
       </span>
-      {type === 'textarea' ? (
+      {type === 'date' ? <DatePicker {...input} label={label} onChange={onChange} /> : type === 'textarea' ? (
         <textarea {...input} rows={4} />
       ) : type === 'icon' ? (
         <select {...input}>

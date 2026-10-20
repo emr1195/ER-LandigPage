@@ -1,121 +1,50 @@
-import React, {useState} from 'react'
-import {EventButton, SectionContainer, TypographyPersonalized} from '../common'
-import {Box, useTheme} from '@mui/material'
+import React, {useId, useMemo, useRef, useState} from 'react'
+import {EditorialHeading} from '../common/editorial/EditorialHeading'
 import {CardComponent} from './components'
+import './values.css'
 
-export const ProgramStructure = ({programStructureInfo}) => {
-  const theme = useTheme()
-  const {programValues, sectionTitle, title} = programStructureInfo
-
-  const [selectedItem, setSelectedItem] = useState(1) // Defaulting to the center item
-
-  const adjustCarouselClass = (index) => {
-    if (index === selectedItem - 1) return `prev`
-    if (index === selectedItem) return `active`
-    if (index === selectedItem + 1) return `next`
+export const ProgramStructure = ({programStructureInfo = {}}) => {
+  const id = useId()
+  const controls = useRef(null)
+  const touch = useRef(null)
+  const items = useMemo(() => [...(programStructureInfo.programValues || [])]
+    .filter(item => item.display !== false)
+    .sort((a, b) => (Number(a.position) || 0) - (Number(b.position) || 0))
+    .map((item, index) => ({...item, key: item.id || `value-${index}`})), [programStructureInfo.programValues])
+  const [selectedKey, setSelectedKey] = useState(() => (items.find(item => item.position === 1) || items[0])?.key)
+  const selectedIndex = Math.max(0, items.findIndex(item => item.key === selectedKey))
+  const choose = (index) => { if (items[index] && !items[index].disabled) setSelectedKey(items[index].key) }
+  const onControlKey = (event) => {
+    const moves = {ArrowRight: 1, ArrowLeft: -1, Home: 0, End: items.length - 1}
+    if (!(event.key in moves) || !items.length) return
+    event.preventDefault()
+    const index = event.key === 'Home' || event.key === 'End' ? moves[event.key] : (selectedIndex + moves[event.key] + items.length) % items.length
+    choose(index)
+    controls.current?.querySelectorAll('button')[index]?.focus()
   }
-
-  return (
-    <SectionContainer
-      className="ProgramStructure-Container"
-      sxBox={{
-        marginBottom: '64px',
-        marginTop: '-64px',
-      }}
-      sxContainer={{
-        flexDirection: {
-          xs: 'column',
-          laptop: 'row',
-        },
-      }}
-    >
-      <Box
-        className="textSection"
-        flex={1}
-        textAlign={{xs: 'center', laptop: 'left'}}
-        justifyContent="center"
-        alignItems="center"
-        marginBottom={{xs: '16px', lgMobile: '32px'}}
-      >
-        <TypographyPersonalized
-          title={sectionTitle}
-          variant="h6"
-          sx={{marginBottom: '8px'}}
-        />
-        <TypographyPersonalized
-          title={title}
-          variant="h2"
-          sx={{marginBottom: '32px'}}
-        />
-
-        <Box
-          display="flex"
-          flexWrap="wrap"
-          gap="16px"
-          maxWidth={{xs: '500px', laptop: 'none'}}
-          mx={{xs: 'auto', laptop: 'inherit'}}
-          alignItems="center"
-          justifyContent={{xs: 'center', laptop: 'flex-start'}}
-        >
-          {/* item: {active: boolean, description: string, details[]: {bullet: string, definition: string, position: number}, id: string, image: string, position: number, title: string} */}
-          {programValues
-
-            .map((item, index) => (
-              <EventButton
-                index={`${index}_`}
-                key={index}
-                displayInfo={item}
-                link={false}
-                onClick={() => setSelectedItem(item.position)}
-                sxBox={{
-                  width: {xs: 'fit-content'},
-                }}
-                sxButton={{
-                  width: 'fit-content',
-                  transition: '.5s',
-                  background:
-                    selectedItem === item.position
-                      ? theme.palette.gradient.main
-                      : theme.palette.light.main,
-                  color:
-                    selectedItem === item.position
-                      ? theme.palette.light.main
-                      : theme.palette.black.main,
-                }}
-              />
-            ))
-            .sort((a, b) => a?.position - b?.position)}
-        </Box>
-      </Box>
-
-      <Box
-        className="cardSection"
-        flex={1.25}
-        width="100%"
-        maxWidth={{xs: '300px', specialTablet: '700px'}}
-        mx="auto"
-      >
-        <Box
-          display="flex"
-          className="cardContainer"
-          position="relative"
-          gap="8px"
-          minHeight="600px"
-        >
-          {programValues
-            .map((item, index) => (
-              <CardComponent
-                key={`${index}_`}
-                index={index}
-                className={`${adjustCarouselClass(
-                  item.position,
-                )} carousel-item`}
-                item={item}
-              />
-            ))
-            .sort((a, b) => a.position - b.position)}
-        </Box>
-      </Box>
-    </SectionContainer>
-  )
+  const onTouchEnd = (event) => {
+    if (!touch.current || !items.length) return
+    const point = event.changedTouches[0]
+    if (!point) return
+    const dx = point.clientX - touch.current.x
+    const dy = point.clientY - touch.current.y
+    touch.current = null
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) choose((selectedIndex + (dx < 0 ? 1 : -1) + items.length) % items.length)
+  }
+  return <section id="programa" className="ProgramStructure-Container editorial-section values-editorial" aria-labelledby={`${id}-heading`}>
+    <div className="values-intro">
+      <EditorialHeading id={`${id}-heading`} eyebrow={programStructureInfo.sectionTitle} title={programStructureInfo.title} />
+      <div className="values-controls" role="group" aria-label="Seleccionar valor del programa" ref={controls} onKeyDown={onControlKey}>
+        {items.map((item, index) => <button key={item.key} type="button" aria-pressed={index === selectedIndex} aria-controls={`${id}-card-${index}`} disabled={item.disabled} onClick={() => choose(index)}>{item.title}</button>)}
+      </div>
+      <p className="values-current" role="status" aria-live="polite">{items.length ? `${items[selectedIndex].title} · ${selectedIndex + 1} de ${items.length}` : 'Aún no hay valores publicados.'}</p>
+    </div>
+    <div className="values-stage" role="group" aria-label="Carrusel de valores" onTouchStart={(event) => { const point = event.touches[0]; if (point) touch.current = {x: point.clientX, y: point.clientY} }} onTouchEnd={onTouchEnd} onTouchCancel={() => { touch.current = null }}>
+      {items.map((item, index) => {
+        const distance = (index - selectedIndex + items.length) % items.length
+        const side = index === selectedIndex ? 'active' : distance === 1 ? 'next' : distance === items.length - 1 ? 'previous' : 'hidden'
+        return <CardComponent key={item.key} id={`${id}-card-${index}`} item={item} side={side} onSelect={() => { choose(index); controls.current?.querySelectorAll('button')[index]?.focus({preventScroll: true}) }} />
+      })}
+    </div>
+  </section>
 }

@@ -1,5 +1,7 @@
 import React, {useContext, useEffect, useId, useState} from 'react'
-import {at, ValidationContext} from './formChanges'
+import {applyChange, at, ValidationContext} from './formChanges'
+import {heroCarouselPhotos} from '../../homepage/components/heroSection/heroPhotos'
+import {GalleryUpload} from './GalleryUpload'
 import {Fields} from './FormFields'
 import {CollectionEditor} from './CollectionEditor'
 
@@ -10,6 +12,8 @@ const textFields = [
   {key: 'icon', label: 'Icono destacado'},
 ]
 export const HeroForm = ({value, onChange}) => {
+  const changePhotos = next => at(onChange, 'imageSection')(previous => ({...previous, carouselImages: applyChange(heroCarouselPhotos(previous), next)}))
+  changePhotos.path = [...(onChange.path || []), 'imageSection', 'carouselImages']
   const [tab, setTab] = useState('Texto')
   const id = useId()
   const errors = useContext(ValidationContext)
@@ -91,9 +95,7 @@ export const HeroForm = ({value, onChange}) => {
         )}
         {tab === 'Imágenes' &&
           Object.entries({
-            imageTopLeft: 'Imagen superior izquierda',
-            imageBottomLeft: 'Imagen inferior izquierda',
-            imageRightCenter: 'Imagen de la derecha',
+            imageRightCenter: 'Imagen principal fija (recuadro grande)',
           }).map(([key, label]) => (
             <section className="admin-field-group" key={key}>
               <h3>{label}</h3>
@@ -108,6 +110,22 @@ export const HeroForm = ({value, onChange}) => {
               />
             </section>
           ))}
+        {tab === 'Imágenes' && <section className="admin-field-group">
+          <h3>Galería compartida de Portada e Historia</h3>
+          <p className="admin-muted">Los dos recuadros inferiores de Portada y la foto secundaria de Historia usan esta lista y cambian cada 8 segundos. Sube al menos dos fotografías diferentes para no repetirlas entre los recuadros de Portada. Las fotos anteriores ya están incluidas.</p>
+          <GalleryUpload onChange={changePhotos} count={heroCarouselPhotos(value.imageSection).length} />
+          <CollectionEditor
+                label="Fotografías de la galería"
+                items={heroCarouselPhotos(value.imageSection)}
+                create={() => ({title: '', imageURL: ''})}
+                onChange={changePhotos}
+              >
+                {(image, change) => <Fields fields={[
+                  {key: 'title', label: 'Descripción de la fotografía'},
+                  {key: 'imageURL', label: 'Fotografía del carrusel', type: 'image'},
+                ]} value={image} onChange={change} />}
+              </CollectionEditor>
+            </section>}
         {tab === 'Botones' && (
           <CollectionEditor
             label="Botones"

@@ -1,81 +1,32 @@
-import React from 'react'
-import {Box, Card, CardContent, useTheme} from '@mui/material'
-import {TypographyPersonalized} from '../../../common'
+import React, {useEffect, useRef, useState} from 'react'
 
-export const CardComponent = ({index, className, item}) => {
-  const theme = useTheme()
-  return (
-    <Card
-      key={index}
-      className={className}
-      sx={{
-        width: 350,
-        height: 600,
-        borderRadius: '24px',
-        backgroundColor: theme.palette.light.main,
-        border: '1px solid',
-        borderColor: 'divider',
-        position: {xs: 'relative', specialTablet: 'absolute'},
-        transition: 'all 0.5s',
-        display: 'none',
-
-        '&.active': {
-          boxShadow: '0 8px 24px rgba(15,23,42,0.10)',
-          opacity: 1,
-          zIndex: 5,
-          display: 'flex',
-          right: {specialTablet: '175px', laptop: '65px'},
-        },
-
-        '&.prev': {
-          filter: 'blur(3px)',
-          transform: 'scale(0.9)',
-          opacity: 0.8,
-          zIndex: 2,
-          pointerEvents: 'none',
-          display: {xs: 'none', specialTablet: 'flex'},
-          left: '0',
-        },
-
-        '&.carousel-item.next': {
-          filter: 'blur(3px)',
-          transform: 'scale(0.9)',
-          opacity: 0.8,
-          zIndex: 2,
-          pointerEvents: 'none',
-          display: {xs: 'none', specialTablet: 'flex'},
-          right: {lgMobile: '-15px', laptop: '-225px'},
-        },
-      }}
-    >
-      <CardContent
-        sx={{
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-          textAlign: 'center',
-          gap: '64px',
-          padding: '64px !important',
-        }}
-      >
-        <img src={item.image} alt={item.title} width={40} height={40} />
-        <Box
-          gap="32px"
-          display="flex"
-          flexDirection="column"
-          justifyContent="flex-start"
-          alignItems="center"
-        >
-          <TypographyPersonalized title={item.title} variant={'h5'} />
-          <TypographyPersonalized
-            title={item.description}
-            color={theme.palette.black50.main}
-          />
-        </Box>
-      </CardContent>
-    </Card>
-  )
+export const CardComponent = ({id, item, side, onSelect}) => {
+  const selected = side === 'active'
+  const description = useRef(null)
+  const [scrollable, setScrollable] = useState(false)
+  const text = String(item.description || '')
+  const lines = text.split(/\r?\n|(?=[•●]\s)/).map(line => line.trim()).filter(Boolean)
+  const bullets = lines.length > 1 && lines.every(line => /^[•●*-]\s/.test(line))
+  useEffect(() => {
+    const region = description.current
+    const measure = () => setScrollable(region.scrollHeight > region.clientHeight + 1)
+    measure()
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure)
+    observer?.observe(region)
+    if (region.firstElementChild) observer?.observe(region.firstElementChild)
+    window.addEventListener('resize', measure)
+    return () => { observer?.disconnect(); window.removeEventListener('resize', measure) }
+  }, [text])
+  return <article id={id} className="value-card carousel-item" data-side={side} aria-label={item.title} aria-current={selected ? 'true' : undefined}>
+    <div className="value-card__content" aria-hidden={!selected || undefined}>
+      {item.image && <div className="value-card__emblem"><img src={item.image} alt={item.title || 'Emblema institucional'} width="72" height="72" loading="lazy" decoding="async" /></div>}
+      <h3>{item.title}</h3>
+      <span className="value-card__accent" aria-hidden="true" />
+      <div ref={description} className="value-card__description" role="region" aria-label={`Texto completo de ${item.title}`} tabIndex={selected ? 0 : -1}>
+        {bullets ? <ul>{lines.map((line, index) => <li key={index}>{line.replace(/^[•●*-]\s*/, '')}</li>)}</ul> : <p>{text}</p>}
+      </div>
+      {scrollable && <span className="value-card__scroll-hint" aria-hidden="true">Desplázate para leer más ↕</span>}
+    </div>
+    {!selected && side !== 'hidden' && <button className="value-card__select" type="button" disabled={item.disabled} onClick={onSelect} aria-label={`Mostrar ${item.title}`} />}
+  </article>
 }

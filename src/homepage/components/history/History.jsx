@@ -1,23 +1,8 @@
 import React from 'react'
-import {SectionContainer} from '../common'
 import {ImageSection, TextSection} from './sections'
+import './history.css'
 
-export const History = ({historyInfo}) => {
-  return (
-    <SectionContainer
-      className="History"
-      sxBox={{paddingBottom: '0 !important', marginBottom: '-64px'}}
-      sxContainer={{
-        flexDirection: {
-          xs: 'column-reverse',
-          lgMobile: 'column',
-          md: 'row',
-        },
-        alignItems: 'flex-start',
-      }}
-    >
-      <TextSection textSectionInfo={historyInfo} />
-      <ImageSection imageSectionInfo={historyInfo.imageSection} />
-    </SectionContainer>
-  )
-}
+export const History = ({historyInfo = {}, galleryInfo}) => <section id="historia" className="History editorial-section history-editorial">
+  <TextSection textSectionInfo={historyInfo} />
+  <ImageSection imageSectionInfo={historyInfo.imageSection || {}} galleryInfo={galleryInfo} />
+</section>

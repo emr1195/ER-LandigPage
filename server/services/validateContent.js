@@ -1,3 +1,5 @@
+import {parseGoogleMapsUrl} from '../../shared/googleMaps.js'
+
 const get = (body, path) =>
   path.split('.').reduce((value, key) => value?.[key], body)
 export const contentValidationErrors = (key, body) => {
@@ -73,6 +75,9 @@ export const contentValidationErrors = (key, body) => {
       break
     case 'events':
       rows('events').forEach((row, index) => {
+        if (row.mapsUrl) {
+          try { parseGoogleMapsUrl(row.mapsUrl) } catch (error) { errors['events.' + index + '.mapsUrl'] = error.message }
+        }
         if (typeof row.date !== 'string' || !row.date.split(';')[0].trim())
           errors['events.' + index + '.date'] = 'Escribe la fecha del evento.'
       })
@@ -110,6 +115,7 @@ export const contentValidationErrors = (key, body) => {
           'url',
           'logo',
           'image',
+          'backgroundImage',
           'imageURL',
           'imageLeft',
           'imageRight',

@@ -1,0 +1,18 @@
+.ExpeditionGroup-Container .BackgroundBox-Color,
+.ExpeditionGroup-Container > .textSection {
+  opacity: 1;
+  filter: blur(0);
+  transition: opacity 750ms cubic-bezier(.4, 0, .2, 1), filter 750ms ease, background-color 750ms ease;
+}
+.ExpeditionGroup-Container[data-transition='leaving'] .BackgroundBox-Color,
+.ExpeditionGroup-Container[data-transition='leaving'] > .textSection {
+  opacity: 0;
+  filter: blur(1.25px);
+  transition: opacity 450ms cubic-bezier(.4, 0, .2, 1), filter 450ms ease;
+}
+.ExpeditionGroup-Container .groupSelector button { transition: opacity 200ms ease, border-color 200ms ease; }
+@media (prefers-reduced-motion: reduce) {
+  .ExpeditionGroup-Container .BackgroundBox-Color,
+  .ExpeditionGroup-Container > .textSection,
+  .ExpeditionGroup-Container .groupSelector button { transition: none; filter: none; }
+}

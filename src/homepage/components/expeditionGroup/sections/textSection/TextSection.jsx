@@ -1,9 +1,8 @@
-import {Box, Grid, useTheme} from '@mui/material'
+import {Box} from '@mui/material'
 import React from 'react'
 import {TypographyPersonalized} from '../../../common'
 
 export const TextSection = ({group, secondaryColor, sectionTitle}) => {
-  const theme = useTheme()
   return (
     <Box
       flex={1}
@@ -29,15 +28,34 @@ export const TextSection = ({group, secondaryColor, sectionTitle}) => {
 
       <TypographyPersonalized variant="body" title={group.description} />
 
-      <Grid
-        container
-        width="100%"
-        textAlign={'center'}
-        alignItems={'center'}
-        justifyContent={'flex-start'}
+      {group.image && <Box
+        component="figure"
+        className="group-supporting-image"
+        sx={{
+          m: 0,
+          width: '100%',
+          maxWidth: 360,
+          boxSizing: 'border-box',
+          alignSelf: {xs: 'center', laptop: 'flex-start'},
+          p: {xs: 1.5, sm: 2},
+          backgroundColor: '#FFFFFF',
+          border: '1px solid #D9E2EC',
+          borderRadius: '16px',
+          boxShadow: '0 4px 16px rgba(15, 23, 42, 0.05)',
+          display: 'flex',
+          justifyContent: 'center',
+          '& img': {
+            display: 'block',
+            width: 'auto',
+            height: 'auto',
+            maxWidth: '100%',
+            maxHeight: {xs: 240, sm: 280},
+            objectFit: 'contain',
+          },
+        }}
       >
-        <img src={group.image} alt="" />
-      </Grid>
+        <img src={group.image} alt={`Insignias e información visual de ${group.title}`} loading="lazy" decoding="async" />
+      </Box>}
     </Box>
   )
 }
