@@ -17,7 +17,9 @@ export const TextSection = ({group, secondaryColor, sectionTitle}) => {
       textAlign={{xs: 'center', laptop: 'left'}}
     >
       <Box className="expeditionGroup-header" gap="8px" width="100%">
-        <TypographyPersonalized variant="h6" title={sectionTitle} />
+        <Box sx={{display: {xs: 'none', sm: 'block'}}}>
+          <TypographyPersonalized variant="h6" title={sectionTitle} />
+        </Box>
         <TypographyPersonalized variant="h2" title={group.title} />
       </Box>
       <TypographyPersonalized

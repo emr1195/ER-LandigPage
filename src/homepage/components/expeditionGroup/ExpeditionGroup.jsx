@@ -42,13 +42,14 @@ export const ExpeditionGroup = ({expeditionGroupInfo}) => {
           display="flex"
           container
           width="100%"
-          gap="64px"
+          gap={{xs: '32px', sm: '64px'}}
           className="ExpeditionGroup-Container"
           data-transition={leaving ? 'leaving' : 'visible'}
           flexDirection={{xs: 'column', laptop: 'row'}}
         >
           <ImageSection
             group={group}
+            sectionTitle={sectionTitle}
             selectedGroupIndex={selectedGroupIndex}
             setSelectedGroupIndex={setSelectedGroupIndex}
             expeditionGroups={expeditionGroups}

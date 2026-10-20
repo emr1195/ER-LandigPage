@@ -6,6 +6,7 @@ export const ImageSection = ({
   expeditionGroups,
   selectedGroupIndex,
   setSelectedGroupIndex,
+  sectionTitle = 'Grupos',
 }) => {
   const theme = useTheme()
 
@@ -22,6 +23,13 @@ export const ImageSection = ({
       }}
     >
       <Box
+        component="h2"
+        className="groupSelector-mobileTitle"
+        sx={{display: {xs: 'block', sm: 'none'}, m: '0 0 24px', textAlign: 'center', fontSize: 14, fontWeight: 600, letterSpacing: '0.28em', lineHeight: 1.5, color: 'secondary.main'}}
+      >
+        {sectionTitle || 'Grupos'}
+      </Box>
+      <Box
         className="BackgroundBox-Color"
         sx={{
           backgroundColor: `${group.colors.secondary}`,
@@ -33,7 +41,8 @@ export const ImageSection = ({
           // {xs: 'column', laptop: 'row'}
           maxWidth: {xs: '705px', laptop: '832px'},
           marginLeft: {xs: '0', laptop: '-128px'},
-          display: 'flex',
+          // On phones the selector replaces the large decorative emblem.
+          display: {xs: 'none', sm: 'flex'},
           justifyContent: 'center',
           alignItems: 'center',
           position: 'relative',
@@ -140,13 +149,15 @@ export const ImageSection = ({
       </Box>
       <Box
         className="groupSelector"
+        role="group"
+        aria-label="Seleccionar grupo"
         display="flex"
         alignItems="center"
         justifyContent="center"
         width={{xs: '100%', sm: '75%'}}
         flexWrap="wrap"
-        height={{xs: '200px', sm: '100px'}}
-        gap="32px"
+        height={{xs: 'auto', sm: '100px'}}
+        gap={{xs: '12px', sm: '32px'}}
       >
         {expeditionGroups.map((item, index) => (
           <Box
