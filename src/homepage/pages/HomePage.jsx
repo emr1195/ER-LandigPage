@@ -56,7 +56,7 @@ export const HomePage = () => {
       <Events eventsInfo={eventsInfo} />
       <Organization organizationInfo={organizationInfo} />
       <Detachment info={detachmentInfo} />
-      <Footer footerInfo={footerInfo} />
+      <Footer footerInfo={footerInfo} navbarInfo={navbarInfo} />
       {/* {info.listMenu.map((item, index) => (
         <div key={index}>{item.title}</div>
       ))} */}
