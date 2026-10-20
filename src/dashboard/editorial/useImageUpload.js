@@ -1,5 +1,5 @@
 import {useRef} from 'react'
-import {apiResponse} from '../../api/client'
+import {uploadImageFile} from '../../api/uploads'
 import {useFieldRequest} from './useFieldRequest'
 
 export const useImageUpload = (label, onChange) => {
@@ -12,16 +12,7 @@ export const useImageUpload = (label, onChange) => {
     file.current = next
     const controller = request.start()
     try {
-      const body = new FormData()
-      body.append('file', next)
-      body.append('sectionKey', request.sectionKey)
-      body.append('field', label)
-      const response = await apiResponse('/api/uploads', {
-        method: 'POST',
-        body,
-        signal: controller.signal,
-      })
-      const data = await response.json()
+      const data = await uploadImageFile(next, {sectionKey: request.sectionKey, field: label, signal: controller.signal})
       if (request.finish(controller)) change.current(data.url)
     } catch (reason) {
       request.fail(controller, reason)

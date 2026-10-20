@@ -9,7 +9,7 @@ import {completeUpload} from '../services/uploadActivity.js'
 
 const currentDir = path.dirname(fileURLToPath(import.meta.url))
 export const uploadsDirectory =
-  process.env.UPLOADS_DIRECTORY || path.resolve(currentDir, '../../uploads')
+  process.env.UPLOADS_DIRECTORY || (process.env.VERCEL ? '/tmp/er-uploads' : path.resolve(currentDir, '../../uploads'))
 
 mkdirSync(uploadsDirectory, {recursive: true})
 

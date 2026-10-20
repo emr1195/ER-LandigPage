@@ -26,6 +26,9 @@
     "test:ultra": "set TZ=utc && jest --passWithNoTests --watchAll=false --maxWorkers=100% "
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1153.0",
+    "@aws-sdk/s3-presigned-post": "^3.1153.0",
+    "@aws-sdk/s3-request-presigner": "^3.1153.0",
     "@babel/preset-env": "^7.23.6",
     "@babel/preset-react": "^7.23.3",
     "@emotion/react": "^11.11.1",

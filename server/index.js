@@ -16,6 +16,7 @@ import {mapsRouter} from './routes/maps.js'
 import {uploadsDirectory, uploadsRouter} from './routes/uploads.js'
 import {activityRouter} from './routes/activity.js'
 import {preferencesRouter} from './routes/preferences.js'
+import {cloudUploadsRouter} from './routes/cloudUploads.js'
 
 const app = express()
 const port = Number(process.env.PORT || 3001)
@@ -40,6 +41,7 @@ app.all('/api/auth/*', toNodeHandler(auth))
 
 app.use(express.json({limit: '2mb'}))
 app.use('/api/maps', mapsRouter)
+app.use('/api/uploads', cloudUploadsRouter)
 app.use('/api/uploads/files', express.static(uploadsDirectory, {index: false}))
 app.use('/api/uploads', uploadsRouter)
 
@@ -89,6 +91,7 @@ app.use((error, _req, res, _next) => {
   })
 })
 
+if (!process.env.VERCEL) {
 const server = app.listen(port, host, () => {
   console.log(`API disponible en http://${host}:${port}`)
 })
@@ -102,3 +105,6 @@ const shutdown = async () => {
 
 process.on('SIGINT', shutdown)
 process.on('SIGTERM', shutdown)
+}
+
+export default app

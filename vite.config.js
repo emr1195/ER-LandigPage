@@ -17,7 +17,7 @@ export default defineConfig(({mode}) => {
   return {
     plugins: [react()],
     base: env.VITE_BASE_PATH || '/',
-    define: {__PUBLIC_API_ORIGIN__: JSON.stringify(apiOrigin)},
+    define: {__PUBLIC_API_ORIGIN__: JSON.stringify(apiOrigin), __DIRECT_UPLOADS__: JSON.stringify(env.VITE_DIRECT_UPLOADS === 'true')},
     server: {
       port: 3002,
       proxy: {

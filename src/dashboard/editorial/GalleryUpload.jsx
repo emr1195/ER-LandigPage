@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react'
-import {apiResponse} from '../../api/client'
+import {uploadImageFile} from '../../api/uploads'
 import {useFieldRequest} from './useFieldRequest'
 
 const types = ['image/png', 'image/jpeg', 'image/webp', 'image/gif', 'image/avif']
@@ -16,12 +16,7 @@ export const GalleryUpload = ({onChange, count = 0}) => {
     try {
       while (queue.current.length && !controller.signal.aborted) {
         const file = queue.current[0]
-        const body = new FormData()
-        body.append('file', file)
-        body.append('sectionKey', request.sectionKey)
-        body.append('field', 'Galería compartida de portada')
-        const response = await apiResponse('/api/uploads', {method: 'POST', body, signal: controller.signal})
-        const data = await response.json()
+        const data = await uploadImageFile(file, {sectionKey: request.sectionKey, field: 'Galería compartida de portada', signal: controller.signal})
         if (controller.signal.aborted) return
         if (!data.url) throw new Error('El servidor no devolvió la dirección de la imagen.')
         change.current(current => [...(current || []), {id: crypto.randomUUID(), title: file.name.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' '), imageURL: data.url, position: (current?.length || 0) + 1}])

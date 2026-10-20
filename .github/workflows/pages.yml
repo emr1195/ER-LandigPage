@@ -1,5 +1,7 @@
 name: Public website (live API)
 on:
+  push:
+    branches: [develop]
   workflow_dispatch:
 permissions:
   contents: read
@@ -24,7 +26,7 @@ jobs:
         env:
           VITE_API_ORIGIN: ${{ vars.PUBLIC_API_ORIGIN }}
           VITE_BASE_PATH: /ER-LandigPage/
-      # SPA fallback for dashboard/auth links; these redirect to the VPS.
+      # SPA fallback for dashboard/auth links; these redirect to the API host.
       - run: cp dist/index.html dist/404.html
       - uses: actions/upload-pages-artifact@v3
         with:
